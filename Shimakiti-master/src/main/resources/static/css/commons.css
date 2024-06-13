@@ -1,0 +1,164 @@
+/* commons.css */
+
+/* デフォルトスタイルのリセット */
+body, h1, h3, p, div, a, select, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* 全体のレイアウトとスタイル */
+body {
+    background-color: #f5f5f5;
+    color: black;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+/* ヘッダ下のライン */
+.border{
+    border: 5px solid #66FFCC;
+    margin-bottom: 20px;
+}
+
+/* サイトロゴ島ぬひみつきち */
+.site_logo a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.user_name {
+    margin-right: 20px;
+    font-size:25px;
+}
+
+.btn {
+    margin-left: 10px;
+}
+
+.basic_btn {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.basic_btn:hover {
+    background-color: #e68900;
+}
+
+/* お知らせセクション */
+.notice-menu{
+    font-size: 30px;
+    border: 5px solid #333;
+    padding-left: 20px;
+    padding: 10px;
+}
+.notice{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+.date{
+    margin-right: 20px;
+}
+.notice-category{
+    background-color: red;
+    color: white;
+    margin-right: 20px;
+}
+.notice-body{
+    margin-right: 20px;
+}
+
+h3 {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+div.notification {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+div.notification a {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    text-decoration: none;
+}
+
+div.notification a:last-child {
+    margin-bottom: 0;
+}
+
+.search-menu{
+    text-align: center;
+    background-color: #66FFCC;
+    /* margin-top: 10px; */
+    padding: 10px;
+    margin: 0px 2%;
+}
+.search-menu a {
+    font-size: 50px;
+}
+.search-menu select {
+    border: 1px solid;
+    font-size: 30px;
+}
+
+.search-menu input{
+    /* コレpadding: auto; */
+    /*コレ*/line-height: 3;
+    border: 1px solid #999;
+    font-size: 100%;
+    /* box-sizing: border-box; */
+}
+
+/* フォームセクション */
+div form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form select, form input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+form input[type="text"] {
+    flex: 1;
+}
+
+/* 画像 */
+img {
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+}
