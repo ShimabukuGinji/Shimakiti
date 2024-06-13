@@ -26,10 +26,19 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void updateUser(Long id, User userDetails) {
+    public User updateUser(Long id, User userDetails) {
 
+        return userDetails;
     }
 
     public void deleteUser(Long id) {
+    }
+
+    public void save(User user) {
+
+    }
+
+    public void deleteByUsername(String username) {
+
     }
 }
