@@ -6,6 +6,8 @@ import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -21,4 +23,16 @@ public class PostService {
         post.setUser(user);
         return postRepository.save(post);
     }
-}
+
+    public List<Post> searchPosts(String keyword) {
+        return postRepository.findByTitleContainingOrContentContaining(keyword, keyword);
+    }
+
+    public Optional<Post> updatePost(Long id, Post postDetails) {
+        return postRepository.findById(id);
+    }
+
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
+    }

@@ -1,15 +1,19 @@
 package com.example.shimakiti.controller;
 
+import com.example.shimakiti.entity.Announcement;
+import com.example.shimakiti.entity.Category;
+import com.example.shimakiti.entity.Post;
+import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.AnnouncementService;
 import com.example.shimakiti.service.CategoryService;
+import com.example.shimakiti.service.PostService;
 import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -29,8 +33,8 @@ public class AdminController {
 
     // Post management
     @PutMapping("/posts/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
-        Post updatedPost = postService.updatePost(id, postDetails);
+    public ResponseEntity<Optional<Post>> updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
+        Optional<Post> updatedPost = postService.updatePost(id, postDetails);
         return ResponseEntity.ok(updatedPost);
     }
 
