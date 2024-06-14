@@ -1,12 +1,14 @@
 package com.example.shimakiti.service;
 
 
-
 import com.example.shimakiti.entity.User;
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -22,23 +24,24 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User updateUser(Long id, User userDetails) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        user.setUsername(userDetails.getUsername());
+        user.setEmail(userDetails.getEmail());
+        user.setProfilePicture(userDetails.getProfilePicture());
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        userRepository.delete(user);
+    }
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public User updateUser(Long id, User userDetails) {
-
-        return userDetails;
-    }
-
-    public void deleteUser(Long id) {
-    }
-
-    public void save(User user) {
-
-    }
-
-    public void deleteByUsername(String username) {
-
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 }
