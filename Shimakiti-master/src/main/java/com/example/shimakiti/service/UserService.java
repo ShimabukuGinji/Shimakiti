@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public User updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ユーザーが見つかりません"));
         user.setUsername(userDetails.getUsername());
         user.setEmail(userDetails.getEmail());
         user.setProfilePicture(userDetails.getProfilePicture());
@@ -33,7 +33,12 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ユーザーが見つかりません"));
+        userRepository.delete(user);
+    }
+
+    public void deleteByUsername(String username) {
+        User user = userRepository.findByUsername(username);
         userRepository.delete(user);
     }
 
