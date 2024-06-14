@@ -13,7 +13,6 @@ public class loginController {
 
     @GetMapping("sample")
     public String index() {
-        System.out.println(userService.findAll());
         return "post-insert";
     }
 }
