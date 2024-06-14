@@ -1,0 +1,24 @@
+/* header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* ヘッダ下のライン */
+.border{
+    border: 5px solid #66FFCC;
+    margin-bottom: 20px;
+}
+
+/* サイトロゴ島ぬひみつきち */
+.site_logo a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+}
