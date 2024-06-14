@@ -1,6 +1,7 @@
 package com.example.shimakiti.controller;
 
 import com.example.shimakiti.entity.User;
+import com.example.shimakiti.repository.UserRepository;
 import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class UserController {
         user.setUsername(updatedUser.getUsername());
         user.setEmail(updatedUser.getEmail());
         user.setProfilePicture(updatedUser.getProfilePicture());
-        userService.save(user);
+//        userService.save(user);
         return ResponseEntity.ok(user);
     }
 
