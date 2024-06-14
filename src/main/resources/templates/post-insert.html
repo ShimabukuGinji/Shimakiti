@@ -1,97 +1,42 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Test Map</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-        html, body {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
-        #map {
-          height: 80%;
-          width: 80%;
-        }
-    </style>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/post-inser.css" rel="stylesheet">
 </head>
 <body>
+<th:block th:insert="common/header"></th:block>
+<div class="form-group">
+    <label class="required">1.名称 or 店舗名</label><br>
+    <input type="text" id="name" name="name">
+    <br>
+</div>
+<div class="form-group">
+    <label class="required">2.カテゴリー</label><br>
+    <input type="text" id="category" name="name">
+    <br>
+</div>
+<div class="form-group">
+    <label class="required">3.住所</label><br>
+    <label for="city">市町村</label><br>
+    <input type="text" id="city" name="name">
+    <br>
+</div>
+<div class="form-group">
+    <label for="city">住所</label><br>
+    <input type="text" id="address" name="name">
+    <br>
+</div>
 <div id="map"></div>
 <ul>
-    <li>lat: <span id="lat"></span></li>
-    <li>lng: <span id="lng"></span></li>
-    <li>住所: <span id="address"></span></li>
+    <li hidden>緯度:<span id="lat"></span></li>
+    <li hidden>経度:<span id="lng"></span></li>
 </ul>
-<button onclick="del()">削除</button>
-<script>
-    var marker;
-    let num = 0;
-    function initMap() {
-      // マップの初期化
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 9,
-        center: {lat: 26.509961, lng: 127.962765}
-      });
-
-      // クリックイベントを追加
-      map.addListener('click', function(e) {
-        getClickLatLng(e.latLng, map);
-      });
-    }
-
-    function getClickLatLng(lat_lng, map) {
-      // 座標を表示
-      document.getElementById('lat').textContent = lat_lng.lat();
-      document.getElementById('lng').textContent = lat_lng.lng();
-
-      // 座標から住所表示
-      const url = 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&latlng=' + lat_lng.lat() + ',' + lat_lng.lng() + '&sensor=false';
-      fetch(url)
-        .then(res => {
-          console.log('start')
-          if(res.status === 400) {
-            console.log('400')
-          } else {
-            res.json()
-            .then(data => {
-              console.log(data)
-              console.log(data.results[0].formatted_address)
-              let addressData = data.results[0].formatted_address;
-              if (/^(([0-9A-Z\d]{4})\+([0-9A-Z\d]{2}))/.test(addressData)) {
-                addressData = data.results[1].formatted_address;
-              }
-              noPostCordAddress = addressData.replace(/〒(\d{3})-(\d{4})\s/,"");
-              noCordAddress = noPostCordAddress.replace(/([0-9A-Z\d]{4})\+([0-9A-Z\d]{2})/,"");
-              noNipponAddress = noCordAddress.replace("日本、","");
-              address = noNipponAddress.replace(/\s(.*)/,"");
-              document.getElementById('address').textContent = address;
-            })
-          }
-        });
-
-       if(marker !== undefined) {
-        marker.setMap(null);
-       }
-
-
-      // マーカーを設置
-      marker = new google.maps.Marker({
-        position: lat_lng,
-        map: map
-      });
-
-      // 座標の中心をずらす
-      // http://syncer.jp/google-maps-javascript-api-matome/map/method/panTo/
-      map.panTo(lat_lng);
-    }
-
-    function del() {
-      marker.setMap(null);
-    }
-
-</script>
+<script src="/js/post-insert.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMap" async defer></script>
 </body>
 </html>
