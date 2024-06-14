@@ -1,18 +1,17 @@
 package com.example.shimakiti.repository;
 
 import com.example.shimakiti.entity.User;
-import com.example.shimakiti.servise.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class UserRepository implements IUserService {
+@Repository
+public class UserRepository implements IUserRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;

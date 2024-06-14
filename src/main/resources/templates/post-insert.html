@@ -71,6 +71,11 @@
           }
         });
 
+       if(marker !== undefined) {
+        marker.setMap(null);
+       }
+
+
       // マーカーを設置
       marker = new google.maps.Marker({
         position: lat_lng,
