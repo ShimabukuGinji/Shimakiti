@@ -10,13 +10,11 @@
 
         <div  style="display:flex; width:25%; margin: 0 auto;">
             <div>
-            <img src="/static/images/沖縄県.jpg" alt="沖縄県" width="300"></p>
+            <img th:src="@{/images/沖縄県.jpg}" alt="沖縄県" width="300"></p>
             </div>
             <div style="width 150%">
                 <p>
                     地域：<select>
-                    <option>沖縄市</option>
-                    <option>那覇市</option>
                 </select>
                 </p>
                 <p>
@@ -31,6 +29,8 @@
                 </p>
             </div>
         </div>
+<option>沖縄市</option>
+<option>那覇市</option>
 
 
 
@@ -43,42 +43,59 @@
         </div>
 
     </div>
-
-
-<div style="border: 10px groove #333333; width:90%; margin: 0 auto;">
-    <div class="post" style="display:flex; width:80%; margin: 0 auto;  padding: 10px; margin-bottom: 10px; border: 6px double #333333;">
-        <img src="/static/images/food400x400.jpg" width="200">
+<div th:each="post:${posts}">
+    <div class="post" style="display:flex; width:80%; margin: 0 auto;  padding: 10px; margin-bottom: 10px; border: 6px double #333333;" >
+        <img th:src="/images/food400x400.jpg" width="200">
         <div style="height:90px">
             <span style="display:flex; height:100%">
-                <h1 class="area-name" style="margin-left:30px;margin-right:10px">店舗名</h1>
-                <p class="overview" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; width:700px; margin-left:100px">概要</p>
+                <h1 class="area-name" style="margin-left:30px;margin-right:10px" th:text="${post.title}">店舗名</h1>
+                <p class="overview" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; width:700px; margin-left:100px" th:text="${post.summary}">概要</p>
             </span>
             <br>
             <span style="display:flex; height:100%">
-                <span class="category" style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; margin-left:30px; height:30%">カテゴリー</span>
+                <span class="category" style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; margin-left:30px; height:30%" th:text="${post.category.name}">カテゴリー</span>
                 <img src="/static/images/likes.png" width="80";><span style="margin-right:auto;  margin-top:auto; margin-bottom:auto;font-size:32px;">40</span>
 
-                <span style="margin-left:auto; margin-top:auto; border: 1px solid #333333;">投稿者</span>
-            </span>
-        </div>
-    </div>
-
-    <div class="post" style="display:flex; width:80%; margin: 0 auto;  padding: 10px; margin-bottom: 10px; border: 3px solid #333333;">
-        <img src="/static/images/food400x400.jpg" width="200">
-        <div style="height:90px">
-            <span style="display:flex; height:100%">
-                <h1 class="area-name" style="margin-left:30px;margin-right:10px">店舗名</h1>
-                <p class="overview" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; width:700px; margin-left:100px">概要</p>
-            </span>
-            <br>
-            <span style="display:flex; height:100%">
-                <span class="category" style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; margin-left:30px; height:30%">カテゴリー</span>
-                <img src="/static/images/likes.png" width="80";><span style="margin-right:auto;  margin-top:auto; margin-bottom:auto;font-size:32px;">40</span>
-
-                <span style="margin-left:auto; margin-top:auto; border: 1px solid #333333;">投稿者</span>
+                <span style="margin-left:auto; margin-top:auto; border: 1px solid #333333;" th:text="${post.user.name}">投稿者</span>
             </span>
         </div>
     </div>
 </div>
+
+<!--<div style="border: 10px groove #333333; width:90%; margin: 0 auto;">-->
+<!--    <div class="post" style="display:flex; width:80%; margin: 0 auto;  padding: 10px; margin-bottom: 10px; border: 6px double #333333;">-->
+<!--        <img src="/static/images/food400x400.jpg" width="200">-->
+<!--        <div style="height:90px">-->
+<!--            <span style="display:flex; height:100%">-->
+<!--                <h1 class="area-name" style="margin-left:30px;margin-right:10px">店舗名</h1>-->
+<!--                <p class="overview" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; width:700px; margin-left:100px">概要</p>-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            <span style="display:flex; height:100%">-->
+<!--                <span class="category" style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; margin-left:30px; height:30%">カテゴリー</span>-->
+<!--                <img src="/static/images/likes.png" width="80";><span style="margin-right:auto;  margin-top:auto; margin-bottom:auto;font-size:32px;">40</span>-->
+
+<!--                <span style="margin-left:auto; margin-top:auto; border: 1px solid #333333;">投稿者</span>-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="post" style="display:flex; width:80%; margin: 0 auto;  padding: 10px; margin-bottom: 10px; border: 3px solid #333333;">-->
+<!--        <img src="/static/images/food400x400.jpg" width="200">-->
+<!--        <div style="height:90px">-->
+<!--            <span style="display:flex; height:100%">-->
+<!--                <h1 class="area-name" style="margin-left:30px;margin-right:10px">店舗名</h1>-->
+<!--                <p class="overview" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; width:700px; margin-left:100px">概要</p>-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            <span style="display:flex; height:100%">-->
+<!--                <span class="category" style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; margin-left:30px; height:30%">カテゴリー</span>-->
+<!--                <img src="/static/images/likes.png" width="80";><span style="margin-right:auto;  margin-top:auto; margin-bottom:auto;font-size:32px;">40</span>-->
+
+<!--                <span style="margin-left:auto; margin-top:auto; border: 1px solid #333333;">投稿者</span>-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>
