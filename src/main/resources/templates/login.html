@@ -6,34 +6,39 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
+a
 <div id="root"></div>
+a
 
 <script type="text/babel">
     const useState = React.useState;
     const useEffect = React.useEffect;
-    const App = () => {
 
-    const [state, setState] = useState(1)
-
-    const handleClick = () => setState(state + 1)
-
-      return (
-        <div>
-          カウント: {state}
-          <div>
-            <button onClick={handleClick}>count up</button>
-          </div>
-        </div>
-      )
+    const Login = () => {
+        const [username, setUsername] = useState('')
+        const [password, setPassword] = useState('');
+        return (
+            <form>
+                <div>
+                    <label>ユーザー名:</label>
+                    <input type="text" value={username} required />
+                </div>
+                <div>
+                    <label>パスワード:</label>
+                    <input type="password" value={password} required />
+                </div>
+                <button type="submit">Login</button>
+                <button type="submit">新規登録</button>
+            </form>
+        );
     }
-
     const container = document.getElementById("root");
     const root = ReactDOM.createRoot(container);
-    root.render(<App />);
+    root.render(<Login />);
 
 </script>
 

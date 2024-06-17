@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
 </head>
 <body>
 
+<div id="post"></div>
+
+<script type="text/babel">
+    import React, { useState, useEffect } from 'react';
+import axios from'axios';
+<!--import LikeButton from './LikeButton';-->
+<!--import BookmarkButton from './BookmarkButton';-->
+
+    const PostList  = () => {
+        const [posts, setPosts] = useState([]);
+        return (
+            <form>
+                <div>
+                    <label>ユーザー名:</label>
+                    <input type="text"  required />
+                </div>
+                <div>
+                    <label>パスワード:</label>
+                    <input type="password"  required />
+                </div>
+                <button type="submit">Login</button>
+                <button type="submit">新規登録</button>
+            </form>
+        );
+    }
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<PostList />);
+
+</script>
 </body>
 </html>
