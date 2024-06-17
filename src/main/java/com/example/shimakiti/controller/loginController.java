@@ -11,8 +11,13 @@ public class loginController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping("sample")
+    @GetMapping("index")
     public String index() {
         return "post-insert";
     }
+    @GetMapping("sample")
+    public String sample() {
+        return "register";
+    }
+
 }
