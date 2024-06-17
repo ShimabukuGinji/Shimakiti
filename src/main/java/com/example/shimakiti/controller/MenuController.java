@@ -14,7 +14,12 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("/displayNotices")
+//    @GetMapping("/displayNotices")
+//    public List<Notice> displayNotices() {
+//        List<Notice> notices = menuService.getAllNotices();
+//        return notices;
+//    }
+    @GetMapping("/menu")
     public List<Notice> displayNotices() {
         List<Notice> notices = menuService.getAllNotices();
         return notices;
