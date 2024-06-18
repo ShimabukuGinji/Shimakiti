@@ -1,21 +1,31 @@
 package com.example.shimakiti.Service;
 
-import com.example.shimakiti.Repository.MenuRepository;
-import com.example.shimakiti.entity.Notice;
-import jakarta.transaction.Transactional;
+import com.example.shimakiti.Repository.CategoriesRepository;
+import com.example.shimakiti.Repository.NoticeRepository;
+import com.example.shimakiti.entity.Categories;
+import com.example.shimakiti.entity.Notices;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class MenuService {
-    @Autowired
-    private MenuRepository menuRepository;
 
-    public List<Notice> getAllNotices() {
-        return menuRepository.findAll();
+    @Autowired
+    private NoticeRepository noticeRepository;
+    @Autowired
+    private CategoriesRepository categoriesRepository;
+
+    public List<Notices> findTop3ByOrderByIdDesc(){
+        return noticeRepository.findTop3ByOrderByIdDesc();
+    }
+    public List<Categories> findAll(){
+        return categoriesRepository.findAll();
     }
 
 }
+
+//SELECT * FROM categories;
