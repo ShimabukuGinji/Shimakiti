@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>検索結果</h1>
+
+
+    <div class="container">
+        <img img src="../img/okinawa.png" width="200" height="200">
+        <div class="text-block">
+            <p>選択された市町村： <input th:value="${location}"></p>
+            <p>キーワード： <input th:value="${keyword}"></p>
+            <p>カテゴリー： <input th:value="${category}"></p>
+        </div>
+    </div>
+
+    <div>
+        <label>検索結果&nbsp;</label><label>50件&nbsp;&nbsp;</label>
+        <label>並び替え：</label>
+        <select>
+            <option value="review">評価順</option>
+            <option value="new order">新しい順</option>
+            <option value="old order">古い順</option>
+        </select>
+    </div>
+
+
+
+</body>
+</html>
