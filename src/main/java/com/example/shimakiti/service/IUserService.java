@@ -1,4 +1,4 @@
-package com.example.shimakiti.servise;
+package com.example.shimakiti.service;
 
 import com.example.shimakiti.entity.User;
 import org.springframework.stereotype.Service;
