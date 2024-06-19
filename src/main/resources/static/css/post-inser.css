@@ -4,8 +4,8 @@ html, body {
   padding: 0;
 }
 #map {
-  height: 30vw;
-  width: 30vw;
+  height: 50vw;
+  width: 50vw;
 }
 
 .required::before {

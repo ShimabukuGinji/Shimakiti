@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店舗情報</title>
+    <link href="/css/sample.css" rel="stylesheet">
 </head>
 <body>
-
+<div class="container">
+    <div class="image-gallery">
+        <button class="nav-button">◀</button>
+        <img class="image" width="400" height="300">
+        <button class="nav-button">▶</button>
+        <div class="thumbnail-container">
+            <div class="thumbnail"></div>
+            <div class="thumbnail"></div>
+            <div class="thumbnail"></div>
+            <div class="thumbnail"></div>
+        </div>
+    </div>
+    <div class="info">
+        <div class="title-bar">
+            <span class="category">カテゴリ</span>
+            <h1>店舗名 or スポット名</h1>
+            <button class="edit-button">編集する</button>
+        </div>
+        <div class="overview">
+            <label>概要</label>
+            <input type="text" id="overview">
+        </div>
+        <div class="external-link">
+            <label>外部リンク</label>
+            <input type="text" id="external-link">
+        </div>
+        <div class="details">
+            <label>詳細</label>
+            <textarea id="details"></textarea>
+        </div>
+        <div class="location">
+            <label>住所</label>
+            <div class="google-map">GoogleMap</div>
+        </div>
+        <div class="footer">
+            <span>最終更新日: 2024年5月4日</span>
+            <div class="actions">
+                <span>★ 50</span>
+                <button class="bookmark-button">ブックマーク</button>
+            </div>
+        </div>
+    </div>
+    <div class="comments">
+        <label>コメント</label>
+        <div class="comment comment-red"></div>
+        <div class="comment comment-blue"></div>
+        <div class="comment comment-green"></div>
+        <div class="comment comment-yellow"></div>
+        <input type="text" id="comment-input">
+        <button class="send-button">送信</button>
+    </div>
+</div>
 </body>
 </html>

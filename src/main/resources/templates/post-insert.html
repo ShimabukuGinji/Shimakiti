@@ -1,42 +1,84 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Test Map</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+    <title>sample</title>
     <link href="/css/header.css" rel="stylesheet">
     <link href="/css/post-inser.css" rel="stylesheet">
 </head>
 <body>
-<th:block th:insert="common/header"></th:block>
-<div class="form-group">
-    <label class="required">1.名称 or 店舗名</label><br>
-    <input type="text" id="name" name="name">
+<form th:action="@{/posts}" method="post" enctype="multipart/form-data" th:object="${postForm}">
+    <div>
+        <label>タイトル:</label>
+        <input type="text" th:field="*{title}">
+    </div>
     <br>
-</div>
-<div class="form-group">
-    <label class="required">2.カテゴリー</label><br>
-    <input type="text" id="category" name="name">
+    <div>
+        <label>カテゴリ</label>
+        <select id="category" th:field="*{categoryId}" name="categoryId" class="base-text">
+            <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+    </div>
     <br>
-</div>
-<div class="form-group">
-    <label class="required">3.住所</label><br>
-    <label for="city">市町村</label><br>
-    <input type="text" id="city" name="name">
+    <div>
+        <label>画像1：</label>
+        <input type="file" th:field="*{imageFile1}">
+    </div>
+    <div>
+        <label>画像2：</label>
+        <input type="file" th:field="*{imageFile2}">
+    </div>
+    <div>
+        <label>画像3：</label>
+        <input type="file" th:field="*{imageFile3}">
+    </div>
+    <div>
+        <label>画像4：</label>
+        <input type="file" th:field="*{imageFile4}">
+    </div>
+    <div>
+        <label>画像5：</label>
+        <input type="file" th:field="*{imageFile5}">
+    </div>
     <br>
-</div>
-<div class="form-group">
-    <label for="city">住所</label><br>
-    <input type="text" id="address" name="name">
+    <div>
+        <label>概要:</label>
+        <input type="text" th:field="*{summary}">
+    </div>
     <br>
-</div>
-<div id="map"></div>
-<ul>
-    <li>緯度:<span id="lat"></span></li>
-    <li>経度:<span id="lng"></span></li>
-</ul>
-<script src="/js/post-insert.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMap" async defer></script>
+    <div>
+        <label>詳細:</label>
+        <input type="text" th:field="*{detail}">
+    </div>
+    <br>
+    <div>
+        <label>市町村：</label>
+        <select id="city" th:field="*{citiesId}" name="citiesId" class="base-text">
+            <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <label for="city">住所：</label>
+        <input type="text" id="address" name="name" th:field="*{address}">
+    </div>
+    <br>
+    <div id="map"></div>
+    <ul>
+        <li hidden>緯度:<input id="lat" type="text" name="name" th:field="*{mapLongitude}"></li>
+        <li hidden>経度:<input id="lng" type="text" name="name" th:field="*{mapLatitude}"></li>
+    </ul>
+    <div>
+        <label>外部リンク:</label>
+        <input type="text"  th:field="*{link}">
+    </div>
+
+    <script src="/js/post-insert.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMap" async defer></script>
+
+    <br><p><input type="submit" value="登録"></p>
+</form>
+<a th:href="@{/index}">ユーザー確認画面へ</a>
 </body>
 </html>

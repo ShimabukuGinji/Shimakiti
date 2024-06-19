@@ -16,8 +16,8 @@ function initMap() {
 
 function getClickLatLng(lat_lng, map) {
   // 座標を表示
-  document.getElementById('lat').textContent = lat_lng.lat();
-  document.getElementById('lng').textContent = lat_lng.lng();
+  document.getElementById('lat').value = lat_lng.lat().toFixed(6);
+  document.getElementById('lng').value = lat_lng.lng().toFixed(6);
 
   // 座標から住所表示
   const url = 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&latlng=' + lat_lng.lat() + ',' + lat_lng.lng() + '&sensor=false';
@@ -40,7 +40,6 @@ function getClickLatLng(lat_lng, map) {
           let noNipponAddress = noCordAddress.replace("日本、","");
           let address = noNipponAddress.replace(/\s(.*)/,"");
           document.getElementById('address').value = address;
-          console.log(data.results.length)
           addressData = data.results[data.results.length-3].formatted_address;
           if (addressData.includes('国頭郡') || addressData.includes('島尻郡') || addressData.includes('中頭郡')) {
             addressData = data.results[data.results.length-4].formatted_address;
@@ -49,7 +48,13 @@ function getClickLatLng(lat_lng, map) {
           address = address.replace("国頭郡","");
           address = address.replace("島尻郡","");
           address = address.replace("中頭郡","");
-          document.getElementById('city').value = address;
+          fetch(`/find-by-id?addressName=${address}`)
+          .then(res => {
+            res.json()
+            .then(data => {
+            document.getElementById('city').value = data.id;
+            })
+          })
         })
       }
     });

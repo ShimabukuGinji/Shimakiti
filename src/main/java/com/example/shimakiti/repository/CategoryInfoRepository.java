@@ -1,6 +1,6 @@
 package com.example.shimakiti.repository;
 
-import com.example.shimakiti.entity.UserInfo;
+import com.example.shimakiti.entity.CategoryInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author ys-fj
  *
  */
-public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
+public interface CategoryInfoRepository extends JpaRepository<CategoryInfo, Integer> {
 }
