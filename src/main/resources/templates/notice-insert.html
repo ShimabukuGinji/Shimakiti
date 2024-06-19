@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
+<th:block th:insert="common/header"></th:block>
+
+<h1>お知らせ情報追加</h1>
+<form th:object="${notice}" th:action="@{/notice-insert}" method="post">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="title">店舗名　OR　名称:</label>
+    <input type="text" th:field="*{title}" id="title">
+
+    <label class="required">カテゴリー</label>
+    <select id="category" th:field="*{category}">
+        <option th:each="category : ${noticeCategory}" th:value="${category.id}">[[ ${category.priority} ]]</option>
+    </select>
+
+    <label for="detail">詳細:</label>
+    <textarea th:field="*{detail}" id="detail"></textarea>
+
+    <button type="submit">追加</button>
+    <a href="/notice"><input type="button" value="戻る" /></a>
+</form>
 
 </body>
 </html>

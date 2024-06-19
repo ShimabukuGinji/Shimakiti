@@ -19,17 +19,40 @@ a
     const useEffect = React.useEffect;
 
     const Login = () => {
-        const [username, setUsername] = useState('')
+        const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
+        const [loginInfo, setLoginInfo] = useState({
+            username: '',
+            password: '',
+        })
+
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+            try {
+                await axios.post('/api/users/login', { username, password });
+                alert('Login successful!');
+            }catch (error) {
+                console.error('There was an error logging in!', error);
+            }
+        }
+
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setLoginInfo({
+                ...loginInfo, [name]:value
+            })
+            console.log(username)
+        }
+
         return (
-            <form>
+            <form onSubmit={handleSubmit} class="">
                 <div>
                     <label>ユーザー名:</label>
-                    <input type="text" value={username} required />
+                    <input type="text" name="username" value={loginInfo.username} onChange={handleChange} required />
                 </div>
                 <div>
                     <label>パスワード:</label>
-                    <input type="password" value={password} required />
+                    <input type="password" name="password" value={loginInfo.password} onChange={handleChange} required />
                 </div>
                 <button type="submit">Login</button>
                 <button type="submit">新規登録</button>

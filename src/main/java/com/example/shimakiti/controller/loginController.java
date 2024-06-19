@@ -1,4 +1,4 @@
-package com.example.shimakiti.restController;
+package com.example.shimakiti.controller;
 import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +30,13 @@ public class loginController {
         return "admin";
     }
 
+    @GetMapping("post-list")
+    public String menu(){
+        return "post-list";
+    }
+
+    @GetMapping("pirate")
+    public String pirate(){
+        return "pirate";
+    }
 }

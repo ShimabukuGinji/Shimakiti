@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -29,20 +30,8 @@ public class Posts {
     @Column(name="title")
     private String title;
 
-    @Column(name="image1")
-    private  String image1;
-
-    @Column(name="image2")
-    private String image2;
-
-    @Column(name="image3")
-    private String image3;
-
-    @Column(name="image4")
-    private String image4;
-
-    @Column(name="image5")
-    private String image5;
+    @Column(name="image_uuid")
+    private UUID image_uuid;
 
     @Column(name="summary")
     private String summary;
@@ -54,10 +43,10 @@ public class Posts {
     private String address;
 
     @Column(name="map_longitude")
-    private long map_longitude;
+    private double map_longitude;
 
     @Column(name="map_latitude")
-    private long map_latitude;
+    private double map_latitude;
 
     @Column(name="link")
     private String link;
@@ -67,5 +56,6 @@ public class Posts {
 
     @Column(name = "updated_at")
     private Date updated_at;
+
 
 }
