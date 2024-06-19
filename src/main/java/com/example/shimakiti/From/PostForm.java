@@ -3,7 +3,6 @@ package com.example.shimakiti.From;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 
 /**
  * ユーザー登録画面 form
@@ -15,13 +14,13 @@ import java.util.Date;
 public class PostForm {
 
 	/** ID */
-	private long id;
+	private int id;
 
 	/** カテゴリーID */
-	private long categoryId;
+	private int category_id;
 
 	/** 市町村ID */
-	private long citiesId;
+	private int cities_id;
 
 	/** タイトル */
 	private String title;
@@ -54,8 +53,8 @@ public class PostForm {
 	private String link;
 
 	/** 緯度 */
-	private double mapLongitude;
+	private double map_longitude;
 
 	/** 経度 */
-	private double mapLatitude;
+	private double map_latitude;
 }

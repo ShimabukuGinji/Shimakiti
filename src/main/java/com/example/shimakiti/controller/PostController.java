@@ -1,8 +1,8 @@
 package com.example.shimakiti.controller;
 
 import com.example.shimakiti.From.PostForm;
-import com.example.shimakiti.repository.CategoryInfoRepository;
-import com.example.shimakiti.repository.CityInfoRepository;
+import com.example.shimakiti.repository.CategoriesRepository;
+import com.example.shimakiti.repository.CitiesRepository;
 import com.example.shimakiti.repository.PostInfoRepository;
 import com.example.shimakiti.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +31,10 @@ public class PostController {
 	private final PostInfoRepository postRepository;
 
 	/** カテゴリー情報テーブルDAO */
-	private final CategoryInfoRepository categoryRepository;
+	private final CategoriesRepository categoryRepository;
 
 	/** 市町村情報テーブルDAO */
-	private final CityInfoRepository cityRepository;
+	private final CitiesRepository cityRepository;
 
 	/**
 	 * 初期表示
@@ -47,7 +47,6 @@ public class PostController {
 	public String view(Model model, PostForm form) {
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("cities", cityRepository.findAll());
-		var category = categoryRepository.findAll();
 		return "post-insert";
 	}
 
@@ -71,7 +70,7 @@ public class PostController {
 	 * @return 画面名
 	 */
 	@GetMapping("/posts/users/{postID}")
-	public String view(@PathVariable("postID") long postId, Model model) throws IOException {
+	public String view(@PathVariable("postID") int postId, Model model) throws IOException {
 		var post = postservice.postResult(postId);
 		var posts = postservice.postResult(postId);
 		if (post.isPresent()) {

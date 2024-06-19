@@ -10,37 +10,42 @@
 <body>
 <form th:action="@{/posts}" method="post" enctype="multipart/form-data" th:object="${postForm}">
     <div>
-        <label>タイトル:</label>
+        <label>タイトル：</label>
         <input type="text" th:field="*{title}">
     </div>
     <br>
     <div>
-        <label>カテゴリ</label>
-        <select id="category" th:field="*{categoryId}" name="categoryId" class="base-text">
+        <label>カテゴリ：</label>
+        <select id="category" th:field="*{category_id}" name="categoryId" class="base-text">
             <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
         </select>
     </div>
     <br>
-    <div>
-        <label>画像1：</label>
-        <input type="file" th:field="*{imageFile1}">
-    </div>
-    <div>
-        <label>画像2：</label>
-        <input type="file" th:field="*{imageFile2}">
-    </div>
-    <div>
-        <label>画像3：</label>
-        <input type="file" th:field="*{imageFile3}">
-    </div>
-    <div>
-        <label>画像4：</label>
-        <input type="file" th:field="*{imageFile4}">
-    </div>
-    <div>
-        <label>画像5：</label>
-        <input type="file" th:field="*{imageFile5}">
-    </div>
+    <form action="">
+        <label>画像</label>
+        <div class="flex">
+            <div>
+                <input type="file" th:field="*{imageFile1}" class="input-file" name="input1" id="input1" accept="image/*">
+                <label for="input1"><img class="input-image" src="/images/imageinput.png" alt="" id="figureImage1"></label>
+            </div>
+            <div>
+                <input type="file" th:field="*{imageFile2}" class="input-file" name="input2" id="input2" accept="image/*">
+                <label for="input2"><img class="input-image" src="/images/imageinput.png" alt="" id="figureImage2"></label>
+            </div>
+            <div>
+                <input type="file" th:field="*{imageFile3}" class="input-file" name="input3" id="input3" accept="image/*">
+                <label for="input3"><img class="input-image" src="/images/imageinput.png" alt="" id="figureImage3"></label>
+            </div>
+            <div>
+                <input type="file" th:field="*{imageFile4}" class="input-file" name="input4" id="input4" accept="image/*">
+                <label for="input4"><img class="input-image" src="/images/imageinput.png" alt="" id="figureImage4"></label>
+            </div>
+            <div>
+                <input type="file" th:field="*{imageFile5}" class="input-file" name="input5" id="input5" accept="image/*">
+                <label for="input5"><img class="input-image" src="/images/imageinput.png" alt="" id="figureImage5"></label>
+            </div>
+        </div>
+    </form>
     <br>
     <div>
         <label>概要:</label>
@@ -54,7 +59,7 @@
     <br>
     <div>
         <label>市町村：</label>
-        <select id="city" th:field="*{citiesId}" name="citiesId" class="base-text">
+        <select id="city" th:field="*{cities_id}" name="citiesId" class="base-text">
             <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name}"></option>
         </select>
     </div>
@@ -66,8 +71,8 @@
     <br>
     <div id="map"></div>
     <ul>
-        <li hidden>緯度:<input id="lat" type="text" name="name" th:field="*{mapLongitude}"></li>
-        <li hidden>経度:<input id="lng" type="text" name="name" th:field="*{mapLatitude}"></li>
+        <li hidden>緯度:<input id="lat" type="text" name="name" th:field="*{map_longitude}"></li>
+        <li hidden>経度:<input id="lng" type="text" name="name" th:field="*{map_latitude}"></li>
     </ul>
     <div>
         <label>外部リンク:</label>
@@ -80,5 +85,6 @@
     <br><p><input type="submit" value="登録"></p>
 </form>
 <a th:href="@{/index}">ユーザー確認画面へ</a>
+<script src="/js/main.js"></script>
 </body>
 </html>

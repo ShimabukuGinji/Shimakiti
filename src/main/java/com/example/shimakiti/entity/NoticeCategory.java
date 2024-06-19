@@ -1,12 +1,11 @@
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ユーザ情報テーブル Entity
+ * お知らせカテゴリー情報テーブル Entity
  * 
  * @author ys-fj
  *
@@ -14,9 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "categories")
-@Data
-public class CategoryInfo {
+@Table(name="notice_category")
+public class NoticeCategory {
 
 	/** ID */
 	@Id
@@ -24,7 +22,8 @@ public class CategoryInfo {
 	@Column(name = "id")
 	private int id;
 
-	/** タイトル */
-	@Column(name = "name")
-	private String name;
+	/** ユーザー名 */
+	@Column(name = "priority")
+	private String priority;
+
 }

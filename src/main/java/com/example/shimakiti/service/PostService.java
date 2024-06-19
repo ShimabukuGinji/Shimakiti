@@ -2,10 +2,11 @@ package com.example.shimakiti.service;
 
 import com.example.shimakiti.From.PostForm;
 import com.example.shimakiti.dto.PostResult;
-import com.example.shimakiti.entity.PostInfo;
-import com.example.shimakiti.repository.CategoryInfoRepository;
-import com.example.shimakiti.repository.CityInfoRepository;
+import com.example.shimakiti.entity.Posts;
+import com.example.shimakiti.repository.CategoriesRepository;
+import com.example.shimakiti.repository.CitiesRepository;
 import com.example.shimakiti.repository.PostInfoRepository;
+import com.example.shimakiti.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,13 +30,13 @@ import java.util.UUID;
 public class PostService implements IPostService {
 
 	/** 投稿情報テーブルRepository */
-	private final PostInfoRepository postRepository;
+	private final PostsRepository postRepository;
 
 	/** カテゴリー情報テーブルRepository */
-	private final CategoryInfoRepository categoryRepository;
+	private final CategoriesRepository categoryRepository;
 
 	/** 市町村情報テーブルRepository */
-	private final CityInfoRepository cityRepository;
+	private final CitiesRepository cityRepository;
 
 	/** Dozer Mapper */
 	private final Mapper mapper;
@@ -59,8 +60,9 @@ public class PostService implements IPostService {
 	public void post(PostForm form) throws IOException {
 		// DB更新
 		var imageID = UUID.randomUUID();
-		var postInfo = mapper.map(form, PostInfo.class);
-		postInfo.setImageUuid(imageID);
+		var postInfo = mapper.map(form, Posts.class);
+		postInfo.setImage_uuid(imageID);
+		postInfo.setUsers_id(2);
 		postRepository.save(postInfo);
 
 		if (!form.getImageFile1().isEmpty()) {
@@ -106,7 +108,7 @@ public class PostService implements IPostService {
 	}
 
 	@Override
-	public Optional<PostResult> postResult(long postId) throws IOException {
+	public Optional<PostResult> postResult(int postId) throws IOException {
 		var postInfoOpt = postRepository.findById(postId);
 		if (postInfoOpt.isEmpty()) {
 			return Optional.empty();
@@ -115,20 +117,20 @@ public class PostService implements IPostService {
 
 		var postResult = new PostResult();
 		postResult.setId(postInfo.getId());
-		postResult.setCategoryName(categoryRepository.findById(postInfo.getCategoryId()).get().getName());
-		postResult.setCitiesName(cityRepository.findById(postInfo.getCitiesId()).get().getName());
+		postResult.setCategoryName(categoryRepository.findById(postInfo.getCategory_id()).get().getName());
+		postResult.setCitiesName(cityRepository.findById(postInfo.getCities_id()).get().getName());
 		postResult.setAddress(postInfo.getAddress());
 		postResult.setTitle(postInfo.getTitle());
 		postResult.setSummary(postInfo.getSummary());
 		postResult.setDetail(postInfo.getDetail());
 		postResult.setLink(postInfo.getLink());
-		postResult.setImageFile1("data:image/jpg;base64," + outputImage(postInfo.getImageUuid(),1));
-		postResult.setImageFile2("data:image/jpg;base64," + outputImage(postInfo.getImageUuid(),2));
-		postResult.setImageFile3("data:image/jpg;base64," + outputImage(postInfo.getImageUuid(),3));
-		postResult.setImageFile4("data:image/jpg;base64," + outputImage(postInfo.getImageUuid(),4));
-		postResult.setImageFile5("data:image/jpg;base64," + outputImage(postInfo.getImageUuid(),5));
-		postResult.setMapLatitude(postInfo.getMapLatitude());
-		postResult.setMapLongitude(postInfo.getMapLongitude());
+		postResult.setImageFile1("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),1));
+		postResult.setImageFile2("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),2));
+		postResult.setImageFile3("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),3));
+		postResult.setImageFile4("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),4));
+		postResult.setImageFile5("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),5));
+		postResult.setMapLatitude(postInfo.getMap_latitude());
+		postResult.setMapLongitude(postInfo.getMap_longitude());
 		return Optional.of(postResult);
 	}
 

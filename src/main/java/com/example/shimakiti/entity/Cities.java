@@ -1,26 +1,28 @@
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * ユーザ情報テーブル Entity
+ * 市町村情報テーブル Entity
  * 
  * @author ys-fj
  *
  */
+@Getter
+@Setter
 @Entity
-@Table(name = "cities")
-@Data
-public class CityInfo {
+@Table(name="cities")
+public class Cities {
 
-	/** ID */
+	/** 市町村ID */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
-	/** タイトル */
+	/** 市町村名 */
 	@Column(name = "name")
 	private String name;
 }
