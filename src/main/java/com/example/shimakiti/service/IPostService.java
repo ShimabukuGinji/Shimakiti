@@ -5,7 +5,6 @@ import com.example.shimakiti.dto.PostResult;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * ユーザー登録画面Service Interface
@@ -23,5 +22,5 @@ public interface IPostService {
 	 */
 	public void post(PostForm form) throws IOException;
 
-	public Optional<PostResult> postResult(long userId) throws IOException;
+	public Optional<PostResult> postResult(int userId) throws IOException;
 }

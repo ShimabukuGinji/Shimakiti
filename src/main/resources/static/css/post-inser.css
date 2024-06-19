@@ -12,3 +12,15 @@ html, body {
   content: "※";
   color: red;
 }
+
+.flex {
+  display: flex;
+}
+
+.input-image {
+  width: 100px;
+}
+
+.input-file {
+  display: none;
+}

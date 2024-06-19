@@ -1,4 +1,24 @@
-/* 画像サイズ */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 35vw;
+    width: 35vw;
+}
+
+.sub-image {
+    padding: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* 画像サイズ*/
 .image {
     height: 100px;
     width: 100px;
@@ -8,7 +28,7 @@
     width: 80%;
 }
 
-/* 画像サイズ */
+
 .box {
     display: flex;
     height: 1000px;
@@ -33,3 +53,4 @@ body {
     margin: 0;
     padding: 0;
 }
+
