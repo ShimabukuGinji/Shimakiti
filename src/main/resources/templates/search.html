@@ -7,14 +7,14 @@
 <body>
 
 <p style="text-align:center;font-size:48px">検索結果</p>
-    <form action="search" method="post" th:object="${searchForm}">
+
         <div  style="display:flex; width:25%; margin: 0 auto;">
             <div>
             <img th:src="@{/images/沖縄県.jpg}" alt="沖縄県" width="300"></p>
             </div>
             <div style="width 150%">
                 <p>
-                    地域：<select th:field="*{cities_id}">
+                    地域：<select>
                     <option
                             th:each="city : ${cities}"
                             th:value="${city.id}"
@@ -23,7 +23,7 @@
                 </select>
                 </p>
                 <p>
-                    カテゴリー：<select th:field="*{categories_id}">
+                    カテゴリー：<select>
                     <option
                             th:each="category : ${categories}"
                             th:value="${category.id}"
@@ -33,7 +33,7 @@
                 </p>
                 <p>
                     キーワード：
-                    <input type="text" th:field="*{keyword}">
+                    <input type="text" >
                 </p>
             </div>
         </div>
