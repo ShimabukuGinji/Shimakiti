@@ -30,9 +30,8 @@
 
 <div class="search-menu">
     <a>カテゴリ：</a>
-
-    <select th:field="*{categories}">
-        <option id="category" th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">グルメ</option>
+    <select id="category">
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
     </select>
     <a>&nbsp;&nbsp;&nbsp;キーワード：</a>
     <input type="text" id="keyword">

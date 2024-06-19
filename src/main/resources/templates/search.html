@@ -11,9 +11,17 @@
     <div class="container">
         <img img src="../img/okinawa.png" width="200" height="200">
         <div class="text-block">
-            <p>選択された市町村： <input th:value="${location}"></p>
-            <p>キーワード： <input th:value="${keyword}"></p>
-            <p>カテゴリー： <input th:value="${category}"></p>
+            <div class="text-block">
+                <p>選択された市町村： <input th:value="${location}"></p>
+                <p>キーワード： <input th:value="${keyword}"></p>
+                <select>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                            th:selected="${category.id == categoryParam}">
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
 

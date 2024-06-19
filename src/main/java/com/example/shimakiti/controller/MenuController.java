@@ -32,12 +32,15 @@ public class MenuController {
 
     @GetMapping("/search")
     public String searchPage(@RequestParam("location") String location,
-                           @RequestParam("keyword") String keyword,
-                           @RequestParam("category") String category,
-                           Model model) {
+                             @RequestParam("keyword") String keyword,
+                             @RequestParam("category") int category,
+                             Model model) {
+        List<Categories> categories = menuService.findAll();
         model.addAttribute("location", location);
         model.addAttribute("keyword", keyword);
-        model.addAttribute( "category", category);
+        model.addAttribute("categoryParam", category);//選択されたカテゴリ
+        model.addAttribute("categories", categories);//全カテゴリ
+        System.out.println("\n\n"+category+"\n\n");
         return "search";
     }
 }
