@@ -20,7 +20,7 @@ public class UserInfo {
 	/** ユーザーID */
 	@Id
 	@Column(name = "user_id")
-	private String userId;
+	private int userId;
 
 	/** ユーザー名 */
 	@Column(name = "user_name")

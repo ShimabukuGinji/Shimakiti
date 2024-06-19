@@ -1,11 +1,9 @@
 package com.example.shimakiti.repository;
 
 import com.example.shimakiti.entity.CityInfo;
-import com.example.shimakiti.entity.PostInfo;
-import com.example.shimakiti.entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * ユーザー情報テーブルDAO
@@ -13,5 +11,6 @@ import java.util.List;
  * @author ys-fj
  *
  */
-public interface PostInfoRepository extends JpaRepository<PostInfo, Long> {
+public interface CityInfoRepository extends JpaRepository<CityInfo, Integer> {
+    CityInfo findByName(String name);
 }

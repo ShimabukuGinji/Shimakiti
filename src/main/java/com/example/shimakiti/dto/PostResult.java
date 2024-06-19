@@ -1,9 +1,9 @@
-package com.example.shimakiti.From;
+package com.example.shimakiti.dto;
 
+import jakarta.persistence.Column;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.util.UUID;
 
 /**
  * ユーザー登録画面 form
@@ -12,34 +12,34 @@ import java.util.Date;
  *
  */
 @Data
-public class PostForm {
+public class PostResult {
 
 	/** ID */
 	private long id;
 
-	/** カテゴリーID */
-	private long categoryId;
+	/** カテゴリー名 */
+	private String categoryName;
 
-	/** 市町村ID */
-	private long citiesId;
+	/** 市町村名 */
+	private String citiesName;
 
 	/** タイトル */
 	private String title;
 
 	/** 画像1 */
-	private MultipartFile imageFile1;
+	private String imageFile1;
 
 	/** 画像2 */
-	private MultipartFile imageFile2;
+	private String imageFile2;
 
 	/** 画像3 */
-	private MultipartFile imageFile3;
+	private String imageFile3;
 
 	/** 画像4 */
-	private MultipartFile imageFile4;
+	private String imageFile4;
 
 	/** 画像5 */
-	private MultipartFile imageFile5;
+	private String imageFile5;
 
 	/** 概要 */
 	private String summary;

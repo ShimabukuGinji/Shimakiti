@@ -22,19 +22,19 @@ public class PostallInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private int id;
 
 	/** カテゴリーID */
 	@Column(name = "category_id")
-	private long categoryId;
+	private int categoryId;
 
 	/** 市町村ID */
 	@Column(name = "cities_id")
-	private long citiesId;
+	private int citiesId;
 
 	/** ユーザーID */
 	@Column(name = "users_id")
-	private long usersId;
+	private int usersId;
 
 	/** タイトル */
 	@Column(name = "title")

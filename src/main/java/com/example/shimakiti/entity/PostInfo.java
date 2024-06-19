@@ -3,6 +3,8 @@ package com.example.shimakiti.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 /**
  * ユーザ情報テーブル Entity
  * 
@@ -15,14 +17,26 @@ import lombok.Data;
 public class PostInfo {
 
 	/** ID */
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	@Column(name = "id")
-	private long id;
+	private int id;
+
+	/** カテゴリーID */
+	@Column(name = "category_id")
+	private int categoryId;
+
+	/** 市町村ID */
+	@Column(name = "cities_id")
+	private int citiesId;
 
 	/** タイトル */
 	@Column(name = "title")
 	private String title;
+
+	/** 画像UUID */
+	@Column(name = "image_uuid")
+	private UUID imageUuid;
 
 	/** 概要 */
 	@Column(name = "summary")
@@ -36,15 +50,15 @@ public class PostInfo {
 	@Column(name = "address")
 	private String address;
 
-	/** 概要 */
+	/** 外部リンク */
 	@Column(name = "link")
 	private String link;
 
-	/** 詳細 */
+	/** 緯度 */
 	@Column(name = "map_longitude")
-	private long mapLongitude;
+	private double mapLongitude;
 
-	/** 住所 */
+	/** 経度 */
 	@Column(name = "map_latitude")
-	private long mapLatitude;
+	private double mapLatitude;
 }

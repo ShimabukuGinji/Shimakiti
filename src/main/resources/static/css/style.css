@@ -1,0 +1,35 @@
+/* 画像サイズ */
+.image {
+    height: 100px;
+    width: 100px;
+}
+
+.pic-image {
+    width: 80%;
+}
+
+/* 画像サイズ */
+.box {
+    display: flex;
+    height: 1000px;
+    width: 100%;
+}
+.box-left {
+    margin: auto;
+    height: 100%;
+    width: 35%;
+}
+
+.box-right {
+    margin: auto;
+    height: 100%;
+    width: 65%;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+    background-color: #f0f8ff;
+    color: #2f4f4f;
+    margin: 0;
+    padding: 0;
+}
