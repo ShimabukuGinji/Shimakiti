@@ -8,6 +8,7 @@ import com.example.shimakiti.repository.ICategoryRepository;
 import com.example.shimakiti.repository.ICityRepository;
 import com.example.shimakiti.repository.IShimaRepository;
 //import com.example.shimakiti.repository.IUserRepository;
+import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +28,9 @@ public class ShimaService{
     @Autowired
     private ICityRepository iCityRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Posts> findAll(){
         return iShimaRepository.findAll();
     }
@@ -39,19 +43,13 @@ public class ShimaService{
         return iCityRepository.findAll();
     }
 
-//    @Autowired
-//    private IUserRepository userRepository;
-//
-//    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-//        User user = userRepository.findByLoginId(loginId);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("ユーザーが見つかりません");
-//        }
-//        return org.springframework.security.core.userdetails.User.withUsername(user.getLoginId())
-//                .password(user.getPassword())
-//                .roles(user.getRole() == 1 ? "ADMIN" : "USER")
-//                .build();
-//    }
+    public List<User> findAllUser() {
+        return userRepository.findAll();
+    }
+
+    public User findByIdUser(String username) {
+        return userRepository.findById(username).orElse(null);
+    }
 
 
 }

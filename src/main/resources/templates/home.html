@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>spring-boot-security-demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p>Spring Boot Security Demo Home</p>
+<p><a href="/h2-console">h2-console</a></p>
+<p>ログインユーザ一覧</p>
+<div th:if="${loginusers.size() == 0}">
+    登録データが1件もありません。
+</div>
+<table th:if="${loginusers.size() >= 1}">
+    <thead>
+    <tr>
+        <th>名前</th>
+        <th>パスワード</th>
+        <th>権限</th>
+    </tr>
+    </thead>
+    <tbody th:each="loginuser : ${loginusers}" th:object=${loginuser}>
+    <td th:text="*{username}"></td>
+    <td th:text="*{password}"></td>
+    <td th:text="*{role}"></td>
+    </tbody>
+</table>
+</body>
+</html>
