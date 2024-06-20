@@ -3,7 +3,7 @@ package com.example.shimakiti.controller;
 import com.example.shimakiti.From.PostForm;
 import com.example.shimakiti.repository.CategoriesRepository;
 import com.example.shimakiti.repository.CitiesRepository;
-import com.example.shimakiti.repository.PostInfoRepository;
+import com.example.shimakiti.repository.PostsRepository;
 import com.example.shimakiti.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+
 
 /**
  * ユーザー登録画面Controller
@@ -28,7 +29,7 @@ public class PostController {
 	private final PostService postservice;
 
 	/** 投稿情報テーブルDAO */
-	private final PostInfoRepository postRepository;
+	private final PostsRepository postRepository;
 
 	/** カテゴリー情報テーブルDAO */
 	private final CategoriesRepository categoryRepository;
@@ -44,7 +45,7 @@ public class PostController {
 	 * @return 画面名
 	 */
 	@GetMapping("/posts")
-	public String view(Model model, PostForm form) {
+	public String view(PostForm form, Model model) {
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("cities", cityRepository.findAll());
 		return "post-insert";
@@ -59,7 +60,7 @@ public class PostController {
 	 */
 	@PostMapping("/posts")
 	public String post(PostForm form, Model model) throws IOException {
-		postservice.post(form);
+		postservice.insert(form);
 		return "redirect:/posts";
 	}
 
@@ -69,15 +70,39 @@ public class PostController {
 	 * @param model モデル
 	 * @return 画面名
 	 */
-	@GetMapping("/posts/users/{postID}")
-	public String view(@PathVariable("postID") int postId, Model model) throws IOException {
+	@GetMapping("/posts/detail/{postID}")
+	public String detail(@PathVariable("postID") int postId, Model model) throws IOException {
 		var post = postservice.postResult(postId);
-		var posts = postservice.postResult(postId);
 		if (post.isPresent()) {
 			model.addAttribute("post",post.get());
-			System.out.println(post.get().getImageFile1());
 			return "post-detail";
 		}
 		return "redirect:/menu";
+	}
+
+	/**
+	 * 詳細画面
+	 *
+	 * @param model モデル
+	 * @return 画面名
+	 */
+	@GetMapping("/posts/edit/{postID}")
+	public String edit(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
+		var postForm = postservice.postForm(postId);
+		var postResult = postservice.postResult(postId);
+		if (postForm.isPresent() && postResult.isPresent()) {
+			model.addAttribute("categories", categoryRepository.findAll());
+			model.addAttribute("cities", cityRepository.findAll());
+			model.addAttribute("postForm",postForm.get());
+			model.addAttribute("post",postResult.get());
+			return "post-edit";
+		}
+		return "redirect:/menu";
+	}
+
+	@PostMapping("/posts/edit/{postID}")
+	public String update(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
+		postservice.update(form, postId);
+		return "redirect:/posts";
 	}
 }

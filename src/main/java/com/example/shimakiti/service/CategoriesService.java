@@ -1,6 +1,6 @@
 package com.example.shimakiti.service;
 
-import com.example.shimakiti.repository.CitiesRepository;
+import com.example.shimakiti.repository.CategoriesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class CitiesService implements ICitiesService {
+public class CategoriesService implements ICategoriesService {
 
-	private final CitiesRepository cityRepository;
+	private final CategoriesRepository categoriesRepository;
 
 }

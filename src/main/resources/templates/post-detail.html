@@ -24,13 +24,15 @@
         </div>
         <div class="box-right">
             <p><span th:text="${post.categoryName}"></span></p>
-            <p><span th:text="${post.citiesName}"></span></p>
+            <p><span th:text="${post.usersName}"></span></p>
             <p><span th:text="${post.title}"></span></p>
             <p><span th:text="${post.summary}"></span></p>
             <p><span th:text="${post.detail}"></span></p>
+            <p><span th:text="${post.created_at}"></span></p>
             <p><a th:href="${post.link}">[[ ${post.link} ]]</a></p>
-            <p hidden><span id="lat" th:text="${post.mapLongitude}"></span></p>
-            <p hidden><span id="lng" th:text="${post.mapLatitude}"></span></p>
+            <p><a th:href="@{/posts/edit/__${post.id}__}">編集画面へ</a></p>
+            <p hidden><span id="lat" th:text="${post.map_longitude}"></span></p>
+            <p hidden><span id="lng" th:text="${post.map_latitude}"></span></p>
         </div>
     </div>
     <script src="/js/post-detail.js"></script>

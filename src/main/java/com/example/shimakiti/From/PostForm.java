@@ -22,6 +22,9 @@ public class PostForm {
 	/** 市町村ID */
 	private int cities_id;
 
+	/** ユーザーID */
+	private int users_id;
+
 	/** タイトル */
 	private String title;
 

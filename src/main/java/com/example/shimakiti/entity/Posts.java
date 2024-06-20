@@ -73,7 +73,7 @@ public class Posts {
 	private String link;
 
 	/** 投稿日時 */
-	@Column(name="created_at", updatable=false)
+	@Column(name="created_at", insertable=false, updatable=false)
 	private Date created_at;
 
 	/** 編集日時 */

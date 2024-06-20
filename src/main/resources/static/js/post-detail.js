@@ -16,11 +16,9 @@ function initMapDetail() {
   });
 }
 
-
-const pics_src = new Array(document.getElementById("picImg"),document.getElementById("subImg1"),document.getElementById("subImg2"),document.getElementById("subImg3"),document.getElementById("subImg4"));
-var num = 0;
-
 function slideshowNext(){
+    console.log("Next");
+    const pics_src = new Array(document.getElementById("picImg"),document.getElementById("subImg1"),document.getElementById("subImg2"),document.getElementById("subImg3"),document.getElementById("subImg4"));
     const src = new Array(pics_src[0].src, pics_src[1].src, pics_src[2].src, pics_src[3].src, pics_src[4].src)
     document.getElementById("picImg").src=src[1];
     document.getElementById("subImg1").src=src[2];
@@ -30,6 +28,7 @@ function slideshowNext(){
 }
 
 function slideshowBack(){
+    const pics_src = new Array(document.getElementById("picImg"),document.getElementById("subImg1"),document.getElementById("subImg2"),document.getElementById("subImg3"),document.getElementById("subImg4"));
     const src = new Array(pics_src[0].src, pics_src[1].src, pics_src[2].src, pics_src[3].src, pics_src[4].src)
     document.getElementById("picImg").src=src[4];
     document.getElementById("subImg1").src=src[0];

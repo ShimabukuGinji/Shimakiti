@@ -1,9 +1,8 @@
 package com.example.shimakiti.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
-import java.util.UUID;
+import java.util.Date;
 
 /**
  * ユーザー登録画面 form
@@ -20,8 +19,20 @@ public class PostResult {
 	/** カテゴリー名 */
 	private String categoryName;
 
+	/** カテゴリーID */
+	private int category_id;
+
 	/** 市町村名 */
 	private String citiesName;
+
+	/** 市町村ID */
+	private int cities_id;
+
+	/** ユーザー名 */
+	private String usersName;
+
+	/** ユーザーID */
+	private int users_id;
 
 	/** タイトル */
 	private String title;
@@ -54,8 +65,14 @@ public class PostResult {
 	private String link;
 
 	/** 緯度 */
-	private double mapLongitude;
+	private double map_longitude;
 
 	/** 経度 */
-	private double mapLatitude;
+	private double map_latitude;
+
+	/** 投稿日時 */
+	private Date created_at;
+
+	/** 編集日時 */
+	private Date updated_at;
 }
