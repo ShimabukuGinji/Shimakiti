@@ -27,7 +27,7 @@ public class SecurityConfig {
 
                 .formLogin(login -> login //  フォーム認証を使う
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/category")
                         .failureUrl("/login?error")
                         .permitAll()) //  フォーム認証画面は認証不要
 

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>カテゴリー編集</title>
 </head>
 <body>
-
+<form action="/category-edit" method="post">
+    <p>カテゴリー名を入力してください</p>
+    <input type="text" th:field="${category.name}">
+    <input type="submit" value="決定">
+</form>
 </body>
 </html>
