@@ -1,7 +1,7 @@
 'use strict';
 var marker;
 let num = 0;
-function initMap() {
+function initMapInsert() {
   // マップの初期化
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,

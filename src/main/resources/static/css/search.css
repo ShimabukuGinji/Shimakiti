@@ -1,0 +1,59 @@
+.posts {
+    border: 10px groove #333333;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.post {
+    display:flex;
+    width:80%;
+    margin: 2px auto;
+    padding: 2px;
+    border: 6px double #333333;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.box-top, .box-center, .box-bottom{
+    margin-left: 10px;
+}
+
+.information {
+    width:90%;
+}
+
+.category-box {
+    height:100%;
+}
+
+.box-top {
+    display:flex;
+    height:50%;
+}
+
+.box-center {
+    display:flex;
+    height:25%;
+}
+
+.box-bottom {
+    display:flex;
+    height:25%;
+    width: 90%;
+}
+
+.click-img {
+    width: 30px;
+}
+
+.like {
+    margin-right: 50px;
+    margin-left: auto;
+}

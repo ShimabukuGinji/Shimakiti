@@ -1,57 +1,46 @@
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
-/**
- * ユーザ情報テーブル Entity
- * 
- * @author ys-fj
- *
- */
+@Getter
+@Setter
 @Entity
-@Table(name = "users")
-@Data
+@Table(name="users")
 public class User {
 
-	/** ID */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
 
-	/** ユーザー名 */
-	@Column(name="username")
-	private String username;
+    @Column(name="username")
+    private String username;
 
-	/** パスワード */
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	/** メールアドレス(ログインID) */
-	@Column(name="email")
-	private String email;
+    @Column(name="email")
+    private String email;
 
-	/** 権限 */
-	@Column(name = "role")
-	private int role;
+    private int role;
 
-	/** プロフィール画像 */
-	@Column(name="profile_picture")
-	private String profilePicture;
+    @Column(name="profile_picture")
+    private String profilePicture;
 
-	/** 自己紹介 */
-	@Column(name = "bio")
-	private String bio;
+    @Column(name = "bio")
+    private String bio;
 
-	/** 登録日 */
-	@Column(name="created_at", updatable=false)
-	private Date created_at;
+    @Column(name="created_at")
+    private Date created_at;
 
-	/** 更新日 */
-	@Column(name = "updated_at")
-	private Date updated_at;
+    @Column(name = "updated_at")
+    private Date updated_at;
 
+//    @OneToMany(mappedBy = "user")
+//    private List<Bookmarks> bookmarks;
 }

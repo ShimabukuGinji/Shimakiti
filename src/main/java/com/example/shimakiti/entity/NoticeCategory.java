@@ -1,29 +1,16 @@
+//NoticeCategory
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-/**
- * お知らせカテゴリー情報テーブル Entity
- * 
- * @author ys-fj
- *
- */
-@Getter
-@Setter
 @Entity
-@Table(name="notice_category")
+@Data
 public class NoticeCategory {
 
-	/** ID */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	/** ユーザー名 */
-	@Column(name = "priority")
-	private String priority;
-
+    private String priority;
 }

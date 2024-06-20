@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+a
+<div id="root"></div>
+a
+
+<script type="text/babel">
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+
+    const PostList = () => {
+        const [posts, setPosts] = useState([]);
+
+        useEffect(() => {
+            const fetchPosts = async () => {
+                const response = await axios.get('/api/menu');
+                setPosts(response.data);
+            };
+            fetchPosts();
+        }, []);
+        return (
+        <div>
+                {posts.map(post => (
+                    <div className="post">
+                            <label for="postdata"></label>
+                        <img src='../img/青りんご海.jpg' name="postdata" alt="post" />
+                        <div>
+                            <span name="postdata">
+                                <h1>{post.id}</h1>
+                                <h1>{post.title}</h1>
+                                <p>{post.summary}</p>
+                            </span>
+                            <br />
+                            <span name="postdata">
+                                <span>{post.categories.name}</span>
+                                <span>{post.users.username}</span>
+                            </span>
+
+                        </div>
+
+                    </div>
+                ))}
+        </div>
+    );
+    }
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<PostList />);
+
+</script>
+</body>
+</html>

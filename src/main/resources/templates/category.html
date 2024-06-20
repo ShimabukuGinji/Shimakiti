@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>カテゴリー一覧</title>
+    <link href="/css/header.css" rel="stylesheet">
 </head>
 <body>
+<th:block th:insert="common/header"></th:block>
+<table>
+    <thead>
+    <tr>
+        <th>カテゴリー名</th>
+        <th>件数</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${categories}">
+        <td><a th:href="'categoryDetail/' + ${category.id}" th:text="${category.name}"></a></td>
+        <td th:text="${category.posts}"></td>
+    </tr>
+
+    </tbody>
+</table>
+<a href="/category-insert"><input type="button"  value="追加"></a>
+
 
 </body>
 </html>

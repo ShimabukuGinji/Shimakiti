@@ -4,30 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * いいね情報テーブル Entity
- * 
- * @author ys-fj
- *
- */
 @Getter
 @Setter
 @Entity
 @Table(name="likes")
 public class Likes {
 
-	/** いいねID */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
 
-	/** ユーザーID */
-	@Column(name="users_id")
-	private int users_id;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private User user;
 
-	/** 投稿ID */
-	@Column(name="posts_id")
-	private int posts_id;
+    @ManyToOne
+    @JoinColumn(name = "posts_id")
+    private Posts post;
 
+    public Likes() {}
+
+    public Likes(Posts post, User user) {
+        this.post = post;
+        this.user = user;
+    }
 }
