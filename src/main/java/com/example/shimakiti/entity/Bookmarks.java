@@ -15,9 +15,18 @@ public class Bookmarks {
     @Column(name="id")
     private int id;
 
-    @Column(name="users_id")
-    private int users_id;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private User user;
 
-    @Column(name="posts_id")
-    private int posts_id;
+    @ManyToOne
+    @JoinColumn(name = "posts_id")
+    private Posts post;
+
+    public Bookmarks() {}
+
+    public Bookmarks(Posts post, User user) {
+        this.post = post;
+        this.user = user;
+    }
 }

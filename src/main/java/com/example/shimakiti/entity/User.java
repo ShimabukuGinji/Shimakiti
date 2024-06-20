@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +27,7 @@ public class User {
     @Column(name="email")
     private String email;
 
-    @Column(name = "role")
+
     private int role;
 
     @Column(name="profile_picture")
@@ -40,4 +41,7 @@ public class User {
 
     @Column(name = "updated_at")
     private Date updated_at;
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Bookmarks> bookmarks;
 }

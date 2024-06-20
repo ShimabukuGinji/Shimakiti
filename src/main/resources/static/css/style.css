@@ -1,0 +1,193 @@
+
+body {
+    font-family: 'Pirata One', 'Goudy Old Style', 'Palatino', serif;
+    background-color: #f0e4d7;
+    color: #4b2e12;
+    margin: 0;
+    padding: 0;
+}
+
+/* コンテナスタイル */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5deb3;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ヘッダー */
+.header {
+    text-align: center;
+    padding: 20px;
+    background-color: #deb887;
+    border-bottom: 2px solid #a0522d;
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #8b4513;
+    text-shadow: 2px 2px #fff8dc;
+}
+
+.header .user-info {
+    float: right;
+    font-size: 1.2em;
+}
+
+.header .user-info button {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #d2691e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.header .user-info button:hover {
+    background-color: #a0522d;
+}
+
+/* お知らせセクション */
+.announcement {
+    padding: 20px;
+    background-color: #fff8dc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.announcement h2 {
+    font-size: 2em;
+    color: #8b4513;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px #fff5ee;
+}
+
+.announcement .notice {
+    border: 1px solid #8b4513;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #fdf5e6;
+}
+
+/* 検索セクション */
+.search-section {
+    padding: 20px;
+    background-color: #faebd7;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-section input {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #8b4513;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    outline: none;
+    font-family: 'Goudy Old Style', 'Palatino', serif;
+}
+
+.search-section input:focus {
+    border-color: #a0522d;
+}
+
+.search-section button {
+    font-size: 1.2em;
+    padding: 10px;
+    background-color: #d2691e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.search-section button:hover {
+    background-color: #a0522d;
+}
+
+/* 地図セクション */
+.map-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #faebd7;
+    border-radius: 10px;
+    position: relative;
+    width: 1024px;
+    height: 1024px;
+    margin: 0 auto;
+    background-image: url('/images/okinawa_secret_base_map.png');
+    background-size: cover;
+}
+
+.map-button {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #d2691e;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Goudy Old Style', 'Palatino', serif;
+    text-shadow: 1px 1px #fff5ee;
+}
+
+.map-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* 各市町村のボタン */
+.naha {
+    top: 650px;
+    left: 250px;
+}
+
+.okinawa {
+    top: 500px;
+    left: 200px;
+}
+
+.urausu {
+    top: 550px;
+    left: 220px;
+}
+
+.tomigusuku {
+    top: 620px;
+    left: 240px;
+}
+
+.ishigaki {
+    top: 100px;
+    left: 320px;
+}
+
+.miyakojima {
+    top: 200px;
+    left: 340px;
+}
+
+.kunigami {
+    top: 300px;
+    left: 150px;
+}
+
+.nago {
+    top: 350px;
+    left: 180px;
+}
+
+/* 全地域ボタン */
+.all-regions {
+    bottom: 20px;
+    right: 20px;
+}
+

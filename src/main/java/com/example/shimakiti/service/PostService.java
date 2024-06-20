@@ -1,5 +1,6 @@
 package com.example.shimakiti.service;
 
+import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Posts;
 import com.example.shimakiti.repository.PostRepository;
 import java.util.List;
@@ -12,4 +13,6 @@ public class PostService {
     private PostRepository postRepository;
 
     public List<Posts> findAllPosts(){return postRepository.findAll();}
+
+    public List<Posts> findByCategoriesPosts(Categories categories){return postRepository.findByCategories(categories);}
 }

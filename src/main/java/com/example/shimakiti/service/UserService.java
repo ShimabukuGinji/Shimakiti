@@ -23,6 +23,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findByUserName(String username){
+        return userRepository.findByUsername(username);
+    }
 //    public User registerUser(User user) {
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
 //        return userRepository.save(user);

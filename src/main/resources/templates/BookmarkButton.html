@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島ぬひみつきち</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+    const BookmarkButton = ({ postId, initialBookmarked }) => {
+    const [bookmarked, setBookmarked] = useState(initialBookmarked);
+    const [loading, setLoading] = useState(false);
+
+    const handleBookmark = async () => {
+        setLoading(true);
+        try {
+            if (bookmarked) {
+                await axios.delete(`/api/bookmarks/${postId}`);
+            } else {
+                await axios.post(`/api/bookmarks/${postId}`);
+            }
+            setBookmarked(!bookmarked);
+        } catch (error) {
+            console.error("Error bookmarking/unbookmarking post:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <button onClick={handleBookmark} disabled={loading}>
+            {bookmarked ? "Unbookmark" : "Bookmark"}
+        </button>
+    );
+};
+
+ReactDOM.render(<BookmarkButton />, document.getElementById('root'));
+</script>
+</body>
+</html>

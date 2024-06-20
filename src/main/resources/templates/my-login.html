@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+a
+<div id="root"></div>
+a
+
+<script type="text/babel">
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+
+    const Login = () => {
+        const [username, setUsername] = useState('');
+        const [password, setPassword] = useState('');
+        const [loginInfo, setLoginInfo] = useState({
+            username: '',
+            password: '',
+        })
+
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+            try {
+                await axios.post('/api/users/login', { username, password });
+                alert('Login successful!');
+            }catch (error) {
+                console.error('There was an error logging in!', error);
+            }
+        }
+
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setLoginInfo({
+                ...loginInfo, [name]:value
+            })
+            console.log(username)
+        }
+
+        return (
+            <form onSubmit={handleSubmit} class="">
+                <div>
+                    <label>ユーザー名:</label>
+                    <input type="text" name="username" value={loginInfo.username} onChange={handleChange} required />
+                </div>
+                <div>
+                    <label>パスワード:</label>
+                    <input type="password" name="password" value={loginInfo.password} onChange={handleChange} required />
+                </div>
+                <button type="submit">Login</button>
+                <button type="submit">新規登録</button>
+            </form>
+        );
+    }
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<Login />);
+
+</script>
+
+</body>
+</html>

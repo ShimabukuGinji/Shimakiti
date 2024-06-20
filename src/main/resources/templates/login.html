@@ -1,69 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Login</title>
+    <link rel="stylesheet/less" type="text/css" th:href="@{/css/styles.less}" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+    <style>body{background-color:#66cdaa}</style>
 </head>
 <body>
+<div class="wrapper">
+    <div class="container">
+        <h1>Welcome</h1>
+        <div th:if="${error} != null">
+            <h2>ログインIDかパスワードが間違っています。</h2>
+        </div>
+        <form class="form" th:action="@{/login}" method="post">
+            <input type="text" name="username" placeholder="username">
+            <input type="password"  name="password" placeholder="password">
+            <button type="submit" id="login-button">Login</button>
+        </form>
+        <div>
+            <p>新規登録</p>
+        </div>
+        <div>
+            <p>パスワードを忘れた方はこちら</p>
+        </div>
+    </div>
 
-a
-<div id="root"></div>
-a
 
-<script type="text/babel">
-    const useState = React.useState;
-    const useEffect = React.useEffect;
 
-    const Login = () => {
-        const [username, setUsername] = useState('');
-        const [password, setPassword] = useState('');
-        const [loginInfo, setLoginInfo] = useState({
-            username: '',
-            password: '',
-        })
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 
-        const handleSubmit = async (event) => {
-            event.preventDefault();
-            try {
-                await axios.post('/api/users/login', { username, password });
-                alert('Login successful!');
-            }catch (error) {
-                console.error('There was an error logging in!', error);
-            }
-        }
 
-        const handleChange = (e) => {
-            const { name, value } = e.target;
-            setLoginInfo({
-                ...loginInfo, [name]:value
-            })
-            console.log(username)
-        }
 
-        return (
-            <form onSubmit={handleSubmit} class="">
-                <div>
-                    <label>ユーザー名:</label>
-                    <input type="text" name="username" value={loginInfo.username} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label>パスワード:</label>
-                    <input type="password" name="password" value={loginInfo.password} onChange={handleChange} required />
-                </div>
-                <button type="submit">Login</button>
-                <button type="submit">新規登録</button>
-            </form>
-        );
-    }
-    const container = document.getElementById("root");
-    const root = ReactDOM.createRoot(container);
-    root.render(<Login />);
 
+<script>
+    $("#login-button").click(function(event){
+    event.preventDefault();
+
+  $('form').fadeOut(500);
+  $('.wrapper').addClass('form-success');
+});
 </script>
+
 
 </body>
 </html>

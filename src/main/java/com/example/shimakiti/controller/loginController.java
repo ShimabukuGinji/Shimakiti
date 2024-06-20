@@ -16,14 +16,14 @@ public class loginController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("login")
-    public String login(){
-        List<User> user1 = userService.findAllUsers();
-        for(var a:user1) {
-            System.out.println(a.getId()+","+a.getUsername()+","+a.getCreated_at()+","+a.getUpdated_at());
-        }System.out.println(1);
-        return "login";
-    }
+//    @GetMapping("login")
+//    public String login(){
+//        List<User> user1 = userService.findAllUsers();
+//        for(var a:user1) {
+//            System.out.println(a.getId()+","+a.getUsername()+","+a.getCreated_at()+","+a.getUpdated_at());
+//        }System.out.println(1);
+//        return "login";
+//    }
 
     @GetMapping("admin")
     public String admin(){
@@ -39,4 +39,16 @@ public class loginController {
     public String pirate(){
         return "pirate";
     }
+
+    @GetMapping("bookmark")
+    public String bookemark(){return "bookmark";}
+
+    @GetMapping("bookmark2")
+    public String bookemark2(){return "bookmark2";}
+
+    @GetMapping("cheet")
+    public String cheet(){return "cheet";}
+
+    @GetMapping("BookmarkButton")
+    public String BookmarkButton(){return "BookmarkButton";}
 }

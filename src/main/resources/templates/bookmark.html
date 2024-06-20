@@ -2,9 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='https://unpkg.com/react-router-dom@6.6.1/umd/react-router-dom.min.js'></script>
+
 </head>
 <body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+
+    const BookmarkButton = ({ postId, initialBookmarked }) => {
+        const [bookmarked, setBookmarked] = useState(initialBookmarked);
+        const [loading, setLoading] = useState(false);
+
+
+        const handleBookmark = async () => {
+            setLoading(true);
+            try {
+                if (bookmarked) {
+
+                } else {
+
+                }
+                setBookmarked(!bookmarked);
+            } catch (error) {
+                console.error("Error bookmarking/unbookmarking post:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        return (
+        <button onClick={handleBookmark} disabled={loading}>
+            {bookmarked ? "Unbookmark" : "Bookmark"}
+        </button>
+    );
+    }
+
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<BookmarkButton/>);
+</script>
 
 </body>
 </html>
