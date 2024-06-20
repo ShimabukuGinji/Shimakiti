@@ -1,8 +1,7 @@
 package com.example.shimakiti.service;
 
-import com.example.shimakiti.repository.CitiesRepository;
+import com.example.shimakiti.repository.BookmarksRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,8 +12,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class BookmarkService implements ICitiesService {
+public class BookmarkService implements IBookmarkService {
 
-	private final CitiesRepository cityRepository;
+	private final BookmarksRepository bookmarksRepository;
 
 }

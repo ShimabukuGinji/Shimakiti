@@ -20,7 +20,11 @@ public interface IPostService {
 	 * @param form フォーム情報
 	 * @throws IOException
 	 */
-	public void post(PostForm form) throws IOException;
+	public void insert(PostForm form) throws IOException;
+
+	public void update(PostForm form, int postId) throws IOException;
 
 	public Optional<PostResult> postResult(int userId) throws IOException;
+
+	public Optional<PostForm> postForm(int userId) throws IOException;
 }

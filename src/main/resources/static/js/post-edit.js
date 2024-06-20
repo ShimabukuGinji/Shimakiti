@@ -1,12 +1,21 @@
 'use strict';
+let Lat = Number(document.getElementById('lat').value);
+let Lng = Number(document.getElementById('lng').value);
+console.log(Lat);
+console.log(Lng);
 var marker;
 let num = 0;
-function initMapInsert() {
+function initMapEdit() {
   // マップの初期化
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 9,
-    center: {lat: 26.509961, lng: 127.962765}
+    zoom: 13,
+    center: {lat: Lat, lng: Lng}
   });
+
+  marker = new google.maps.Marker({
+      position: {lat: Lat, lng: Lng},
+      map: map
+    });
 
   // クリックイベントを追加
   map.addListener('click', function(e) {

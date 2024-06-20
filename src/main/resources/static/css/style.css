@@ -20,20 +20,19 @@ html, body {
 
 /* 画像サイズ*/
 .image {
-    height: 100px;
-    width: 100px;
+    width: 20%;
 }
 
 .pic-image {
-    width: 80%;
+    width: 60%;
 }
-
 
 .box {
     display: flex;
     height: 1000px;
     width: 100%;
 }
+
 .box-left {
     margin: auto;
     height: 100%;
