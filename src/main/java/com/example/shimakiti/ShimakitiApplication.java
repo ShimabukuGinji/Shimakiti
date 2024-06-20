@@ -8,6 +8,5 @@ public class ShimakitiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShimakitiApplication.class, args);
-
 	}
 }
