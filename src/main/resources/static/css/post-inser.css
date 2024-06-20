@@ -4,8 +4,8 @@ html, body {
   padding: 0;
 }
 #map {
-  height: 50vw;
-  width: 50vw;
+  height: 10vw;
+  width: 10vw;
 }
 
 .required::before {
@@ -22,5 +22,5 @@ html, body {
 }
 
 .input-file {
-
+  display: none;
 }
