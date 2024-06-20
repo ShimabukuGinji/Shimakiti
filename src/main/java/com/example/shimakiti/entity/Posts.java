@@ -20,8 +20,9 @@ public class Posts {
 //    private String imageUrl;//URL
     private String summary;//概要
     private String address;//住所
+    private String imageUuid;
     private String mapLongitude;//緯度
-    private String mapLatitude;//軽度
+    private String mapLatitude;//経度
     private String link;//店舗ホームページなどURL
     private Date createdAt;//投稿日
     private Date updatedAt;//更新日

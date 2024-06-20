@@ -25,8 +25,6 @@ public class MenuController {
         return "menu";
     }
 
-
-
     @GetMapping("/search")
     public String searchPage(@RequestParam("location") String location,
                              @RequestParam("keyword") String keyword,

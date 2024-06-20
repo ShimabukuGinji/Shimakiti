@@ -17,20 +17,11 @@ import java.util.List;
 public class PostsController {
     @Autowired
     public PostsRepository postsRepository;
-    @Autowired
-    public CategoriesRepository categoriesRepository;
-    @Autowired
-    public UsersRepository usersRepository;
 
     @GetMapping("/menu2")
     public String displayNotices(Model model) {
-        System.out.println("posts");
         List<Posts> posts = postsRepository.postsJoinCategory();
-        model.addAttribute("categories",categoriesRepository.findAll());
-        model.addAttribute("users",usersRepository.findAll());
         model.addAttribute("posts", posts);
-        System.out.println(posts);
-        System.out.println("posts");
         return "menu2";
     }
 }
