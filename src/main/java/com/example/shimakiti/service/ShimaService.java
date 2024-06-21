@@ -10,8 +10,7 @@ import com.example.shimakiti.repository.IShimaRepository;
 
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,6 +61,16 @@ public class ShimaService{
     //カテゴリーでPostを探す
     public List<Posts> findByCategoryPosts(Categories categories){
         return iShimaRepository.findByCategories(categories);
+    }
+
+    public Categories updateCategory(Long id, Categories categoryDetails) {
+        Categories category = iCategoryRepository.findById(id).orElseThrow(() -> new InvalidConfigurationPropertyValueException("","Category not found",""));
+        category.setName(categoryDetails.getName());
+        return iCategoryRepository.save(category);
+    }
+
+    public Categories addCategory(Categories category) {
+        return iCategoryRepository.save(category);
     }
 
 

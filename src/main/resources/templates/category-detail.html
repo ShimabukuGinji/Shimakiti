@@ -5,12 +5,10 @@
     <title>カテゴリー詳細</title>
 </head>
 <body>
-<table></table>
 <h1 th:text="${category.name}"></h1>
 <p>件数：<span th:text="${category.posts}"></span></p>
-<a href="/category-edit"><input type="button"  value="編集"></a>
+<a th:href="'/category-edit/' + ${category.id}"><input type="button"  value="編集"></a>
 
-<script
 
 </body>
 </html>

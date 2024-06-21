@@ -5,10 +5,11 @@
     <title>カテゴリー編集</title>
 </head>
 <body>
-<form action="/category-edit" method="post">
+<form th:action="|/category-edit/${category.id}|" method="post">
     <p>カテゴリー名を入力してください</p>
     <input type="text" th:field="${category.name}">
     <input type="submit" value="決定">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </form>
 </body>
 </html>
