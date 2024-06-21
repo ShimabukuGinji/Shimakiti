@@ -15,9 +15,11 @@ public class Likes {
     @Column(name="id")
     private int id;
 
-    @Column(name="users_id")
-    private int users_id;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private User user;
 
-    @Column(name="posts_id")
-    private int posts_id;
+    @ManyToOne
+    @JoinColumn(name = "posts_id")
+    private Posts post;
 }
