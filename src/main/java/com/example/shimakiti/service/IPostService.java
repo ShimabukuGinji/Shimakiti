@@ -26,5 +26,5 @@ public interface IPostService {
 
 	public Optional<PostResult> postResult(int userId) throws IOException;
 
-	public Optional<PostForm> postForm(int userId) throws IOException;
+	public void delete(int id);
 }

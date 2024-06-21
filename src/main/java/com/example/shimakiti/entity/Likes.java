@@ -26,8 +26,10 @@ public class Likes {
 	@Column(name="users_id")
 	private int users_id;
 
+
 	/** 投稿ID */
-	@Column(name="posts_id")
-	private int posts_id;
+	@ManyToOne
+	@JoinColumn(name = "posts_id")
+	private Posts posts;
 
 }

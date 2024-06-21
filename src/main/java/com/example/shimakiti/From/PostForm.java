@@ -1,5 +1,8 @@
 package com.example.shimakiti.From;
 
+import com.example.shimakiti.entity.Categories;
+import com.example.shimakiti.entity.Cities;
+import com.example.shimakiti.entity.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,13 +20,13 @@ public class PostForm {
 	private int id;
 
 	/** カテゴリーID */
-	private int category_id;
+	private Categories categories;
 
 	/** 市町村ID */
-	private int cities_id;
+	private Cities cities;
 
 	/** ユーザーID */
-	private int users_id;
+	private User user;
 
 	/** タイトル */
 	private String title;

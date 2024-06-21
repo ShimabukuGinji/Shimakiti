@@ -2,21 +2,21 @@ package com.example.shimakiti.service;
 
 import com.example.shimakiti.From.PostForm;
 import com.example.shimakiti.dto.PostResult;
-import com.example.shimakiti.entity.Posts;
-import com.example.shimakiti.repository.CategoriesRepository;
-import com.example.shimakiti.repository.CitiesRepository;
-import com.example.shimakiti.repository.PostsRepository;
-import com.example.shimakiti.repository.UserRepository;
+import com.example.shimakiti.entity.*;
+import com.example.shimakiti.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,6 +42,15 @@ public class PostService implements IPostService {
 	/** 市町村情報テーブルRepository */
 	private final UserRepository userRepository;
 
+	/** いいね情報テーブルRepository */
+	private final LikesRepository likesRepository;
+
+	/** ブックマーク情報テーブルRepository */
+	private final BookmarksRepository bookmarksRepository;
+
+	/** コメント情報テーブルRepository */
+	private final CommentsRepository commentsRepository;
+
 	/** Dozer Mapper */
 	private final Mapper mapper;
 
@@ -64,10 +73,15 @@ public class PostService implements IPostService {
 	public void insert(PostForm form) throws IOException {
 		// DB更新
 		var imageID = UUID.randomUUID();
+		Categories categories = categoryRepository.findById(form.getCategories().getId()).get();
+		Cities cities = cityRepository.findById(form.getCities().getId()).get();
 		var postInfo = mapper.map(form, Posts.class);
+		postInfo.setCategories(categories);
+		postInfo.setCities(cities);
 		postInfo.setImage_uuid(imageID);
+		//		セッション情報から取得
 		// ユーザーIDを指定　サンプル用（1：管理者 2：島袋款次  3：野村太陽  4：埜村瑠希  5：儀間真貴  6：比嘉奏陽  7：當田大翔 ）
-		postInfo.setUsers_id(2);
+		postInfo.setUser(userRepository.findById(2).get());
 		postRepository.save(postInfo);
 
 		if (!form.getImageFile1().isEmpty()) {
@@ -117,11 +131,15 @@ public class PostService implements IPostService {
 
 		var post = postRepository.findById(postId);
 		var imageID = UUID.randomUUID();
-
-		// DB更新
+		Categories categories = categoryRepository.findById(form.getCategories().getId()).get();
+		Cities cities = cityRepository.findById(form.getCities().getId()).get();
 		var postInfo = mapper.map(form, Posts.class);
+		postInfo.setCategories(categories);
+		postInfo.setCities(cities);
+		//		セッション情報から取得
+		// ユーザーIDを指定　サンプル用（1：管理者 2：島袋款次  3：野村太陽  4：埜村瑠希  5：儀間真貴  6：比嘉奏陽  7：當田大翔 ）
+		postInfo.setUser(userRepository.findById(2).get());
 		postInfo.setId(postId);
-		postInfo.setUsers_id(post.get().getUsers_id());
 		if (post.get().getImage_uuid() == null) {
 			postInfo.setImage_uuid(imageID);
 		} else {
@@ -183,10 +201,9 @@ public class PostService implements IPostService {
 
 		var postResult = new PostResult();
 		postResult.setId(postInfo.getId());
-		postResult.setCategoryName(categoryRepository.findById(postInfo.getCategory_id()).get().getName());
-		postResult.setCitiesName(cityRepository.findById(postInfo.getCities_id()).get().getName());
-		postResult.setUsersName(userRepository.findById(postInfo.getUsers_id()).get().getUsername());
-		postResult.setUsers_id(postInfo.getUsers_id());
+		postResult.setCategories(postInfo.getCategories());
+		postResult.setCities(postInfo.getCities());
+		postResult.setUser(postInfo.getUser());
 		postResult.setAddress(postInfo.getAddress());
 		postResult.setTitle(postInfo.getTitle());
 		postResult.setSummary(postInfo.getSummary());
@@ -199,6 +216,8 @@ public class PostService implements IPostService {
 		postResult.setImageFile5("data:image/jpg;base64," + outputImage(postInfo.getImage_uuid(),5));
 		postResult.setMap_latitude(postInfo.getMap_latitude());
 		postResult.setMap_longitude(postInfo.getMap_longitude());
+		postResult.setCreated_at(postInfo.getCreated_at());
+		postResult.setUpdated_at(postInfo.getUpdated_at());
 		return Optional.of(postResult);
 	}
 
@@ -212,31 +231,34 @@ public class PostService implements IPostService {
 	private Path searchImage(UUID uuid, long i) {
 		var searchFileName = uuid + "-" + i + imgExtract;
 		var imgFilePath = Path.of(imgFolder, searchFileName);
-
 		return Files.exists(imgFilePath) ? imgFilePath : Path.of(imgFolder, imgDefault + imgExtract);
 	}
 
-	@Override
-	public Optional<PostForm> postForm(int postId) throws IOException {
-		var postInfoOpt = postRepository.findById(postId);
-		if (postInfoOpt.isEmpty()) {
-			return Optional.empty();
+	/**
+	 * 投稿情報 削除
+	 * @param id ユーザーID
+	 */
+	public void delete(int id) {
+		Posts post = postRepository.findById(id).get();
+		for (var i=1; i<=5; i++) {
+			Path path = Paths.get("C:\\post\\" + post.getImage_uuid() + "-" + i + ".jpg");
+			File file = new File("C:\\post\\" + post.getImage_uuid() + "-" + i + ".jpg");
+			if (file.exists()) {
+				try{
+					Files.delete(path);
+				}catch(IOException e){
+					System.out.println(e);
+				}
+			} else {
+				System.out.println("ファイルが存在しません");
+			}
 		}
-		var postInfo = postInfoOpt.get();
-
-		var postResult = new PostForm();
-		postResult.setId(postInfo.getId());
-		postResult.setCategory_id(postInfo.getCategory_id());
-		postResult.setCities_id(postInfo.getCities_id());
-		postResult.setUsers_id(postInfo.getUsers_id());
-		postResult.setAddress(postInfo.getAddress());
-		postResult.setTitle(postInfo.getTitle());
-		postResult.setSummary(postInfo.getSummary());
-		postResult.setDetail(postInfo.getDetail());
-		postResult.setLink(postInfo.getLink());
-		postResult.setMap_latitude(postInfo.getMap_latitude());
-		postResult.setMap_longitude(postInfo.getMap_longitude());
-		return Optional.of(postResult);
+		List<Likes> likes = likesRepository.findByPosts(post);
+		likesRepository.deleteAll(likes);
+		List<Comments> comments = commentsRepository.findByPosts(post);
+		commentsRepository.deleteAll(comments);
+		List<Bookmarks> bookmarks = bookmarksRepository.findByPosts(post);
+		bookmarksRepository.deleteAll(bookmarks);
+		postRepository.delete(post);
 	}
-
 }

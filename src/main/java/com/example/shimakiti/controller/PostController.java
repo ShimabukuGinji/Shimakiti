@@ -1,6 +1,7 @@
 package com.example.shimakiti.controller;
 
 import com.example.shimakiti.From.PostForm;
+import com.example.shimakiti.entity.Posts;
 import com.example.shimakiti.repository.CategoriesRepository;
 import com.example.shimakiti.repository.CitiesRepository;
 import com.example.shimakiti.repository.PostsRepository;
@@ -8,6 +9,7 @@ import com.example.shimakiti.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,9 +77,10 @@ public class PostController {
 		var post = postservice.postResult(postId);
 		if (post.isPresent()) {
 			model.addAttribute("post",post.get());
+			System.out.println(post.get().getCreated_at());
 			return "post-detail";
 		}
-		return "redirect:/menu";
+		return "redirect:/posts";
 	}
 
 	/**
@@ -88,21 +91,25 @@ public class PostController {
 	 */
 	@GetMapping("/posts/edit/{postID}")
 	public String edit(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
-		var postForm = postservice.postForm(postId);
 		var postResult = postservice.postResult(postId);
-		if (postForm.isPresent() && postResult.isPresent()) {
+		if (postResult.isPresent()) {
 			model.addAttribute("categories", categoryRepository.findAll());
 			model.addAttribute("cities", cityRepository.findAll());
-			model.addAttribute("postForm",postForm.get());
-			model.addAttribute("post",postResult.get());
+			model.addAttribute("postForm",postResult.get());
 			return "post-edit";
 		}
-		return "redirect:/menu";
+		return "redirect:/posts";
 	}
 
 	@PostMapping("/posts/edit/{postID}")
 	public String update(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
 		postservice.update(form, postId);
+		return "redirect:/posts/detail/" + postId;
+	}
+
+	@GetMapping("/posts/delete/{postID}")
+	public String delete(@PathVariable("postID") int postId) throws IOException {
+		postservice.delete(postId);
 		return "redirect:/posts";
 	}
 }

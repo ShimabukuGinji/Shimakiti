@@ -1,5 +1,8 @@
 package com.example.shimakiti.dto;
 
+import com.example.shimakiti.entity.Categories;
+import com.example.shimakiti.entity.Cities;
+import com.example.shimakiti.entity.User;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,25 +17,16 @@ import java.util.Date;
 public class PostResult {
 
 	/** ID */
-	private long id;
+	private int id;
 
 	/** カテゴリー名 */
-	private String categoryName;
-
-	/** カテゴリーID */
-	private int category_id;
+	private Categories categories;
 
 	/** 市町村名 */
-	private String citiesName;
-
-	/** 市町村ID */
-	private int cities_id;
+	private Cities cities;
 
 	/** ユーザー名 */
-	private String usersName;
-
-	/** ユーザーID */
-	private int users_id;
+	private User user;
 
 	/** タイトル */
 	private String title;

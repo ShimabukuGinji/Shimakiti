@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -29,16 +31,19 @@ public class Posts {
 	private int id;
 
 	/** ユーザーID */
-	@Column(name = "users_id")
-	private int users_id;
+	@ManyToOne
+	@JoinColumn(name = "users_id")
+	private User user;
 
 	/** カテゴリーID */
-	@Column(name = "category_id")
-	private int category_id;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Categories categories;
 
 	/** 市町村ID */
-	@Column(name = "cities_id")
-	private int cities_id;
+	@ManyToOne
+	@JoinColumn(name = "cities_id")
+	private Cities cities;
 
 	/** タイトル */
 	@Column(name = "title")
@@ -79,4 +84,5 @@ public class Posts {
 	/** 編集日時 */
 	@Column(name = "updated_at")
 	private Date updated_at;
+
 }

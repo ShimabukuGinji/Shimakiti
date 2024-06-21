@@ -29,8 +29,9 @@ public class Comments {
 	private int users_id;
 
 	/** 投稿ID */
-	@Column(name="posts_id")
-	private int posts_id;
+	@ManyToOne
+	@JoinColumn(name = "posts_id")
+	private Posts posts;
 
 	/** コメント内容 */
 	@Column(name = "content")
