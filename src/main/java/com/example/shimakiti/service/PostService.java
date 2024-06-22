@@ -6,6 +6,7 @@ import com.example.shimakiti.repository.PostRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class PostService {

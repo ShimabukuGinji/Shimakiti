@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface CategoriesRepository extends JpaRepository<Categories, Integer> {
 
-    List<Posts> findByCategories(Categories categories);
-
 
 }

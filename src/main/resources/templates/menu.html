@@ -115,7 +115,7 @@
     function getInputAndRedirect(cityName) {
         const keyword = document.getElementById("keyword").value;
         const category = document.getElementById("category").value;
-        window.location.href = `/search?location=${encodeURIComponent(cityName)}&keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
+        window.location.href = `/search?region=${encodeURIComponent(cityName)}&keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
     }
 </script>
 </body>

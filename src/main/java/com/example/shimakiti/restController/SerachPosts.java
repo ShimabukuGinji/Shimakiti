@@ -27,4 +27,21 @@ public class SerachPosts {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
 //    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Posts>> getPosts(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String region
+    ) {
+        try{
+            System.out.println(category+":"+keyword+":"+region);
+            var postList = postService.findPosts(category, keyword, region);
+            return new ResponseEntity<>(postList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
