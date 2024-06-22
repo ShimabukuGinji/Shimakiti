@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <link href="../css/commons.css" rel="stylesheet">
     <title>しまきち</title>
+    <link href="/css/header.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <h1 class="site_logo"><a href="menu">島ぬひみつきち</a></h1>
-    <div class="user">
-        <p class="user_name">ユーザーさん、こんにちは</p>
-        <div class="btn"><a class="basic_btn regist" href="post-insert">情報追加</a></div>
-        <div class="btn"><a class="basic_btn regist" href="bookmark.html">ブックマーク</a></div>
-        <div class="btn"><a class="basic_btn regist" href="profile.html">Myページ</a></div>
-    </div>
-</div>
+<th:block th:insert="common/header"></th:block>
 <div class="border"></div>
-
 <div class="notice-menu">
     <h3>お知らせ</h3>
     <div th:each="notice : ${notices}" class="notice">

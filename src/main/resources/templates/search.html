@@ -17,10 +17,11 @@
     <img img src="../img/okinawa.png" width="200" height="200">
     <div class="text-block">
         <div class="text-block">
-            <p>選択された市町村： <input th:value="${region}"></p>
-            <p>キーワード： <input th:value="${keyword}"></p>
+            <p>選択された市町村： <input id="region" th:value="${region}"></p>
+            <p>キーワード： <input id="keyword" th:value="${keyword}"></p>
             <select>
-                <option th:each="category : ${categories}"
+                <option id="categoryName"
+                        th:each="category : ${categories}"
                         th:value="${category.id}"
                         th:text="${category.name}"
                         th:selected="${category.id == categoryParam}">
@@ -48,12 +49,17 @@
 
     const Home = withRouter(({ history, location }) => {
         const [posts, setPosts] = useState([]);
+        const [cats, setCats] = useState([]);
+        const [cities, setCities] = useState([]);
+         let postsCount = 0;
         const [searchParams, setSearchParams] = useState({
             category: '',
             keyword: '',
             region: ''
         });
         const [showResults, setShowResults] = useState(false);
+
+
 
         useEffect(() => {
             const params = new URLSearchParams(location.search);
@@ -63,7 +69,7 @@
                 region: params.get('region') || ''
             });
             setShowResults(location.search !== '');
-
+             postsCount = 0;
         }, [location.search]);
 
         const handleRegionClick = (regionName) => {
@@ -104,17 +110,36 @@
             fetchPosts();
         }, [searchParams, showResults]);
 
+        useEffect(() => {
+            const fetchCategories = async () => {
+                const response = await axios.get('/api/search/categories');
+                setCats(response.data);
+            };
+            fetchCategories();
+        }, []);
+
+        useEffect(() => {
+            const fetchCities = async () => {
+                const response = await axios.get('/api/search/cities');
+                setCities(response.data);
+            };
+            fetchCities();
+        }, []);
+
         return (
             <div>
-                <h1>島ぬひみつきち</h1>
+
                 <div>
-                    <input
-                        type="text"
+                    <select
                         name="category"
                         value={searchParams.category}
                         onChange={handleInputChange}
-                        placeholder="カテゴリー"
-                    />
+                    >
+                        <option value="">全部</option>
+                        {cats.map(cat => (
+                            <option key={cat.id} value={cat.name}>{cat.name}</option>
+                        ))}
+                    </select>
                     <input
                         type="text"
                         name="keyword"
@@ -122,20 +147,20 @@
                         onChange={handleInputChange}
                         placeholder="キーワード"
                     />
-                    <input
-                        type="text"
+                    <select
                         name="region"
                         value={searchParams.region}
-                        readOnly
-                        placeholder="地域"
-                    />
-
-                </div>
-                <div>
-                    <button onClick={handleRegionClick.bind(null, '那覇')}>那覇</button>
-                    <button onClick={handleRegionClick.bind(null, '沖縄市')}>沖縄市</button>
-                    <button onClick={handleRegionClick.bind(null, '浦添')}>浦添</button>
-                    {/* 他の地域ボタンも同様に */}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">全部</option>
+                        {cities.map(city => (
+                            <option key={city.id} value={city.name}>{city.name}</option>
+                        ))}
+                    </select>
+                    <p>
+                        検索結果：
+                        並び替え：
+                    </p>
                 </div>
 
               <div>
@@ -158,6 +183,7 @@
                           </div>
 
                       </div>
+
                   ))}
           </div>
 

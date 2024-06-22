@@ -17,10 +17,6 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("/post-insert")
-    public String header(Model model) {
-        return "post-insert";
-    }
     @GetMapping("/menu")
     public String displayNotices(Model model) {
         List<Notices> notices = menuService.findTop3ByOrderByIdDesc();

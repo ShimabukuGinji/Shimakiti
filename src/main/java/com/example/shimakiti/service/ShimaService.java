@@ -6,14 +6,12 @@ import com.example.shimakiti.entity.Posts;
 import com.example.shimakiti.entity.User;
 import com.example.shimakiti.repository.CategoriesRepository;
 
-import com.example.shimakiti.repository.ICityRepository;
+import com.example.shimakiti.repository.CityRepository;
 
 
 import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public class ShimaService{
     private CategoriesRepository iCategoryRepository;
 
     @Autowired
-    private ICityRepository iCityRepository;
+    private CityRepository iCityRepository;
 
     @Autowired
     private UserRepository userRepository;
