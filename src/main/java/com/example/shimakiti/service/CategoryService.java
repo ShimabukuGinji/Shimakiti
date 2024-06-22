@@ -11,7 +11,7 @@ import com.example.shimakiti.entity.User;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 
 import java.util.List;
-
+//
 @Service
 public class CategoryService {
 
