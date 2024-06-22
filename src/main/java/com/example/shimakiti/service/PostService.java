@@ -15,5 +15,14 @@ public class PostService {
 
     public List<Posts> findAllPosts(){return postRepository.findAll();}
 
-    public List<Posts> findByCategoriesPosts(Categories categories){return postRepository.findByCategories(categories);}
+    public List<Posts> findByCategoriesPosts(Categories categories){
+        return postRepository.findByCategories(categories);}
+
+
+    public List<Posts> findPosts(String category, String keyword, String region) {
+        if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
+            return postRepository.findAll();
+        }
+        return postRepository.findPostsByCriteria(category, keyword, region);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.shimakiti.service;
 
 import com.example.shimakiti.repository.CategoriesRepository;
+import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class CategoryService {
     CategoriesRepository categoriesRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     UserRepository userRepository;
 
 
@@ -28,7 +32,7 @@ public class CategoryService {
 
     //カテゴリーでPostを探す
     public List<Posts> findByCategoryPosts(Categories categories){
-        return categoriesRepository.findByCategories(categories);
+        return postRepository.findByCategories(categories);
     }
 
     public Categories updateCategory(Integer id, Categories categoryDetails) {

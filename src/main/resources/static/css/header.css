@@ -1,24 +1,30 @@
-/* header.css */
-
 .header {
+    width: 80%;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    margin-bottom: 10px;
+    padding: 10px 0;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 10px;
+}
+.header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+.header .user-info {
+    display: flex;
+    gap: 10px;
+}
+.header .user-info button {
+    padding: 10px;
+    background-color: #6C757D;
+    color: white;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
-
-/* ヘッダ下のライン */
-.border{
-    border: 5px solid #66FFCC;
-    margin-bottom: 20px;
-}
-
-/* サイトロゴ島ぬひみつきち */
-.site_logo a {
-    color: #000;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: bold;
+.header .user-info button:hover {
+    background-color: #5A6268;
 }

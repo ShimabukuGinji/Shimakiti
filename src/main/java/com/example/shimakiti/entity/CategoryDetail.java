@@ -6,14 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
 public class CategoryDetail {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private Long posts;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
+        private String name;
+        private long posts;
 }
-
