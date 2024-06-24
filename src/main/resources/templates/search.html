@@ -189,6 +189,8 @@
         const [liked, setLiked] = useState(false);
         const [bookmarked, setBookmarked] = useState(false);
         const [getBookmark, setGetBookmark] = useState([]);
+        const [getLike, setGetLike] = useState([]);
+        const [likeCount, setLikeCount] = useState([]);
 
         useEffect(() => {
             const fetchGetBookmark = async () => {
@@ -198,10 +200,15 @@
             fetchGetBookmark();
         }, []);
 
-
+        useEffect(() => {
+            const fetchCities = async () => {
+                const response = await axios.get(`/api/likes/count/${post.id}`);
+                setLikeCount(response.data);
+            };
+            fetchCities();
+        }, [liked, setLiked]);
 
         const likeClick = async () => {
-            setLiked(!liked);
             try {
                 if (liked) {
                     await axios.post(`/api/likes/delete/${post.id}`);
@@ -211,6 +218,7 @@
             } catch (error) {
                 console.error("Error", error);
             }
+            setLiked(!liked);
         };
 
         const bookmarkClick = async () => {
@@ -249,7 +257,7 @@
                                     type="image"
                                     onClick={likeClick}
                                     src={liked ? '../img/like-after.png' : '../img/like-before.png'}
-                                /><span>40</span>
+                                /><span>{likeCount}</span>
                                 <input
                                     className="click-img"
                                     type="image"
@@ -271,7 +279,6 @@
             </HashRouter>
         );
     };
-
     ReactDOM.render(<App />, document.getElementById('root'));
 </script>
 

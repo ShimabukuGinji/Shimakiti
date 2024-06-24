@@ -44,4 +44,9 @@ public class LikeService {
         User user = userRepository.findByUsername(username);
         return likesRepository.findByUser(user);
     }
+
+    public List<Likes> getPostLikes(int postId) {
+        Posts post = postRepository.findById(postId).get();
+        return likesRepository.findByPost(post);
+    }
 }

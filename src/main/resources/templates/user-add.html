@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<form class="form" th:action="@{/account/admin}" method="post">
+<form class="form" th:action="@{/account/admin}" method="post" th:object="${_csrf.notice}">
     <div>
         <p align="center"><font size="20">新規登録</font></p>
     </div>

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class User {
     private int role;
 
     @Column(name="profile_picture")
-    private String profilePicture;
+    private UUID profilePicture;
 
     @Column(name = "bio")
     private String bio;
