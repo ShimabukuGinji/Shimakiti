@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -50,7 +53,7 @@ public class PostController {
      * @return 画面名
      */
     @GetMapping("/posts")
-    public String view(PostForm form, Model model) {
+    public String view(@ModelAttribute("postForm") PostForm form, Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("cities", cityRepository.findAll());
         return "post-insert";
@@ -64,7 +67,12 @@ public class PostController {
      * @throws IOException
      */
     @PostMapping("/posts")
-    public String post(PostForm form, Model model) throws IOException {
+    public String post(@Validated @ModelAttribute("postForm") PostForm form, BindingResult bindingResult, Model model) throws IOException {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("cities", cityRepository.findAll());
+            return "post-insert";
+        }
         postservice.insert(form);
         return "redirect:/posts";
     }
@@ -81,6 +89,7 @@ public class PostController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username);
         if (post.isPresent()) {
+            model.addAttribute("user", user);
             model.addAttribute("post",post.get());
             System.out.println(post.get().getCreated_at());
             return "post-detail";
@@ -95,7 +104,7 @@ public class PostController {
      * @return 画面名
      */
     @GetMapping("/posts/edit/{postID}")
-    public String edit(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
+    public String edit(@PathVariable("postID") int postId, @ModelAttribute @Validated PostForm form, Model model) throws IOException {
         var post = postservice.postResult(postId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username);

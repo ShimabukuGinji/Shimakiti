@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -24,13 +25,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="name")
+    private String name;
 
     private int role;
 
     @Column(name="profile_picture")
-    private String profilePicture;
+    private UUID profilePicture;
 
     @Column(name = "bio")
     private String bio;

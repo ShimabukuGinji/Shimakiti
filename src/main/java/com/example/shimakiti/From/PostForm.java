@@ -3,7 +3,10 @@ package com.example.shimakiti.From;
 import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Cities;
 import com.example.shimakiti.entity.User;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -13,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author ys-fj
  *
  */
+@Setter
+@Getter
 @Data
 public class PostForm {
 
@@ -47,6 +52,7 @@ public class PostForm {
 	private MultipartFile imageFile5;
 
 	/** 概要 */
+	@Size(max = 50, message = "概要は50文字以内で入力してください")
 	private String summary;
 
 	/** 詳細 */

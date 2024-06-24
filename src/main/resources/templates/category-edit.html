@@ -7,7 +7,7 @@
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<form th:action="|/category-edit/${category.id}|" method="post">
+<form th:action="|/admin/category-edit/${category.id}|" method="post">
     <p>カテゴリー名を入力してください</p>
     <input type="text" th:field="${category.name}">
     <input type="submit" value="決定">

@@ -9,7 +9,7 @@
 <th:block th:insert="common/header"></th:block>
 <h1 th:text="${category.name}"></h1>
 <p>件数：<span th:text="${category.posts}"></span></p>
-<a th:href="'/category-edit/' + ${category.id}"><input type="button"  value="編集"></a>
+<a th:href="'/admin/category-edit/' + ${category.id}"><input type="button"  value="編集"></a>
 
 
 </body>

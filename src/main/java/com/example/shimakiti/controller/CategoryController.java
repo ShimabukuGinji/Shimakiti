@@ -18,7 +18,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/category")
+    @GetMapping("/admin/category")
     public String category(Model model){
         var list = new ArrayList<CategoryDetail>();
         for(Categories categories:categoryService.findCategory()){
@@ -32,7 +32,7 @@ public class CategoryController {
         return "category";
     }
 
-    @GetMapping("/categoryDetail/{id}")
+    @GetMapping("/admin/categoryDetail/{id}")
     public String categoryDetail(@PathVariable("id")Integer id, Model model){
         var categories = categoryService.findById(id);
 
@@ -45,29 +45,29 @@ public class CategoryController {
         return "category-detail";
     }
 
-    @GetMapping("/category-edit/{id}")
+    @GetMapping("/admin/category-edit/{id}")
     public String categoryUpdate(@PathVariable("id")Integer id, Model model){
         model.addAttribute("category",categoryService.findById(id));
         System.out.println(categoryService.findById(id));
         return "category-edit";
     }
 
-    @PostMapping("/category-edit/{id}")
+    @PostMapping("/admin/category-edit/{id}")
     public String categoryUpdate(@ModelAttribute("category")Categories categories,@PathVariable("id")Integer id,Model model){
         categoryService.updateCategory(id,categories);
-        return "redirect:/category";
+        return "redirect:/admin/category";
     }
 
 
-    @GetMapping("/category-insert")
+    @GetMapping("/admin/category-insert")
     public String categoryGET(@ModelAttribute("category")Categories categories){
         return "category-insert";
     }
 
-    @PostMapping("/category-insert")
+    @PostMapping("/admin/category-insert")
     public String categoryInsert(@ModelAttribute("category")Categories categories){
         categoryService.addCategory(categories);
-        return "redirect:category";
+        return "redirect:/admin/category";
     }
 
 }

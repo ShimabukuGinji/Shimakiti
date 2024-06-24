@@ -23,7 +23,7 @@ public class LoginFormController {
     }
 
     @GetMapping("/account/admin")
-    public String admin() {
+    public String admin(@ModelAttribute User user) {
         return "user-add";
     }
 

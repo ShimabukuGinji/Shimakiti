@@ -23,24 +23,23 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authenticationProvider(authenticationProvider)
+            .authenticationProvider(authenticationProvider)
 
-                .formLogin(login -> login //  フォーム認証を使う
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/menu")
-                        .failureUrl("/login?error")
-                        .permitAll()) //  フォーム認証画面は認証不要
+            .formLogin(login -> login //  フォーム認証を使う
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/menu")
+                    .failureUrl("/login?error")
+                    .permitAll()) //  フォーム認証画面は認証不要
 
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login"))
+            .logout(logout -> logout
+                    .logoutSuccessUrl("/login"))
 
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/css/**").permitAll() // CSSファイルは認証不要
-                        .requestMatchers("/login").permitAll() //  トップページは認証不要
-                        .requestMatchers("/account/**").permitAll() //  新規登録は認証不要
-                        .requestMatchers("/api/**").permitAll() //  新規登録は認証不要
-                        .anyRequest().authenticated() //  他のURLはログイン後アクセス可能
-                );
+            .authorizeHttpRequests(authz -> authz
+                    .requestMatchers("/css/**").permitAll() // CSSファイルは認証不要
+                    .requestMatchers("/login").permitAll() //  トップページは認証不要
+                    .requestMatchers("/account/**").permitAll() //  新規登録は認証不要
+                    .anyRequest().authenticated() //  他のURLはログイン後アクセス可能
+            );
 
         return http.build();
     }

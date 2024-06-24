@@ -80,3 +80,7 @@ textarea {
 .btn:hover {
     background-color: #34495e;
 }
+
+.error {
+  color: red;
+}

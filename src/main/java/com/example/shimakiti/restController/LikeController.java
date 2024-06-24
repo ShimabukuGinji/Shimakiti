@@ -52,4 +52,10 @@ public class LikeController {
         List<Likes> likes = likeService.getUserLikes(username);
         return ResponseEntity.ok(likes);
     }
+
+    @GetMapping("/api/likes/count/{postId}")
+    public ResponseEntity<Integer> getPostLikes(@PathVariable int postId){
+        List<Likes> likes = likeService.getPostLikes(postId);
+        return ResponseEntity.ok(likes.size());
+    }
 }

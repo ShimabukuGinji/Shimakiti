@@ -2,56 +2,23 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link href="/css/header.css" rel="stylesheet">
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='https://unpkg.com/react-router-dom@6.6.1/umd/react-router-dom.min.js'></script>
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-a
-<div id="root"></div>
-a
-
-<script type="text/babel">
-    const useState = React.useState;
-    const useEffect = React.useEffect;
-
-    const Login = () => {
-        const [username, setUsername] = useState('')
-        const [password, setPassword] = useState('');
-
-        const handleSubmit = async (event) => {
-            event.preventDefault();
-            try {
-
-                alert('Login successful!');
-            }catch (error) {
-                console.error('There was an error logging in!', error);
-            }
-        }
-        return (
-            <form onSubmit={handleSubmit} class="">
-                <div>
-                    <label>ユーザー名:</label>
-                    <input type="text" name="username" value={username} onChange={e => {setUsername(console.log(e.target.value))}} required />
-                </div>
-                <div>
-                    <label>パスワード:</label>
-                    <input type="password" name="password" value={password} onChange={e => {setPassword(console.log(e.target.value))}} required />
-                </div>
-                <button type="submit">Login</button>
-                <button type="submit">新規登録</button>
-            </form>
-        );
-    }
-    const container = document.getElementById("root");
-    const root = ReactDOM.createRoot(container);
-    root.render(<Login />);
-
-</script>
-
+<div class="container">
+    <h2>Admin Dashboard</h2>
+    <a th:href="@{/admin/posts}">投稿一覧</a>
+    <a th:href="@{/admin/category}">カテゴリー一覧</a>
+    <a th:href="@{/admin/users}">ユーザー一覧</a>
+    <a th:href="@{/admin/announcements}">お知らせ一覧</a>
+</div>
 </body>
 </html>
