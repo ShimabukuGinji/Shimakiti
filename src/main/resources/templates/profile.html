@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/profile.css" rel="stylesheet">
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <img id="icon" class="icon" th:src="${profile.imageFile1}">
+        </div>
+        <div class="box-right">
+            <h1 th:text="${profile.user.name}"></h1>
+            <p th:text="${profile.user.username}"></p>
+            <p th:text="${profile.user.bio}"></p>
+            <div class="post-actions">
+                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button></th:block>
+                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button></th:block>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

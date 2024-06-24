@@ -1,0 +1,10 @@
+<div class="header" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://www.thymeleaf.org">
+    <h1 class="site_logo"><a href="/menu">島ぬひみつきち</a></h1>
+    <div class="user-info">
+        <div sec:authentication="name"></div><span>さん、こんにちは</span>
+        <button onclick="location.href='/posts'">情報追加</button>
+        <button onclick="location.href='/bookmarks'">ブックマーク</button>
+        <button onclick="location.href='/my-page'">Myページ</button>
+        <div sec:authorize="hasAuthority('1')"><button onclick="location.href='/admin'">管理者機能</button></div>
+    </div>
+</div>

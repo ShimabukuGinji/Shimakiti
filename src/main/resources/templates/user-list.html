@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<table>
+    <thead>
+    <tr>
+        <th>ユーザー名</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td><a th:href="'admin/userDetail/' + ${category.id}" th:text="${user.name}"></a></td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+</body>
+</html>

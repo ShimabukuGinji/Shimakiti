@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/post-detail.css" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <div class="image-carousel">
+                <button class="nav-button" onclick="slideshowBack()">◀</button>
+                <img id="picImg" class="pic-image" th:src="${post.imageFile1}">
+                <button class="nav-button" onclick="slideshowNext()">▶</button><br>
+            </div>
+            <div class="sub-image">
+                <img id="subImg1" class="image" th:src="${post.imageFile2}"/>
+                <img id="subImg2" class="image" th:src="${post.imageFile3}"/>
+                <img id="subImg3" class="image" th:src="${post.imageFile4}"/>
+                <img id="subImg4" class="image" th:src="${post.imageFile5}"/>
+            </div>
+            <p class="address"><span th:text="${post.address}"></span></p>
+            <div id="map"></div>
+        </div>
+        <div class="box-right">
+            <div class="post-category">
+                <span th:text="${post.categories.name}"></span>
+            </div>
+            <div class="post-title">
+                <span th:text="${post.title}"></span>
+            </div>
+            <div class="post-summary">
+                <span th:text="${post.summary}"></span>
+            </div>
+            <div class="post-detail">
+                <span th:text="${post.detail}"></span>
+            </div>
+            <div class="post-info">
+                <p>投稿者: <span th:text="${post.users.username}"></span></p>
+                <p>更新日: <span th:text="${#dates.format(post.updated_at, 'yyyy/MM/dd')}"></span></p>
+            </div>
+            <div class="post-link">
+                <a th:href="${post.link}">外部リンク</a>
+                <p hidden><span id="lat" th:text="${post.map_longitude}"></span></p>
+                <p hidden><span id="lng" th:text="${post.map_latitude}"></span></p>
+            </div>
+            <div class="post-actions">
+                <th:block th:if="${post.users.id} eq ${user.id}"><button th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button></th:block>
+                <div id="deleteButton">
+                    <th:block th:if="${post.users.id} eq ${user.id}"><button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#deleteModal">削除</button></th:block>
+                    <!-- ボタン・リンククリック後に表示される画面の内容 -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label>データを削除しますか？</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                                    <button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-section">
+        <h3>コメント</h3>
+        <div class="comments">
+            <!-- コメントのリスト -->
+        </div>
+        <div class="comment-form">
+            <input type="text" placeholder="コメントを入力">
+            <button>送信</button>
+        </div>
+    </div>
+</div>
+<script src="/js/post-detail.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMapDetail" async defer></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

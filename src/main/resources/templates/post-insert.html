@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <title>Post Insert</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/post-insert.css" rel="stylesheet">
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div class="container">
+    <main>
+        <form th:action="@{/posts}" method="post" enctype="multipart/form-data" th:object="${postForm}">
+            <div class="form-group">
+                <label for="title">タイトル</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="例）店舗名・場所の名称">
+            </div>
+            <div class="form-group">
+                <label for="category">カテゴリ</label>
+                <select id="category" th:field="*{categories.id}" name="categoryId" class="form-control">
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>画像</label>
+                <div class="image-inputs">
+                    <div>
+                        <input type="file" th:field="*{imageFile1}" class="input-file" name="input1" id="input1" accept="image/*">
+                        <label for="input1"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage1"></label>
+                    </div>
+                    <div>
+                        <input type="file" th:field="*{imageFile2}" class="input-file" name="input2" id="input2" accept="image/*">
+                        <label for="input2"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage2"></label>
+                    </div>
+                    <div>
+                        <input type="file" th:field="*{imageFile3}" class="input-file" name="input3" id="input3" accept="image/*">
+                        <label for="input3"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage3"></label>
+                    </div>
+                    <div>
+                        <input type="file" th:field="*{imageFile4}" class="input-file" name="input4" id="input4" accept="image/*">
+                        <label for="input4"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage4"></label>
+                    </div>
+                    <div>
+                        <input type="file" th:field="*{imageFile5}" class="input-file" name="input5" id="input5" accept="image/*">
+                        <label for="input5"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage5"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="summary">概要</label>
+                <span class="error" th:each="error: ${#fields.errors('summary')}">
+                  [[ ${error} ]]
+                </span>
+                <input type="text" id="summary" th:field="*{summary}" class="form-control" placeholder="例）50文字以内で入力">
+            </div>
+            <div class="form-group">
+                <label for="detail">詳細</label>
+                <textarea id="detail" th:field="*{detail}" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="city">市町村</label>
+                <select id="city" th:field="*{cities.id}" name="citiesId" class="form-control">
+                    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">住所</label>
+                <input type="text" id="address" th:field="*{address}" class="form-control">
+            </div>
+            <div id="map"></div>
+            <ul>
+                <li hidden>緯度:<input id="lat" type="text" th:field="*{map_longitude}"></li>
+                <li hidden>経度:<input id="lng" type="text" th:field="*{map_latitude}"></li>
+            </ul>
+            <div class="form-group">
+                <label for="link">外部リンク</label>
+                <input type="text" id="link" th:field="*{link}" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">登録</button>
+        </form>
+    </main>
+</div>
+<script src="/js/post-insert.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMapInsert" async defer></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
+
