@@ -1,6 +1,5 @@
 package com.example.shimakiti.repository;
 
-import com.example.shimakiti.entity.Bookmarks;
 import com.example.shimakiti.entity.Likes;
 import com.example.shimakiti.entity.Posts;
 import com.example.shimakiti.entity.User;

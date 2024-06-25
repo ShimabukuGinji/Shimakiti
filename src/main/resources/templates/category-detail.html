@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>カテゴリー詳細</title>
     <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/category-detail.css" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<h1 th:text="${category.name}"></h1>
-<p>件数：<span th:text="${category.posts}"></span></p>
-<a th:href="'/admin/category-edit/' + ${category.id}"><input type="button"  value="編集"></a>
-
-
+<div class="category_detail">
+    <h1 th:text="${category.name}"></h1>
+    <p>件数：<span th:text="${category.posts}"></span></p>
+    <a th:href="'/admin/category-edit/' + ${category.id}"><input type="button" value="編集"></a>
+</div>
 </body>
 </html>

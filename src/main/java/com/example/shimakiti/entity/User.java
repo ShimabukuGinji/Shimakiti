@@ -1,17 +1,18 @@
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @Table(name="users")
+@Data
 public class User {
 
     @Id
@@ -31,7 +32,7 @@ public class User {
     private int role;
 
     @Column(name="profile_picture")
-    private UUID profilePicture;
+    private UUID profile_uuid;
 
     @Column(name = "bio")
     private String bio;
@@ -42,6 +43,4 @@ public class User {
     @Column(name = "updated_at")
     private Date updated_at;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Bookmarks> bookmarks;
 }

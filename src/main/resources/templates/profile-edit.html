@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/profile-edit.css" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-
 <div class="container">
-    <div class="box">
-        <div class="box-left">
-            <img id="icon" class="icon" th:src="${profile.imageFile1}">
+    <form th:action="@{/my-page/edit}" method="post" enctype="multipart/form-data" th:object="${profileForm}">
+        <div class="box">
+            <div class="image">
+                <input type="file" th:field="*{profilePicture}" class="input-file" name="input1" id="input1" accept="image/*">
+                <label for="input1"><img class="icon" th:src="*{profilePicture}" alt="画像1" id="figureImage1"></label>
+            </div>
+            <div class="box-right">
+                <label for="name">名前：</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control">
+            </div>
+            <div class="box-right">
+                <label for="username">ログインID（メールアドレス）：</label>
+                <input type="text" id="username" th:field="*{username}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">パスワード：</label>
+                <input type="text" id="password" th:field="*{password}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="bio">自己紹介：</label>
+                <textarea id="bio" th:field="*{bio}" class="form-control"></textarea>
+            </div>
         </div>
-        <div class="box-right">
-            <h1 th:text="${profile.user.name}"></h1>
-            <p th:text="${profile.user.username}"></p>
-            <p th:text="${profile.user.bio}"></p>
-        </div>
-    </div>
+        <button type="submit" class="btn btn-primary">更新</button>
+    </form>
 </div>
 </body>
 </html>

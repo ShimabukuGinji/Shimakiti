@@ -2,6 +2,7 @@ package com.example.shimakiti.controller;
 
 import com.example.shimakiti.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,36 +21,46 @@ public class CategoryController {
 
     @GetMapping("/admin/category")
     public String category(Model model){
-        var list = new ArrayList<CategoryDetail>();
-        for(Categories categories:categoryService.findCategory()){
-            CategoryDetail categoryDetail = new CategoryDetail();
-            categoryDetail.setId(categories.getId());
-            categoryDetail.setName(categories.getName());
-            categoryDetail.setPosts(categoryService.findByCategoryPosts(categories).size());
-            list.add(categoryDetail);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.equals("admin")) {
+            var list = new ArrayList<CategoryDetail>();
+            for(Categories categories:categoryService.findCategory()){
+                CategoryDetail categoryDetail = new CategoryDetail();
+                categoryDetail.setId(categories.getId());
+                categoryDetail.setName(categories.getName());
+                categoryDetail.setPosts(categoryService.findByCategoryPosts(categories).size());
+                list.add(categoryDetail);
+            }
+            model.addAttribute("categories",list);
+            return "category";
         }
-        model.addAttribute("categories",list);
-        return "category";
+        return "redirect:/menu";
     }
 
     @GetMapping("/admin/categoryDetail/{id}")
     public String categoryDetail(@PathVariable("id")Integer id, Model model){
-        var categories = categoryService.findById(id);
-
-        CategoryDetail categoryDetail = new CategoryDetail();
-        categoryDetail.setId(categories.getId());
-        categoryDetail.setName(categories.getName());
-        categoryDetail.setPosts((long) categoryService.findByCategoryPosts(categories).size());
-
-        model.addAttribute("category",categoryDetail);
-        return "category-detail";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.equals("admin")) {
+            var categories = categoryService.findById(id);
+            CategoryDetail categoryDetail = new CategoryDetail();
+            categoryDetail.setId(categories.getId());
+            categoryDetail.setName(categories.getName());
+            categoryDetail.setPosts((long) categoryService.findByCategoryPosts(categories).size());
+            model.addAttribute("category",categoryDetail);
+            return "category-detail";
+        }
+        return "redirect:/menu";
     }
 
     @GetMapping("/admin/category-edit/{id}")
     public String categoryUpdate(@PathVariable("id")Integer id, Model model){
-        model.addAttribute("category",categoryService.findById(id));
-        System.out.println(categoryService.findById(id));
-        return "category-edit";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.equals("admin")) {
+            model.addAttribute("category",categoryService.findById(id));
+            System.out.println(categoryService.findById(id));
+            return "category-edit";
+        }
+        return "redirect:/menu";
     }
 
     @PostMapping("/admin/category-edit/{id}")
@@ -61,7 +72,11 @@ public class CategoryController {
 
     @GetMapping("/admin/category-insert")
     public String categoryGET(@ModelAttribute("category")Categories categories){
-        return "category-insert";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.equals("admin")) {
+            return "category-insert";
+        }
+        return "redirect:/menu";
     }
 
     @PostMapping("/admin/category-insert")
@@ -69,5 +84,4 @@ public class CategoryController {
         categoryService.addCategory(categories);
         return "redirect:/admin/category";
     }
-
 }

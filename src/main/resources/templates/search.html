@@ -52,6 +52,10 @@
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
+    const searchCategory = document.getElementById('categoryName').value;
+    const searchKeyword = document.getElementById('keyword').value;
+    const searchRegion = document.getElementById('region').value;
+
     axios.defaults.headers.common[csrfHeader] = csrfToken;
 
     const { useState, useEffect } = React;
@@ -61,6 +65,7 @@
         const [posts, setPosts] = useState([]);
         const [cats, setCats] = useState([]);
         const [cities, setCities] = useState([]);
+
         let postsCount = 0;
         const [searchParams, setSearchParams] = useState({
             category: '',
@@ -68,8 +73,6 @@
             region: ''
         });
         const [showResults, setShowResults] = useState(false);
-
-
 
         useEffect(() => {
             const params = new URLSearchParams(location.search);
@@ -85,13 +88,7 @@
         const handleRegionClick = (regionName) => {
             setSearchParams(prev => ({ ...prev, region: regionName }));
         };
-        /*
-        const handleSearchClick = () => {
-            const { category, keyword, region } = searchParams;
-            history.push(`/?category=${category}&keyword=${keyword}&region=${region}`);
-            setShowResults(true);
-        };
-        */
+
         const handleInputChange = (e) => {
             const { name, value } = e.target;
             setSearchParams(prev => ({ ...prev, [name]: value }));

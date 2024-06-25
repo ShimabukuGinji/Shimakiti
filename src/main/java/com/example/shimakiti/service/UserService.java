@@ -1,32 +1,30 @@
 package com.example.shimakiti.service;
 
-
-import com.example.shimakiti.dto.PostResult;
+import com.example.shimakiti.From.ProfileForm;
 import com.example.shimakiti.dto.ProfileResult;
 import com.example.shimakiti.entity.User;
 import com.example.shimakiti.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Base64;
-import java.util.List;
+import java.nio.file.StandardCopyOption;
+import java.util.*;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    /** Dozer Mapper */
+    private final Mapper mapper;
 
     /** プロフィール画像の保存先フォルダ */
     @Value("${image.profile}")
@@ -52,50 +50,55 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<ProfileResult> profileResult(User user) throws IOException {
+    public ProfileResult profileResult(User user) throws IOException {
         var profileResult = new ProfileResult();
-        profileResult.setUser(user);
-        profileResult.setImageFile1("data:image/jpg;base64," + outputImage(user.getProfilePicture(),1));
-        return Optional.of(profileResult);
+        profileResult.setId(user.getId());
+        profileResult.setName(user.getName());
+        profileResult.setUsername(user.getUsername());
+        profileResult.setPassword(user.getPassword());
+        profileResult.setBio(user.getBio());
+        profileResult.setProfilePicture("data:image/jpg;base64," + outputImage(user.getProfile_uuid()));
+        return profileResult;
     }
 
-    private String outputImage(UUID uuid, long i) throws IOException {
-        var imgFilePath = searchImage(uuid, i);
+    private String outputImage(UUID uuid) throws IOException {
+        var imgFilePath = searchImage(uuid);
         var byteImg = Files.readAllBytes(imgFilePath);
 
         return Base64.getEncoder().encodeToString(byteImg);
     }
 
-    private Path searchImage(UUID uuid, long i) {
-        var searchFileName = uuid + "-" + i + imgExtract;
+    private Path searchImage(UUID uuid) {
+        var searchFileName = uuid + imgExtract;
         var imgFilePath = Path.of(imgFolder, searchFileName);
         return Files.exists(imgFilePath) ? imgFilePath : Path.of(imgFolder, imgDefault + imgExtract);
     }
 
-//    public User registerUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        return userRepository.save(user);
-//    }
-//
-//    public User updateUser(Long id, User userDetails) {
-//        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-//        user.setUsername(userDetails.getUsername());
-//        user.setEmail(userDetails.getEmail());
-//        user.setProfilePicture(userDetails.getProfilePicture());
-//        return userRepository.save(user);
-//    }
-//
-//    public void deleteUser(Long id) {
-//        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-//        userRepository.delete(user);
-//    }
-//
-//    public User findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
-//
-//    public List<User> findAllUsers() {
-//        return userRepository.findAll();
-//    }
+    public String insert(User user) {
+        userRepository.save(user);
+        return "success!!";
+    }
 
+    public void update(ProfileForm form) throws IOException {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByUsername(username);
+        var imageID = UUID.randomUUID();
+        var userInfo = mapper.map(form, User.class);
+        userInfo.setId(user.getId());
+        userInfo.setRole(user.getRole());
+        if (user.getProfile_uuid() == null) {
+            userInfo.setProfile_uuid(imageID);
+        } else {
+            userInfo.setProfile_uuid(user.getProfile_uuid());
+        }
+        userRepository.save(userInfo);
+
+        if (!form.getProfilePicture().isEmpty()) {
+            // 保存する画像ファイルのパス設定
+            var saveFileName = user.getProfile_uuid() + imgExtract;
+            Path imgFilePath = Path.of(imgFolder, saveFileName);
+            // 画像ファイルの保存(フォルダ)
+            Files.copy(form.getProfilePicture().getInputStream(), imgFilePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
 }

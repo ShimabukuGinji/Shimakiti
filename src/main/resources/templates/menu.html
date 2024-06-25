@@ -12,7 +12,7 @@
 <div class="notice-menu">
     <h3>お知らせ</h3>
     <div th:each="notice : ${notices}" class="notice">
-        <a th:href="@{notice-detail/__${notice.id}__}">
+        <a th:href="@{/notice-detail/__${notice.id}__}">
             <label>
                 <span class="date" th:text="${#dates.format(notice.createdAt, 'yyyy/MM/dd')}"></span>
                 <span class="notice-category" th:text="${notice.category.priority}"></span>

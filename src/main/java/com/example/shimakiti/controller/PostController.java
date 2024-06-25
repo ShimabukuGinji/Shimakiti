@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 
-
 /**
  * ユーザー登録画面Controller
  *
@@ -74,7 +73,7 @@ public class PostController {
             return "post-insert";
         }
         postservice.insert(form);
-        return "redirect:/posts";
+        return "redirect:/search?region=&keyword=&category=1";
     }
 
     /**
@@ -104,7 +103,7 @@ public class PostController {
      * @return 画面名
      */
     @GetMapping("/posts/edit/{postID}")
-    public String edit(@PathVariable("postID") int postId, @ModelAttribute @Validated PostForm form, Model model) throws IOException {
+    public String edit(@PathVariable("postID") int postId, @ModelAttribute("postForm") PostForm form, Model model) throws IOException {
         var post = postservice.postResult(postId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username);
@@ -117,18 +116,23 @@ public class PostController {
             }
             return "redirect:/posts/detail/" + postId;
         }
-        return "redirect:/posts";
+        return "redirect:/search?region=&keyword=&category=1";
     }
 
     @PostMapping("/posts/edit/{postID}")
-    public String update(@PathVariable("postID") int postId, PostForm form, Model model) throws IOException {
+    public String update(@PathVariable("postID") int postId, @Validated @ModelAttribute("postForm") PostForm form, BindingResult bindingResult, Model model) throws IOException {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("cities", cityRepository.findAll());
+            return "post-edit";
+        }
         postservice.update(form, postId);
         return "redirect:/posts/detail/" + postId;
     }
 
-    @GetMapping("/posts/delete/{postID}")
+    @PostMapping("/posts/delete/{postID}")
     public String delete(@PathVariable("postID") int postId) throws IOException {
         postservice.delete(postId);
-        return "redirect:/posts";
+        return "redirect:/search?region=&keyword=&category=1";
     }
 }

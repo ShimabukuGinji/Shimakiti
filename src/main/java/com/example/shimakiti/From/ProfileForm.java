@@ -40,7 +40,7 @@ public class ProfileForm {
 	private String name;
 
 	/** プロフィール画像 */
-	private UUID profilePicture;
+	private MultipartFile profilePicture;
 
 	/** 自己紹介 */
 	private String bio;

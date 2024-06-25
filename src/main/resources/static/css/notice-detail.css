@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.button-group {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.inline-form {
+    display: inline;
+}
+
+button,
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.notice-details {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.notice-category {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.notice-body {
+    display: block;
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.date {
+    display: block;
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.notice-detail-text {
+    font-size: 16px;
+    color: #555;
+    white-space: pre-wrap; /* 改行を保持 */
+}

@@ -5,6 +5,6 @@
         <button onclick="location.href='/posts'">情報追加</button>
         <button onclick="location.href='/bookmarks'">ブックマーク</button>
         <button onclick="location.href='/my-page'">Myページ</button>
-        <div sec:authorize="hasAuthority('1')"><button onclick="location.href='/my-page'">Myページ</button></div>
+        <div sec:authorize="hasAuthority('1')"><button onclick="location.href='/admin'">管理者機能</button></div>
     </div>
 </div>

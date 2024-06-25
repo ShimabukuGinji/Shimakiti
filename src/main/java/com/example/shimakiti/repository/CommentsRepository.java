@@ -13,6 +13,5 @@ import java.util.List;
  *
  */
 public interface CommentsRepository extends JpaRepository<Comments, Integer> {
-
     List<Comments> findByPost(Posts posts);
 }

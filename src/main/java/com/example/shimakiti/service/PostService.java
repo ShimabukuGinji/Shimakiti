@@ -5,6 +5,8 @@ import com.example.shimakiti.dto.PostResult;
 import com.example.shimakiti.entity.*;
 import com.example.shimakiti.repository.*;
 
+import lombok.RequiredArgsConstructor;
+import org.dozer.Mapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,8 +15,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
-import lombok.RequiredArgsConstructor;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -64,20 +64,17 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Posts> findByUser() {
+        return postRepository.findAll();
+    }
+
     public Posts findById(int id) {
         return postRepository.findById(id).get();
     }
 
     public List<Posts> findByCategoriesPosts(Categories categories){
-        return postRepository.findByCategories(categories);}
-
-
-//    public List<Posts> findPosts(String category, String keyword, String region) {
-//        if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
-//            return postRepository.findAll();
-//        }
-//        return postRepository.findPostsByCriteria(category, keyword, region);
-//    }
+        return postRepository.findByCategories(categories);
+    }
 
     public List<PostResult> findPosts(String category, String keyword, String region) throws IOException {
         var posts = postRepository.findPostsByCriteria(category, keyword, region);

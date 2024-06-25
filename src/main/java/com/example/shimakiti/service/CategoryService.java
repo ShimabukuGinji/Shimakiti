@@ -5,6 +5,7 @@ import com.example.shimakiti.repository.CityRepository;
 import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.shimakiti.entity.Categories;
@@ -13,6 +14,9 @@ import com.example.shimakiti.entity.User;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 
 import java.util.List;
+
+import static org.springframework.data.domain.Sort.Direction.ASC;
+
 //
 @Service
 public class CategoryService {
@@ -51,6 +55,6 @@ public class CategoryService {
     }
 
     public List<Categories> findCategory(){
-        return categoriesRepository.findAll();
+        return categoriesRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 }

@@ -1,0 +1,67 @@
+/* 全体のレイアウト */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* カテゴリ一覧枠 */
+.category_body {
+    width: 65%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+/* 見出し */
+.category_body h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* テーブル */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table thead {
+    background-color: #0073e6;
+    color: #fff;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+
+.table td a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.table td a:hover {
+    text-decoration: underline;
+}
+
+/* 追加ボタン */
+.category_body a input[type="button"] {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #0073e6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.category_body a input[type="button"]:hover {
+    background-color: #005bb5;
+}

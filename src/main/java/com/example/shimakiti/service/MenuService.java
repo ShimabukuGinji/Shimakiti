@@ -22,7 +22,6 @@ public class MenuService {
         return noticeRepository.findTop3ByOrderByIdDesc();
     }
     public List<Categories> findAll(){
-
         return categoriesRepository.findAll();
     }
 

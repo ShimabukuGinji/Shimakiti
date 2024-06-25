@@ -70,7 +70,9 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                                    <button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button>
+                                    <form th:action="@{/posts/delete/__${post.id}__}" method="post" class="inline-form">
+                                        <button type="submit">削除</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

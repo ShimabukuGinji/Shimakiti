@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>カテゴリー追加</title>
     <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/category-edit-insert.css" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<form action="/category-insert" method="post">
+<form class="category_edit_insert" action="/admin/category-insert" method="post">
     <p>カテゴリー名を入力してください</p>
     <input type="text" th:field="${category.name}">
     <input type="submit" value="決定">

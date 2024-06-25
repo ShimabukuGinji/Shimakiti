@@ -11,15 +11,15 @@
 <div class="container">
     <div class="box">
         <div class="box-left">
-            <img id="icon" class="icon" th:src="${profile.imageFile1}">
+            <img id="icon" class="icon" th:src="${profile.profilePicture}">
         </div>
         <div class="box-right">
-            <h1 th:text="${profile.user.name}"></h1>
-            <p th:text="${profile.user.username}"></p>
-            <p th:text="${profile.user.bio}"></p>
+            <h1 th:text="${profile.name}"></h1>
+            <p th:text="${profile.username}"></p>
+            <p th:text="${profile.bio}"></p>
             <div class="post-actions">
-                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button></th:block>
-                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button></th:block>
+                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/my-page/edit'|">編集</button></th:block>
+                <th:block th:if="${myPage} eq 1"><button th:onclick="|location.href='/posts/delete/__${post.id}__'|">退会</button></th:block>
             </div>
         </div>
     </div>
