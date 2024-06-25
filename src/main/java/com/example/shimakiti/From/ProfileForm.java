@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
@@ -25,18 +26,26 @@ import java.util.UUID;
 @Setter
 @Getter
 @Data
-public class ProfileForm {
+public class
+
+ProfileForm {
 
 	/** ID */
 	private int id;
 
 	/** ログインID　メールアドレス */
+	@NotEmpty( message = "※ログインID（メールアドレス）を入力してください")
+	@Size( max = 50 ,message = "50文字以内で入力してください")
 	private String username;
 
 	/** パスワード */
+	@NotEmpty( message = "※パスワードを入力してください")
+	@Size( max = 255 ,message = "255文字以内で入力してください")
 	private String password;
 
 	/** ユーザー名 */
+	@NotEmpty( message = "※氏名を入力してください")
+	@Size( max = 50 ,message = "50文字以内で入力してください")
 	private String name;
 
 	/** プロフィール画像 */

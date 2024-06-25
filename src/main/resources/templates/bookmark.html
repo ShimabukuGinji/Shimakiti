@@ -15,6 +15,18 @@
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
+<h1>検索結果</h1>
+
+
+<div class="container">
+    <div class="text-block">
+        <div class="text-block">
+            <p hidden>選択された市町村： <input id="region" th:value="${region}"></p>
+            <p hidden>キーワード： <input id="keyword" th:value="${keyword}"></p>
+            <p hidden>選択された市町村： <input id="categoryName" th:value="${categoryParam}"></p>
+        </div>
+    </div>
+</div>
 
 <div id="root"></div>
 
@@ -31,16 +43,60 @@
         const [posts, setPosts] = useState([]);
         const [cats, setCats] = useState([]);
         const [cities, setCities] = useState([]);
-        let postsCount = 0;
+        const [postsCount, setPostsCount] = useState(posts.length);
+        const [order, setOrder] = useState('評価順');
+
+        const [defaultParam, setDefaultParam]=useState({
+            category: document.getElementById("categoryName").value,
+            keyword: document.getElementById("keyword").value,
+            region: document.getElementById("region").value
+        });
+
+        const [defLoad, setDefLoad] = useState(false);
+        console.log(defaultParam.region);
+        console.log(defLoad);
+
         const [searchParams, setSearchParams] = useState({
-            category: '',
-            keyword: '',
-            region: ''
+            category: document.getElementById("categoryName").value,
+            keyword: document.getElementById("keyword").value,
+            region: document.getElementById("region").value
         });
         const [showResults, setShowResults] = useState(false);
+        const [isLoading, setIsLoading] = useState(true);
 
+        useEffect(() => {
+            let { category, keyword, region } = searchParams;
 
+            if(category=='全部'){category="";}
+            if(region=='全部'){region="";}
+            history.push(`/?category=${category}&keyword=${keyword}&region=${region}&order=${order}`);
 
+            setShowResults(true);
+            const fetchPosts = async () => {
+                try {
+                    let url = '/api/search';
+                    if (order === '新しい順') {
+                        url = '/api/search/updatedAt/Desc';
+                    } else if (order === '古い順') {
+                        url = '/api/search/updatedAt/Asc';
+                    }
+                    const response = await axios.get(url, {
+                        params: {
+                            category,
+                            keyword,
+                            region
+                        }
+                    });
+                    setPosts(response.data);
+                } catch (error) {
+                    console.error('Error fetching posts:', error);
+                }
+            };
+            fetchPosts();
+            setDefLoad(true);
+        }, [searchParams,  order]);
+
+        /*
         useEffect(() => {
             const params = new URLSearchParams(location.search);
             setSearchParams({
@@ -49,18 +105,8 @@
                 region: params.get('region') || ''
             });
             setShowResults(location.search !== '');
-            postsCount = 0;
-        }, [location.search]);
 
-        const handleRegionClick = (regionName) => {
-            setSearchParams(prev => ({ ...prev, region: regionName }));
-        };
-        /*
-        const handleSearchClick = () => {
-            const { category, keyword, region } = searchParams;
-            history.push(`/?category=${category}&keyword=${keyword}&region=${region}`);
-            setShowResults(true);
-        };
+        }, [location.search, order]);
         */
         const handleInputChange = (e) => {
             const { name, value } = e.target;
@@ -72,28 +118,12 @@
 
         };
 
-        useEffect(() => {
-            const { category, keyword, region } = searchParams;
-            history.push(`/?category=${category}&keyword=${keyword}&region=${region}`);
-            setShowResults(true);
-            const fetchPosts = async () => {
-                const { category, keyword, region } = searchParams;
-                try {
-                    const response = await axios.get('/api/search', {
-                        params: {
-                            category,
-                            keyword,
-                            region
-                        }
-                    });
-                    setPosts(response.data);
-                } catch (error) {
-                    console.error('Error fetching posts:', error);
-                    // エラーハンドリングを行う（例：エラーメッセージの表示）
-                }
-            };
-            fetchPosts();
-        }, [searchParams, showResults]);
+        const handleOrderChange = (event) => {
+            setOrder(event.target.value);
+        };
+
+
+
 
         useEffect(() => {
             const fetchCategories = async () => {
@@ -111,6 +141,11 @@
             fetchCities();
         }, []);
 
+        useEffect(() => {
+            setPostsCount(posts.length);
+         }, [posts]);
+
+
         return (
             <div>
                 <div>
@@ -119,7 +154,7 @@
                         value={searchParams.category}
                         onChange={handleInputChange}
                     >
-                        <option value="">全部</option>
+
                         {cats.map(cat => (
                             <option key={cat.id} value={cat.name}>{cat.name}</option>
                         ))}
@@ -136,14 +171,19 @@
                         value={searchParams.region}
                         onChange={handleInputChange}
                     >
-                        <option value="">全部</option>
+
                         {cities.map(city => (
                             <option key={city.id} value={city.name}>{city.name}</option>
                         ))}
                     </select>
                     <p>
-                        検索結果：
+                        検索結果：<span id="postsCount">{postsCount}</span>件　
                         並び替え：
+                        <select value={order} onChange={handleOrderChange}>
+                            <option value="評価順">評価順</option>
+                            <option value="新しい順">新しい順</option>
+                            <option value="古い順">古い順</option>
+                        </select>
                     </p>
                 </div>
                 <div>
@@ -168,6 +208,7 @@
                 setGetBookmark(response.data);
             };
             fetchGetBookmark();
+
         }, []);
 
         useEffect(() => {
@@ -204,6 +245,12 @@
             }
         };
 
+        const bookmarkCheck = getBookmark.map((bookmark) => {
+          return `{bookmark.id}`;
+        });
+
+        console.log(bookmarkCheck);
+
         return (
             <div className="posts">
                 <div className="post">
@@ -228,6 +275,7 @@
                                     onClick={likeClick}
                                     src={liked ? '../img/like-after.png' : '../img/like-before.png'}
                                 /><span>{likeCount}</span>
+
                                 <input
                                     className="click-img"
                                     type="image"

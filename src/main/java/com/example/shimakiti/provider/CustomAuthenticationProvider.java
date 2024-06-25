@@ -27,7 +27,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // ブラウザから入力したユーザ名・パスワードを取得
         String username = authentication.getName();
-        int userId = userService.findByUserName(username).getId();
+        int userId;
+        try {
+            userId = userService.findByUserName(username).getId();
+        } catch (Exception e) {
+            throw new BadCredentialsException("Authentication failed");
+        }
+
         String password = (String) authentication.getCredentials();
 
         User loginUser = loginUserService.findByIdUser(userId);

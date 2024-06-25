@@ -5,29 +5,60 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>新規登録</title>
     <link href="/css/user-add.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" th:href="@{/css/styles.less}" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 </head>
 <body>
+
+<div class="wrapper" style="display: flex; justify-content: center; align-items: center;">
+
 <form class="form" th:action="@{/account/admin}" method="post" th:object="${userForm}">
     <div>
         <p align="center"><font size="20">新規登録</font></p>
     </div>
-    <div>
+    <div class="center">
         <label>1.氏名</label><br>
+        <span class="error" th:each="error: ${#fields.errors('name')}">
+              [[ ${error} ]]
+        </span>
         <input type="text" th:field="*{name}" placeholder="例) 山田 太郎">
     </div><br>
-    <div>
+    <div class="center">
         <label>2.ログインID(メールアドレス)</label><br>
+        <span class="error" th:each="error: ${#fields.errors('username')}">
+              [[ ${error} ]]
+        </span>
         <input type="email" th:field="*{username}" placeholder="例) sample@mail.com">
     </div><br>
-    <div>
+    <div class="center">
         <label>3.パスワード</label><br>
+        <span class="error" th:each="error: ${#fields.errors('password')}">
+              [[ ${error} ]]
+        </span>
         <input type="password" th:field="*{password}" placeholder="Password">
     </div><br>
-    <div>
+    <div class="center">
         <label>4.自己紹介</label><br>
+        <span class="error" th:each="error: ${#fields.errors('bio')}">
+              [[ ${error} ]]
+        </span>
         <textarea name="free" th:field="*{bio}" rows="10" cols="70"></textarea>
     </div>
-    <div><br><button type="submit">新規登録</button></div>
+    <div class="center"><button type="submit">新規登録</button></div>
 </form>
+<ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</div>
+
 </body>
 </html>

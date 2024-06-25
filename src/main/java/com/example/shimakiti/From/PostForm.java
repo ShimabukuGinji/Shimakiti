@@ -38,7 +38,7 @@ public class PostForm {
 	private User user;
 
 	/** タイトル */
-	@NotEmpty ( message = "※タイトルを入力してください" )
+	@NotEmpty( message = "※タイトルを入力してください" )
 	@Size(max = 50, message = "※タイトルは100文字以内で入力してください")
 	private String title;
 

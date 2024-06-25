@@ -32,9 +32,10 @@ public class MenuController {
                              @RequestParam("category") int category,
                              Model model) {
         List<Categories> categories = menuService.findAll();
+        Categories categoryName = menuService.findById(category);
         model.addAttribute("region", region);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("categoryParam", category);//選択されたカテゴリ
+        model.addAttribute("categoryParam", categoryName.getName());//選択されたカテゴリ
         model.addAttribute("categories", categories);//全カテゴリ
         System.out.println("\n\n"+category+"\n\n");
         return "search";

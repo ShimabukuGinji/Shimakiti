@@ -116,11 +116,16 @@ public class UsersController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/deleteMyAcc/{id}")
+    public String userDeleteMyAccount(@PathVariable("id")Integer id) {
+        userService.deleteUserById(id);
+        return "redirect:/login";
+    }
 
-    @GetMapping("/bookmark")
+    @GetMapping("/bookmarks")
     public String searchPage(Model model) {
         List<Categories> categories = menuService.findAll();
         model.addAttribute("categories", categories);//全カテゴリ
-        return "search";
+        return "bookmark";
     }
 }

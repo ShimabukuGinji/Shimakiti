@@ -9,11 +9,11 @@
 </head>
 <body>
 
-<div class="wrapper">
+<div class="wrapper" style="display: flex; justify-content: center; align-items: center;">
     <div class="container">
         <h1>Welcome</h1>
         <div th:if="${error} != null">
-            <h2>ログインIDかパスワードが間違っています。</h2>
+            <p>ログインIDかパスワードが間違っています。</p>
         </div>
         <form class="form" th:action="@{/login}" method="post">
             <input type="text" name="username" placeholder="username">

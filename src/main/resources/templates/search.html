@@ -15,34 +15,17 @@
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<h1 id="title">検索結果</h1>
+<h1>検索結果</h1>
 
 
 <div class="container">
     <div class="text-block">
         <div class="text-block">
-            <p>選択された市町村： <input id="region" th:value="${region}"></p>
-            <p>キーワード： <input id="keyword" th:value="${keyword}"></p>
-            <select>
-                <option id="categoryName"
-                        th:each="category : ${categories}"
-                        th:value="${category.id}"
-                        th:text="${category.name}"
-                        th:selected="${category.id == categoryParam}">
-                </option>
-            </select>
+            <p hidden>選択された市町村： <input id="region" th:value="${region}"></p>
+            <p hidden>キーワード： <input id="keyword" th:value="${keyword}"></p>
+            <p hidden>選択された市町村： <input id="categoryName" th:value="${categoryParam}"></p>
         </div>
     </div>
-</div>
-
-<div>
-    <label>検索結果&nbsp;</label><label>50件&nbsp;&nbsp;</label>
-    <label>並び替え：</label>
-    <select>
-        <option value="review">評価順</option>
-        <option value="new order">新しい順</option>
-        <option value="old order">古い順</option>
-    </select>
 </div>
 
 <div id="root"></div>
@@ -62,78 +45,32 @@
         const [cities, setCities] = useState([]);
         const [postsCount, setPostsCount] = useState(posts.length);
         const [order, setOrder] = useState('評価順');
-        let defaultParam=0;
+
+        const [defaultParam, setDefaultParam]=useState({
+            category: document.getElementById("categoryName").value,
+            keyword: document.getElementById("keyword").value,
+            region: document.getElementById("region").value
+        });
+
+        const [defLoad, setDefLoad] = useState(false);
+        console.log(defaultParam.region);
+        console.log(defLoad);
+
         const [searchParams, setSearchParams] = useState({
-            category: '',
-            keyword: '',
-            region: ''
+            category: document.getElementById("categoryName").value,
+            keyword: document.getElementById("keyword").value,
+            region: document.getElementById("region").value
         });
         const [showResults, setShowResults] = useState(false);
+        const [isLoading, setIsLoading] = useState(true);
 
         useEffect(() => {
-            const params = new URLSearchParams(location.search);
-            setSearchParams({
-                category: params.get('category') || '',
-                keyword: params.get('keyword') || '',
-                region: params.get('region') || ''
-            });
-            setShowResults(location.search !== '');
+            let { category, keyword, region } = searchParams;
 
-        }, [location.search, order]);
-
-        const handleRegionClick = (regionName) => {
-            setSearchParams(prev => ({ ...prev, region: regionName }));
-        };
-
-        const handleInputChange = (e) => {
-            const { name, value } = e.target;
-            setSearchParams(prev => ({ ...prev, [name]: value }));
-        };
-
-        const likeClick = (e) => {
-            console.log("like");
-
-        };
-
-        const handleOrderChange = (event) => {
-            setOrder(event.target.value);
-            console.log(order)
-        };
-
-
-        /*
-        useEffect(() => {
-            const { category, keyword, region } = searchParams;
-            history.push(`/?category=${category}&keyword=${keyword}&region=${region}`);
-            setShowResults(true);
-            const fetchPosts = async () => {
-                const { category, keyword, region } = searchParams;
-                try {
-                    const response = await axios.get('/api/search', {
-                        params: {
-                            category,
-                            keyword,
-                            region
-                        }
-                    });
-
-                    setPosts(response.data);
-
-                } catch (error) {
-                    console.error('Error fetching posts:', error);
-                    // エラーハンドリングを行う（例：エラーメッセージの表示）
-                }
-            };
-            fetchPosts();
-
-            console.log(order);
-
-        }, [searchParams, showResults, order]);
-        */
-
-        useEffect(() => {
-            const { category, keyword, region } = searchParams;
+            if(category=='全部'){category="";}
+            if(region=='全部'){region="";}
             history.push(`/?category=${category}&keyword=${keyword}&region=${region}&order=${order}`);
+
             setShowResults(true);
             const fetchPosts = async () => {
                 try {
@@ -156,7 +93,37 @@
                 }
             };
             fetchPosts();
-        }, [searchParams, showResults, order]);
+            setDefLoad(true);
+        }, [searchParams,  order]);
+
+        /*
+        useEffect(() => {
+            const params = new URLSearchParams(location.search);
+            setSearchParams({
+                category: params.get('category') || '',
+                keyword: params.get('keyword') || '',
+                region: params.get('region') || ''
+            });
+            setShowResults(location.search !== '');
+
+        }, [location.search, order]);
+        */
+        const handleInputChange = (e) => {
+            const { name, value } = e.target;
+            setSearchParams(prev => ({ ...prev, [name]: value }));
+        };
+
+        const likeClick = (e) => {
+            console.log("like");
+
+        };
+
+        const handleOrderChange = (event) => {
+            setOrder(event.target.value);
+        };
+
+
+
 
         useEffect(() => {
             const fetchCategories = async () => {
@@ -178,6 +145,7 @@
             setPostsCount(posts.length);
          }, [posts]);
 
+
         return (
             <div>
                 <div>
@@ -186,7 +154,7 @@
                         value={searchParams.category}
                         onChange={handleInputChange}
                     >
-                        <option value="">全部</option>
+
                         {cats.map(cat => (
                             <option key={cat.id} value={cat.name}>{cat.name}</option>
                         ))}
@@ -203,7 +171,7 @@
                         value={searchParams.region}
                         onChange={handleInputChange}
                     >
-                        <option value="">全部</option>
+
                         {cities.map(city => (
                             <option key={city.id} value={city.name}>{city.name}</option>
                         ))}

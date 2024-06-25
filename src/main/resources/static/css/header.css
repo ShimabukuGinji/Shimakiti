@@ -28,3 +28,7 @@
 .header .user-info button:hover {
     background-color: #5A6268;
 }
+
+.error{
+    color:red;
+}

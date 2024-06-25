@@ -38,6 +38,7 @@ public class SecurityConfig {
                     .requestMatchers("/css/**").permitAll() // CSSファイルは認証不要
                     .requestMatchers("/login").permitAll() //  トップページは認証不要
                     .requestMatchers("/account/**").permitAll() //  新規登録は認証不要
+                    .requestMatchers("/admin/**").hasAuthority("1")
                     .anyRequest().authenticated() //  他のURLはログイン後アクセス可能
             );
 
