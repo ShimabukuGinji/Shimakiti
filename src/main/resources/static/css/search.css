@@ -1,3 +1,7 @@
+.title {
+    margin: auto;
+}
+
 .posts {
     border: 10px groove #333333;
     width: 90%;

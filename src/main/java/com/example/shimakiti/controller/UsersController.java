@@ -2,6 +2,7 @@ package com.example.shimakiti.controller;
 
 import com.example.shimakiti.From.ProfileForm;
 import com.example.shimakiti.entity.Categories;
+import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.MenuService;
 import com.example.shimakiti.service.NoticeCategoryService;
 import com.example.shimakiti.service.UserService;

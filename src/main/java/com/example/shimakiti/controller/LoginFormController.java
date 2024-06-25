@@ -1,8 +1,11 @@
 package com.example.shimakiti.controller;
 
+import com.example.shimakiti.dto.PostResult;
 import com.example.shimakiti.entity.User;
+import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,10 @@ public class LoginFormController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PostRepository postRepository;
+
     @GetMapping("/login")
     public String login(@RequestParam(name = "error", required = false)String error, Model model) {
         if(error != null){

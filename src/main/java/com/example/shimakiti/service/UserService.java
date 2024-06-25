@@ -81,6 +81,7 @@ public class UserService {
     }
 
     public String insert(User user) {
+        user.setRole(2);
         userRepository.save(user);
         return "success!!";
     }

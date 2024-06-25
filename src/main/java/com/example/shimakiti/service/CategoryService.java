@@ -55,6 +55,6 @@ public class CategoryService {
     }
 
     public List<Categories> findCategory(){
-        return categoriesRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return categoriesRepository.findAll(Sort.by(ASC, "id"));
     }
 }

@@ -5,6 +5,7 @@ import com.example.shimakiti.repository.CategoriesRepository;
 import com.example.shimakiti.repository.CityRepository;
 import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
+import com.example.shimakiti.service.CommentService;
 import com.example.shimakiti.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +44,8 @@ public class PostController {
 
     /** ユーザー情報テーブルDAO */
     private final UserRepository userRepository;
+
+    private final CommentService commentService;
 
     /**
      * 初期表示
@@ -90,6 +93,7 @@ public class PostController {
         if (post.isPresent()) {
             model.addAttribute("user", user);
             model.addAttribute("post",post.get());
+            model.addAttribute("comments", commentService.getCommentsByPost(postId));
             System.out.println(post.get().getCreated_at());
             return "post-detail";
         }
