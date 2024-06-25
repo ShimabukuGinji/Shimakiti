@@ -55,7 +55,7 @@
             </div>
             <div class="post-info">
                 <p>投稿者: <span th:text="${post.users.username}"></span></p>
-                <p>更新日: <span th:text="${#dates.format(post.created_at, 'yyyy/MM/dd')}"></span></p>
+                <p>更新日: <span th:text="${#dates.format(post.updated_at, 'yyyy/MM/dd')}"></span></p>
             </div>
             <div class="post-link">
                 <a th:href="${post.link}">外部リンク</a>

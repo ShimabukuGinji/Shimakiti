@@ -310,7 +310,6 @@ public class PostService {
         var posts = postRepository.findPostsByCriteriaOrderByUpdatedAtDesc(category, keyword, region);
         if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
             posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "updated_at"));
-            System.out.println(posts.get(0));
         }
         List<PostResult> postResults = new ArrayList<>();
         for (var post :posts) {

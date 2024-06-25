@@ -35,7 +35,6 @@ public class PostForm {
 	private Cities cities;
 
 	/** ユーザーID */
-	@NotNull(message = "※ログインしてください")
 	private User user;
 
 	/** タイトル */
@@ -59,7 +58,7 @@ public class PostForm {
 	private MultipartFile imageFile5;
 
 	/** 概要 */
-	@Size(max = 100, message = "※概要は100文字以内で入力してください")
+	@Size(max = 50, message = "※概要は50文字以内で入力してください")
 	private String summary;
 
 	/** 詳細 */
