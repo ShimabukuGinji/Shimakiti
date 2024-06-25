@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div id='root'></div>
+<script type='text/babel'>
+    const Link = ReactRouterDOM.Link;
+    const Route = ReactRouterDOM.Route;
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+    const App = () => (
+      <ReactRouterDOM.HashRouter>
+
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/search" component={SearchResults} />
+      </ReactRouterDOM.HashRouter>
+    )
+
+    const Login = () => <h1>Login</h1>
+
+    const Home = () => {
+
+      const useEffect = React.useEffect;
+      const [homeInfo, setHomeInfo] = useState({
+          category: '',
+          keyword: '',
+          region: '',
+      })
+
+      const handleRegionClick = (regionName) => {
+        setRegion(regionName);
+      };
+
+      const handleChange = (e) => {
+          const { name, value } = e.target;
+          setHomeInfo({
+              ...homeInfo, [name]:value
+          })
+          console.log(homeInfo.keyword);
+      }
+
+      return (
+          <div className="container">
+              <header className="header">
+                  <h1>島ぬひみつきち</h1>
+                  <div className="user-info">
+                      <span>ユーザーさん</span>
+                      <Link to="/login"><button>情報追加</button></Link>
+                      <Link to="/"><button>ブックマーク</button></Link>
+                      <Link to="/register"><button>Myページ</button></Link>
+                  </div>
+              </header>
+              <a href="/menu">Text</a>
+              <section className="announcement">
+                  <h2>お知らせ</h2>
+                  <div className="notice">
+                      <p>2024/05/15</p>
+                      <p>企業・ビジネス向け シンプル無料ホームページテンプレート tp_biz624公開。</p>
+                  </div>
+                  <div className="notice">
+                      <p>20XX/00/00</p>
+                      <p>サンプルテキスト。サンプルテキスト。サンプルテキスト。</p>
+                  </div>
+                  <div className="notice">
+                      <p>20XX/00/00</p>
+                      <p>サンプルテキスト。サンプルテキスト。サンプルテキスト。</p>
+                  </div>
+              </section>
+
+              <section className="search-section">
+                  <label>カテゴリー：</label>
+                  <input type="text" placeholder="グルメ" />
+                  <label>キーワード：</label>
+                  <input type="text" name="keyword"  onChange={handleChange} value={homeInfo.keyword} placeholder="ハンバーガー" />
+                  <label>地域：</label>
+                  <input type="text" />
+                  <Link to="/search"><button >検索</button></Link>
+              </section>
+
+          </div>
+      );
+  }
+    const Register = () =>{ <h1>Register</h1>}
+
+    const SearchResults = () => {
+        const [posts, setPosts] = useState([]);
+
+        useEffect(() => {
+            const fetchPosts = async () => {
+                const response = await axios.get('/api/menu');
+                setPosts(response.data);
+            };
+            fetchPosts();
+        }, []);
+
+        return (
+            <div className="search-section">
+                  <label>カテゴリー：</label>
+                  <input type="text" placeholder="グルメ" />
+                  <label>キーワード：</label>
+                  <input type="text" name="keyword"  placeholder="ハンバーガー" />
+                  <label>地域：</label>
+                  <input type="text" />
+                  <Link to="/search"><button >検索</button></Link>
+
+                  {posts.map(post => (
+                    <div className="post">
+                            <label for="postdata"></label>
+                        <img src='../img/青りんご海.jpg' name="postdata" alt="post" />
+                        <div>
+                            <span name="postdata">
+                                <h1>{post.title}</h1>
+                                <p>{post.summary}</p>
+                            </span>
+                            <br />
+                            <span name="postdata">
+                                <span>{post.categories.name}</span>
+                                <span>{post.users.username}</span>
+                            </span>
+
+                        </div>
+
+                    </div>
+                ))}
+
+            </div>
+        );
+    };
+
+    ReactDOM.render(<App />, document.querySelector('#root'));
+</script>
+</body>
+</html>

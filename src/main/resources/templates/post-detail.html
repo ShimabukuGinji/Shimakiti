@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Post Detail</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/post-detail.css" rel="stylesheet">
+
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <div class="image-carousel">
+                <button class="nav-button" onclick="slideshowBack()">◀</button>
+                <img id="picImg" class="pic-image" th:src="${post.imageFile1}">
+                <button class="nav-button" onclick="slideshowNext()">▶</button><br>
+            </div>
+            <div class="sub-image">
+                <img id="subImg1" class="image" th:src="${post.imageFile2}"/>
+                <img id="subImg2" class="image" th:src="${post.imageFile3}"/>
+                <img id="subImg3" class="image" th:src="${post.imageFile4}"/>
+                <img id="subImg4" class="image" th:src="${post.imageFile5}"/>
+            </div>
+            <p class="address"><span th:text="${post.address}"></span></p>
+            <div id="map"></div>
+        </div>
+        <div class="box-right">
+            <div class="post-category">
+                <span th:text="${post.categories.name}"></span>
+            </div>
+            <div class="post-title">
+                <span th:text="${post.title}"></span>
+            </div>
+            <div class="post-summary">
+                <span th:text="${post.summary}"></span>
+            </div>
+            <div class="post-detail">
+                <span th:text="${post.detail}"></span>
+            </div>
+            <div class="post-info">
+                <p>投稿者: <span th:text="${post.users.username}"></span></p>
+                <p>更新日: <span th:text="${#dates.format(post.created_at, 'yyyy/MM/dd')}"></span></p>
+            </div>
+            <div class="post-link">
+                <a th:href="${post.link}">外部リンク</a>
+                <p hidden><span id="lat" th:text="${post.map_longitude}"></span></p>
+                <p hidden><span id="lng" th:text="${post.map_latitude}"></span></p>
+            </div>
+            <div class="post-actions">
+                <button th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button>
+                <button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button>
+            </div>
+        </div>
+    </div>
+    <div class="comment-section">
+        <form th:action="@{/comments/add/{postId}(postId=${post.id})}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="comment-form">
+                <label for="content"></label>
+                <textarea id="content" name="content" required></textarea>
+                <button type="submit">送信</button>
+            </div>
+        </form>
+        <div class="comment-list" th:replace="~{comments :: commentList(comments=${comments})}"></div>
+    </div>
+</div>
+
+<script src="/js/post-detail.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMapDetail" async defer></script>
+</body>
+</html>

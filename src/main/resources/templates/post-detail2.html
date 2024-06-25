@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>Post Detail</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/post-detail.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <div class="image-carousel">
+                <button class="nav-button" onclick="slideshowBack()">◀</button>
+                <img id="picImg" class="pic-image" th:src="${post.imageFile1}">
+                <button class="nav-button" onclick="slideshowNext()">▶</button><br>
+            </div>
+            <div class="sub-image">
+                <img id="subImg1" class="image" th:src="${post.imageFile2}"/>
+                <img id="subImg2" class="image" th:src="${post.imageFile3}"/>
+                <img id="subImg3" class="image" th:src="${post.imageFile4}"/>
+                <img id="subImg4" class="image" th:src="${post.imageFile5}"/>
+            </div>
+            <p class="address"><span th:text="${post.address}"></span></p>
+            <div id="map"></div>
+        </div>
+        <div class="box-right">
+            <div class="post-category">
+                <span th:text="${post.categories.name}"></span>
+            </div>
+            <div class="post-title">
+                <span th:text="${post.title}"></span>
+            </div>
+            <div class="post-summary">
+                <span th:text="${post.summary}"></span>
+            </div>
+            <div class="post-detail">
+                <span th:text="${post.detail}"></span>
+            </div>
+            <div class="post-info">
+                <p>投稿者: <span th:text="${post.users.username}"></span></p>
+                <p>更新日: <span th:text="${#dates.format(post.created_at, 'yyyy/MM/dd')}"></span></p>
+            </div>
+            <div class="post-link">
+                <a th:href="${post.link}">外部リンク</a>
+                <p hidden><span id="lat" th:text="${post.map_longitude}"></span></p>
+                <p hidden><span id="lng" th:text="${post.map_latitude}"></span></p>
+            </div>
+            <div class="post-actions">
+                <button th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button>
+                <button th:onclick="|location.href='/posts/delete/__${post.id}__'|">削除</button>
+            </div>
+        </div>
+    </div>
+    <div class="comment-section">
+        <form th:action="@{/comments/add/{postId}(postId=${post.id})}" method="post">
+            <h3>コメント</h3>
+            <div class="comments">
+                <!-- コメントのリスト -->
+            </div>
+            <div class="comment-form">
+                <input type="text" placeholder="コメントを入力">
+                <button type="submit">送信</button>
+                <div id="Comments"></div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script src="/js/post-detail.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMapDetail" async defer></script>
+
+<script type="text/babel">
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    axios.defaults.headers.common[csrfHeader] = csrfToken;
+
+    const { useState, useEffect } = React;
+    const CommentForm = ({ postId, onCommentAdded }) => {
+        const [content, setContent] = useState('');
+
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+            try {
+                const response = await axios.post(`/api/comments/${postId}`, content, {
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                });
+                setContent('');
+                onCommentAdded(response.data);
+            } catch (error) {
+                console.error('There was an error adding the comment!', error);
+            }
+        };
+
+        const changehandler = (event) =>{
+            setContent(event.target.value);
+        }
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Comment:</label>
+                    <textarea value={content} onChange={changehandler} required />
+                </div>
+                <button type="submit">Add Comment</button>
+            </form>
+        );
+    };
+
+    ReactDOM.render(<CommentForm />, document.getElementById('Comments'));
+</script>
+</body>
+</html>

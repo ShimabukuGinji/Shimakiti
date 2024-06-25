@@ -1,0 +1,9 @@
+<div class="header" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <h1 class="site_logo"><a href="/menu">島ぬひみつきち</a></h1>
+    <div class="user-info">
+        <div sec:authentication="name"></div><span>さん、こんにちは</span>
+        <button onclick="location.href='/posts'">情報追加</button>
+        <button onclick="location.href='/bookmarks'">ブックマーク</button>
+        <button onclick="location.href='/my-page'">Myページ</button>
+    </div>
+</div>

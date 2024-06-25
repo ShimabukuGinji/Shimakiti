@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>コメントリスト</title>
+    <link rel="stylesheet" th:href="@{/css/post-detail.css}" />
+</head>
+<body>
+<div th:fragment="commentList (comments)" class="comment-list">
+    <h3>コメント一覧</h3>
+    <div th:each="comment : ${comments}" class="comment">
+        <p><strong th:text="${comment.user.username}"></strong></p>
+        <p th:text="${comment.content}"></p>
+        <small th:text="${#dates.format(comment.updated_at, 'yyyy-MM-dd HH:mm')}"></small>
+    </div>
+</div>
+</body>
+</html>

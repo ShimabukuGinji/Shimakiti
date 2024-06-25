@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--    <script src='https://unpkg.com/react-router-dom@6.6.1/umd/react-router-dom.min.js'></script>-->
+
+</head>
+<body>
+<th:block th:insert="common/header"></th:block>
+<div id="root"></div>
+
+<script type="text/babel">
+    const useState = React.useState;
+    const useEffect = React.useEffect;
+
+    const Bookmark = () => {
+        const [bookmarks, setBookmarks] = useState([]);
+
+        useEffect(() => {
+            axios.get('/api/bookmarks')
+            .then(response => {
+                setBookmarks(response.data);
+                console.log(bookmarks);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the bookmarks!', error);
+            });
+        }, []);
+
+        const handleBookmarkClick = (postId) => {
+            axios.post(`/api/bookmarks/${postId}`)
+            .then(response => {
+                setBookmarks(response.data);
+                console.log(bookmarks);
+            })
+            .catch(error => {
+                console.error('There was an error updating the bookmark!', error);
+            });
+        };
+        return (
+            <div className="container">
+                <h2>ブックマークリスト</h2>
+                <ul>
+                {bookmarks.map(bookmark => (
+                    <li key={bookmark.id}>
+                        <div>
+
+                        <button onClick={handleBookmarkClick(bookmark.id)}>
+                                {bookmark.isBookmarked ? 'ブックマークを削除' : 'ブックマークに追加'}
+                        </button>
+
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            </div>
+        );
+
+    }
+
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<Bookmark/>);
+</script>
+
+</body>
+</html>
