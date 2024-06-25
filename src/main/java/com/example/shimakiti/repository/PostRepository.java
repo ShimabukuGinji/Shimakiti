@@ -20,4 +20,25 @@ public interface PostRepository extends JpaRepository<Posts, Integer> {
 
     List<Posts> findByCategories(Categories categories);
 
+
+    @Query("SELECT p FROM Posts p WHERE " +
+            "(:category IS NULL OR :category = '' OR p.categories.name = :category) AND " +
+            "(:keyword IS NULL OR :keyword = '' OR p.title LIKE %:keyword% OR p.summary LIKE %:keyword%) AND " +
+            "(:region IS NULL OR :region = '' OR p.cities.name = :region )"+
+            "ORDER BY p.id DESC")
+    List<Posts> findPostsByCriteriaOrderByUpdatedAtDesc(@Param("category") String category,
+                                                        @Param("keyword") String keyword,
+                                                        @Param("region") String region);
+
+    @Query("SELECT p FROM Posts p WHERE " +
+            "(:category IS NULL OR :category = '' OR p.categories.name = :category) AND " +
+            "(:keyword IS NULL OR :keyword = '' OR p.title LIKE %:keyword% OR p.summary LIKE %:keyword%) AND " +
+            "(:region IS NULL OR :region = '' OR p.cities.name = :region)" +
+            "ORDER BY p.updated_at ASC")
+    List<Posts> findPostsByCriteriaOrderByUpdatedAtAsc(@Param("category") String category,
+                                                       @Param("keyword") String keyword,
+                                                       @Param("region") String region);
+
+    @Query("SELECT p FROM Posts p ORDER BY p.updated_at DESC")
+    List<Posts> findAllPostsDesc();
 }

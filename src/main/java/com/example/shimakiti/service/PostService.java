@@ -304,4 +304,29 @@ public class PostService {
         bookmarksRepository.deleteAll(bookmarks);
         postRepository.delete(post);
     }
+
+    public List<PostResult> searchUpdatedAtDesc(String category, String keyword, String region) throws IOException {
+        var posts = postRepository.findPostsByCriteriaOrderByUpdatedAtDesc(category, keyword, region);
+        if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
+            posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "updated_at"));
+            System.out.println(posts.get(0));
+        }
+        List<PostResult> postResults = new ArrayList<>();
+        for (var post :posts) {
+            postResults.add(postResult(post.getId()).get());
+        }
+        return postResults;
+    }
+
+    public List<PostResult> searchUpdatedAtAsc(String category, String keyword, String region) throws IOException {
+        var posts = postRepository.findPostsByCriteriaOrderByUpdatedAtAsc(category, keyword, region);
+        if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
+            posts = postRepository.findAll(Sort.by(Sort.Direction.ASC, "updated_at"));
+        }
+        List<PostResult> postResults = new ArrayList<>();
+        for (var post :posts) {
+            postResults.add(postResult(post.getId()).get());
+        }
+        return postResults;
+    }
 }

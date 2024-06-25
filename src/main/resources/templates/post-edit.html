@@ -43,6 +43,9 @@
             <div id="map"></div>
             <div class="form-group">
                 <label for="address">住所：</label>
+                <span class="error" th:each="error: ${#fields.errors('address')}">
+                  [[ ${error} ]]
+                </span>
                 <input type="text" id="address" th:field="*{address}" class="form-control">
             </div>
             <ul>
@@ -53,30 +56,48 @@
         <div class="right-section">
             <div class="form-group">
                 <label for="title">タイトル：</label>
+                <span class="error" th:each="error: ${#fields.errors('title')}">
+                  [[ ${error} ]]
+                </span>
                 <input type="text" id="title" th:field="*{title}" class="form-control">
             </div>
             <div class="form-group">
                 <label for="category">カテゴリ：</label>
+                <span class="error" th:each="error: ${#fields.errors('categories')}">
+                  [[ ${error} ]]
+                </span>
                 <select id="category" th:field="*{categories.id}" name="categoryId" class="form-control">
                     <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="summary">概要：</label>
+                <span class="error" th:each="error: ${#fields.errors('summary')}">
+                  [[ ${error} ]]
+                </span>
                 <input type="text" id="summary" th:field="*{summary}" class="form-control">
             </div>
             <div class="form-group">
                 <label for="detail">詳細：</label>
+                <span class="error" th:each="error: ${#fields.errors('detail')}">
+                  [[ ${error} ]]
+                </span>
                 <textarea id="detail" th:field="*{detail}" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label for="city">市町村：</label>
+                <span class="error" th:each="error: ${#fields.errors('cities')}">
+                  [[ ${error} ]]
+                </span>
                 <select id="city" th:field="*{cities.id}" name="citiesId" class="form-control">
                     <option th:each="city:${cities}" th:value="${city.id}" th:text="${city.name}"></option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="link">外部リンク：</label>
+                <span class="error" th:each="error: ${#fields.errors('link')}">
+                  [[ ${error} ]]
+                </span>
                 <input type="text" id="link" th:field="*{link}" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">更新</button>

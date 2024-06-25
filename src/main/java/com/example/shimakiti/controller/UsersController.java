@@ -77,6 +77,45 @@ public class UsersController {
         return "redirect:/menu";
     }
 
+    @GetMapping("/admin/users")
+    public String user(Model model) {
+        model.addAttribute("users",userService.findAllUsers());
+        return "user-list";
+    }
+
+    @GetMapping("/admin/user-insert")
+    public String userInsert(@ModelAttribute("user") User user) {
+        return "user-insert";
+    }
+
+    @GetMapping("/admin/userDetail/{id}")
+    public String userDetail(@PathVariable("id")Integer id,Model model) {
+        model.addAttribute("user",userService.findById(id));
+        return "user-detail";
+    }
+
+    @GetMapping("/admin/user-edit/{id}")
+    public String userEdit(@PathVariable("id")Integer id,Model model) {
+        model.addAttribute("user",userService.findById(id));
+        return "user-edit";
+    }
+
+    @PostMapping("/admin/user-edit")
+    public String userEditPost(@ModelAttribute("user")User user) {
+        var userDate = userService.findById(user.getId());
+        userDate.setName(user.getName());
+        userDate.setPassword(user.getPassword());
+        userService.updateUser(userDate);
+        return "redirect:users";
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String userDelete(@PathVariable("id")Integer id) {
+        userService.deleteUserById(id);
+        return "redirect:/admin/users";
+    }
+
+
     @GetMapping("/bookmark")
     public String searchPage(Model model) {
         List<Categories> categories = menuService.findAll();

@@ -50,6 +50,12 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public void deleteUserById(Integer id) { userRepository.deleteById(id);}
+
+    public void updateUser(User user){
+        userRepository.save(user);
+    }
+
     public ProfileResult profileResult(User user) throws IOException {
         var profileResult = new ProfileResult();
         profileResult.setId(user.getId());
