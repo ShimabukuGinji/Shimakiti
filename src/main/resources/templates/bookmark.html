@@ -17,17 +17,6 @@
 <th:block th:insert="common/header"></th:block>
 <h1>検索結果</h1>
 
-
-<div class="container">
-    <div class="text-block">
-        <div class="text-block">
-            <p hidden>選択された市町村： <input id="region" th:value="${region}"></p>
-            <p hidden>キーワード： <input id="keyword" th:value="${keyword}"></p>
-            <p hidden>選択された市町村： <input id="categoryName" th:value="${categoryParam}"></p>
-        </div>
-    </div>
-</div>
-
 <div id="root"></div>
 
 <script type="text/babel">
@@ -49,9 +38,9 @@
         const [defLoad, setDefLoad] = useState(false);
 
         const [searchParams, setSearchParams] = useState({
-            category: document.getElementById("categoryName").value,
-            keyword: document.getElementById("keyword").value,
-            region: document.getElementById("region").value
+            category: '',
+            keyword: '',
+            region: ''
         });
         const [showResults, setShowResults] = useState(false);
 
@@ -177,6 +166,7 @@
         const [getBookmark, setGetBookmark] = useState([]);
         const [getLike, setGetLike] = useState([]);
         const [likeCount, setLikeCount] = useState([]);
+        const [user, setUser] = useState(true);
 
          useEffect(() => {
             const fetchBookmarkStatus = async () => {
@@ -196,8 +186,18 @@
                     console.error("Error fetching bookmark status:", error);
                 }
             };
+
+            const fetchUserStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/search/user/${post.id}`);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
             fetchBookmarkStatus();
             fetchLikedStatus();
+            fetchUserStatus();
 
         }, [post.id]);
 
@@ -239,46 +239,48 @@
           return `{bookmark.id}`;
         });
 
-
-
-        return (
-            <div className="posts">
-                <div className="post">
-                    <img className="image" src={post.imageFile1} alt="post" />
-                    <div className="information">
-                        <div className="box-top">
-                            <h1 className="title"><a href={"/posts/detail/" + post.id}>{post.title}</a></h1>
-                            <div className="category-box">
-                                <span>{post.users.username}</span>
+        if (bookmarked) {
+            return (
+                <div className="posts">
+                    <div className="post">
+                        <img className="image" src={post.imageFile1} alt="post" />
+                        <div className="information">
+                            <div className="box-top">
+                                <h1 className="title"><a href={"/posts/detail/" + post.id}>{post.title}</a></h1>
+                                <div className="category-box">
+                                    <span>{post.users.username}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="box-center">
-                            <span className="summary">{post.summary}</span>
-                        </div>
-                        <div className="box-bottom">
-                            <span className="city">{post.cities.name}/</span>
-                            <span className="category">{post.categories.name}</span>
-                            <div className="like">
-                                <input
-                                    className="click-img"
-                                    type="image"
-                                    onClick={likeClick}
+                            <div className="box-center">
+                                <span className="summary">{post.summary}</span>
+                            </div>
+                            <div className="box-bottom">
+                                <span className="city">{post.cities.name}/</span>
+                                <span className="category">{post.categories.name}</span>
+                                <div className="like">
+                                    <input
+                                        className="click-img"
+                                        type="image"
+                                        onClick={likeClick}
 
-                                    src={liked ? '../img/like-after.png' : '../img/like-before.png'}
-                                /><span>{likeCount}</span>
+                                        src={liked ? '../img/like-after.png' : '../img/like-before.png'}
+                                    /><span>{likeCount}</span>
 
-                                <input
-                                    className="click-img"
-                                    type="image"
-                                    onClick={bookmarkClick}
-                                    src={bookmarked ? '../img/bookmark-after.png' : '../img/bookmark-before.png'}
-                                />
+                                    <input
+                                        className="click-img"
+                                        type="image"
+                                        onClick={bookmarkClick}
+                                        src={bookmarked ? '../img/bookmark-after.png' : '../img/bookmark-before.png'}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return "";
+        }
     };
 
     const App = () => {

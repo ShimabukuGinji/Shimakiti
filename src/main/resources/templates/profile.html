@@ -5,14 +5,23 @@
     <title>Title</title>
     <link href="/css/header.css" rel="stylesheet">
     <link href="/css/profile.css" rel="stylesheet">
-
+    <link href="/css/search.css" rel="stylesheet">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
@@ -63,10 +72,286 @@
         </div>
     </div>
 </div>
+
+<div id="root"></div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    axios.defaults.headers.common[csrfHeader] = csrfToken;
+
+    const { useState, useEffect } = React;
+    const { HashRouter, Route, withRouter } = ReactRouterDOM;
+
+    const Home = withRouter(({ history, location }) => {
+        const [posts, setPosts] = useState([]);
+        const [cats, setCats] = useState([]);
+        const [cities, setCities] = useState([]);
+        const [postsCount, setPostsCount] = useState(posts.length);
+        const [order, setOrder] = useState('評価順');
+
+        const [defLoad, setDefLoad] = useState(false);
+
+        const [searchParams, setSearchParams] = useState({
+            category: "",
+            keyword: "",
+            region: ""
+        });
+        const [showResults, setShowResults] = useState(false);
+
+        useEffect(() => {
+            let { category, keyword, region } = searchParams;
+
+            if(category=='全部'){category="";}
+            if(region=='全部'){region="";}
+            history.push(`/?category=${category}&keyword=${keyword}&region=${region}&order=${order}`);
+
+            setShowResults(true);
+            const fetchPosts = async () => {
+                try {
+                    let url = '/api/search';
+                    if (order === '新しい順') {
+                        url = '/api/search/updatedAt/Desc';
+                    } else if (order === '古い順') {
+                        url = '/api/search/updatedAt/Asc';
+                    }
+                    const response = await axios.get(url, {
+                        params: {
+                            category,
+                            keyword,
+                            region
+                        }
+                    });
+                    setPosts(response.data);
+                } catch (error) {
+                    console.error('Error fetching posts:', error);
+                }
+            };
+            fetchPosts();
+            setDefLoad(true);
+        }, [searchParams,  order]);
+
+        const handleInputChange = (e) => {
+            const { name, value } = e.target;
+            setSearchParams(prev => ({ ...prev, [name]: value }));
+        };
+
+        const likeClick = (e) => {
+            console.log("like");
+
+        };
+
+        const handleOrderChange = (event) => {
+            setOrder(event.target.value);
+        };
+
+        useEffect(() => {
+            const fetchCategories = async () => {
+                const response = await axios.get('/api/search/categories');
+                setCats(response.data);
+            };
+            fetchCategories();
+        }, []);
+
+        useEffect(() => {
+            const fetchCities = async () => {
+                const response = await axios.get('/api/search/cities');
+                setCities(response.data);
+            };
+            fetchCities();
+        }, []);
+
+        useEffect(() => {
+            setPostsCount(posts.length);
+         }, [posts]);
+
+
+        return (
+            <div>
+                <div>
+                    <select
+                        name="category"
+                        value={searchParams.category}
+                        onChange={handleInputChange}
+                    >
+
+                        {cats.map(cat => (
+                            <option key={cat.id} value={cat.name}>{cat.name}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        name="keyword"
+                        value={searchParams.keyword}
+                        onChange={handleInputChange}
+                        placeholder="キーワード"
+                    />
+                    <select
+                        name="region"
+                        value={searchParams.region}
+                        onChange={handleInputChange}
+                    >
+
+                        {cities.map(city => (
+                            <option key={city.id} value={city.name}>{city.name}</option>
+                        ))}
+                    </select>
+                    <p>
+                        検索結果：<span id="postsCount">{postsCount}</span>件　
+                        並び替え：
+                        <select value={order} onChange={handleOrderChange}>
+                            <option value="評価順">評価順</option>
+                            <option value="新しい順">新しい順</option>
+                            <option value="古い順">古い順</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    {posts.map(post => (
+                        <Post key={post.id} post={post} />
+                    ))}
+                </div>
+            </div>
+        );
+    });
+
+    const Post = ({ post }) => {
+        const [liked, setLiked] = useState(false);
+        const [bookmarked, setBookmarked] = useState(false);
+        const [getBookmark, setGetBookmark] = useState([]);
+        const [getLike, setGetLike] = useState([]);
+        const [likeCount, setLikeCount] = useState([]);
+        const [user, setUser] = useState(true);
+
+         useEffect(() => {
+            const fetchBookmarkStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/bookmarks/status/${post.id}`);
+                    setBookmarked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+
+            const fetchLikedStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/likes/status/${post.id}`);
+                    setLiked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+
+            const fetchUserStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/search/user/${post.id}`);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+            fetchBookmarkStatus();
+            fetchLikedStatus();
+            fetchUserStatus();
+
+        }, [post.id]);
+
+        useEffect(() => {
+            const fetchCities = async () => {
+                const response = await axios.get(`/api/likes/count/${post.id}`);
+                setLikeCount(response.data);
+            };
+            fetchCities();
+        }, [liked, setLiked]);
+
+        const likeClick = async () => {
+            try {
+                if (liked) {
+                    await axios.post(`/api/likes/delete/${post.id}`);
+                } else {
+                    await axios.post(`/api/likes/${post.id}`);
+                }
+            } catch (error) {
+                console.error("Error", error);
+            }
+            setLiked(!liked);
+        };
+
+        const bookmarkClick = async () => {
+            try {
+                if (bookmarked) {
+                    await axios.post(`/api/bookmarks/delete/${post.id}`);
+                } else {
+                    await axios.post(`/api/bookmarks/${post.id}`);
+                }
+                setBookmarked(!bookmarked);
+            } catch (error) {
+                console.error("Error updating bookmark:", error);
+            }
+        };
+
+        const bookmarkCheck = getBookmark.map((bookmark) => {
+          return `{bookmark.id}`;
+        });
+
+        if (user) {
+            return (
+                <div className="posts">
+                    <div className="post">
+                        <img className="image" src={post.imageFile1} alt="post" />
+                        <div className="information">
+                            <div className="box-top">
+                                <h1 className="title"><a href={"/posts/detail/" + post.id}>{post.title}</a></h1>
+                                <div className="category-box">
+                                    <span>{post.users.username}</span>
+                                </div>
+                            </div>
+                            <div className="box-center">
+                                <span className="summary">{post.summary}</span>
+                            </div>
+                            <div className="box-bottom">
+                                <span className="city">{post.cities.name}/</span>
+                                <span className="category">{post.categories.name}</span>
+                                <div className="like">
+                                    <input
+                                        className="click-img"
+                                        type="image"
+                                        onClick={likeClick}
+
+                                        src={liked ? '../img/like-after.png' : '../img/like-before.png'}
+                                    /><span>{likeCount}</span>
+
+                                    <input
+                                        className="click-img"
+                                        type="image"
+                                        onClick={bookmarkClick}
+                                        src={bookmarked ? '../img/bookmark-after.png' : '../img/bookmark-before.png'}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    };
+
+    const App = () => {
+        return (
+            <HashRouter>
+                <Route path="/" component={Home} />
+            </HashRouter>
+        );
+    };
+    ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+
 </body>
 </html>

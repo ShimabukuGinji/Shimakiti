@@ -30,7 +30,7 @@
     <select id="category">
         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
     </select>
-    <a>&nbsp;&nbsp;&nbsp;キーワード：</a>
+    <a>キーワード：</a>
     <input type="text" id="keyword">
     <img src="../img/imagemap.jpg" usemap="#ImageMap" alt="" class="map_link"/>
     <map name="ImageMap">

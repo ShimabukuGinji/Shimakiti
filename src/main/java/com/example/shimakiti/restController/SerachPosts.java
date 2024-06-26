@@ -5,13 +5,18 @@ import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Cities;
 import com.example.shimakiti.entity.Posts;
 
+import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.CategoryService;
 import com.example.shimakiti.service.CitiesService;
 import com.example.shimakiti.service.PostService;
+import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +27,9 @@ public class SerachPosts {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CategoryService categoryService;
@@ -74,6 +82,13 @@ public class SerachPosts {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/user/{postId}")
+    public ResponseEntity<Boolean> getUserLikes(@PathVariable int postId, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isPost = userService.isuserPost(postId, username);
+        return ResponseEntity.ok(isPost);
     }
 
     @GetMapping("/updatedAt/Desc")
