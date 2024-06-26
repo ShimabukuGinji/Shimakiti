@@ -52,4 +52,11 @@ public class BookmarkController {
         List<Bookmarks> bookmarks = bookmarkService.getUserBookmarks(username);
         return ResponseEntity.ok(bookmarks);
     }
+
+    @GetMapping("/api/bookmarks/status/{postId}")
+    public ResponseEntity<Boolean> getUserBookmarks(@PathVariable int postId, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isBookmarked = bookmarkService.isPostBookmarkedByUser(postId, username);
+        return ResponseEntity.ok(isBookmarked);
+    }
 }

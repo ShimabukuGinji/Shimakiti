@@ -46,6 +46,7 @@ public class UsersController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userService.findByUserName(username);
         var profile = userService.profileResult(user);
+        model.addAttribute("icon", profile.getProfilePicture());
         model.addAttribute("profileForm", profile);
         model.addAttribute("myPage", 1);
         return "profile-edit";
@@ -54,6 +55,10 @@ public class UsersController {
     @PostMapping("/my-page/edit")
     public String profileUpdate(@Validated @ModelAttribute("profileForm") ProfileForm form, BindingResult bindingResult, Model model) throws IOException {
         if(bindingResult.hasErrors()) {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            var user = userService.findByUserName(username);
+            var profile = userService.profileResult(user);
+            model.addAttribute("icon", profile.getProfilePicture());
             return "profile-edit";
         }
         userService.update(form);
@@ -71,11 +76,7 @@ public class UsersController {
 
     @GetMapping("/admin")
     public String admin(){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (username.equals("admin")) {
-            return "admin";
-        }
-        return "redirect:/menu";
+        return "admin";
     }
 
     @GetMapping("/admin/users")

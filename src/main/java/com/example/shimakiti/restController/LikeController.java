@@ -58,4 +58,11 @@ public class LikeController {
         List<Likes> likes = likeService.getPostLikes(postId);
         return ResponseEntity.ok(likes.size());
     }
+
+    @GetMapping("api/likes/status/{postId}")
+    public ResponseEntity<Boolean> getUserLikes(@PathVariable int postId, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isLiked = likeService.islikePost(postId, username);
+        return ResponseEntity.ok(isLiked);
+    }
 }

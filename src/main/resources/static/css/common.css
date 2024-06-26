@@ -16,15 +16,6 @@ body {
     padding: 20px;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
 /* ヘッダ下のライン */
 .border{
     border: 5px solid #66FFCC;
@@ -71,11 +62,12 @@ body {
     width: 80%;
     border: 5px solid #333;
     margin: auto;
+    padding-top: 10px;
 }
+
 .notice-list {
     max-height: 400px;
     overflow-y: auto;
-    margin-top: 20px;
     border-top: 1px solid #ddd;
     padding-top: 10px;
 }
@@ -88,7 +80,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     background-color: #f1f1f1;
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -142,14 +134,16 @@ div.notification a:last-child {
 }
 
 .search-menu{
+    width: 80%;
+    height: 850px;
+    margin: auto;
     text-align: center;
     background-color: #66FFCC;
-    /* margin-top: 10px; */
+    margin-top: 20px;
     padding: 10px;
-    margin: 0px 2%;
 }
 .search-menu a {
-    font-size: 50px;
+    font-size: 30px;
 }
 .search-menu select {
     border: 1px solid;
@@ -157,11 +151,9 @@ div.notification a:last-child {
 }
 
 .search-menu input{
-    /* コレpadding: auto; */
-    /*コレ*/line-height: 3;
     border: 1px solid #999;
-    font-size: 100%;
-    /* box-sizing: border-box; */
+    font-size: 30px;
+    box-sizing: border-box;
 }
 
 /* フォームセクション */
@@ -185,11 +177,40 @@ form input[type="text"] {
 /* 画像 */
 img {
     display: block;
-    margin: 20px auto;
+    margin: auto;
+    margin-top: 30px;
     border-radius: 10px;
+    transform-origin:left top;
+    transform: scale(0.5,0.5) translate(50%, 0);
 }
 
-#p_tohoku {
+#p_kunigami,
+#p_ogimi,
+#p_higasi,
+#p_nago,
+#p_nakijin,
+#p_ie,
+#p_motobu,
+#p_ginoza,
+#p_onna,
+#p_kin,
+#p_uruma,
+#p_okinawa,
+#p_yomitan,
+#p_kadena,
+#p_chatan,
+#p_kitanakagusuku,
+#p_ginowan,
+#p_nakagusuku,
+#p_urasoe,
+#p_naha,
+#p_nisihara,
+#p_haebaru,
+#p_yonabaru,
+#p_tomisiro,
+#p_itoman,
+#p_yaese,
+#p_nanjo{
 	display: none;
 }
 
@@ -207,22 +228,4 @@ img {
 	text-align: center;
 	margin: 0;
 	line-height: 2.5;
-}
-
-.p_box .p_txt {
-	padding: 15px 5px;
-}
-
-.p_box ul {
-	width: 90%;
-	margin: 0;
-	padding: 0 0 0 10%;
-	overflow: hidden;
-}
-
-.p_box ul li {
-	float: left;
-	width: 42%;
-	margin: 0 0 0 8%;
-	font-size: .8em;
 }

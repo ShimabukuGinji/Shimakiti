@@ -225,3 +225,12 @@ label {
     color: #999;
     text-align: right;
 }
+
+.click-img {
+    width: 30px;
+}
+
+.like {
+    margin-right: 50px;
+    margin-left: auto;
+}

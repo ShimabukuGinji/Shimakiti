@@ -49,4 +49,11 @@ public class LikeService {
         Posts post = postRepository.findById(postId).get();
         return likesRepository.findByPost(post);
     }
+
+    public boolean islikePost(int postId, String username) {
+        User user = userRepository.findByUsername(username);
+        Posts post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found"));
+        Likes likes = likesRepository.findByPostAndUser(post,user);
+        return likes != null;
+    }
 }

@@ -1,50 +1,107 @@
 body {
-    width: 100%;
+    background-color: #f5f5f5;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
 }
 
 .container {
+    background-color: #fff;
     width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #F8F9FA;
-    border-radius: 10px;
+    margin: auto;
+    padding: 30px;
+    margin-top: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.image{
-    width:20%
+    border-radius: 10px;
 }
 
 .box {
     display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
 
-
-.icon {
-    width: 100%;
-    border-radius:50%;
+.image {
+    flex: 3;
+    text-align: center;
+    margin-right: auto;
 }
 
-h1 {
-    font-size: 50px;
-}
-
-.input-file {
+.image input[type="file"] {
     display: none;
 }
-.error{
-    color:  red;
-}
-.UpdateButton{
-    margin:auto 0;
-}
-textarea{
-      width: 300px;  /* 幅を固定 */
-      height: 200px; /* 高さを固定 */
-      resize: none;  /* リサイズを無効にする */
+
+.image label img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.editBox-left {
+    flex: 5;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.editBox-right {
+    flex: 11;
+}
+
+.editBox-left p,
+.editBox-right p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.editBox-right input[type="text"],
+.editBox-right textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+}
+
+.editBox-right textarea {
+    resize: none;
+    height: 100px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.UpdateButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.UpdateButton:hover {
+    background-color: #0056b3;
+}
+
+form {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .editBox-left {
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .image {
+        margin-bottom: 20px;
+    }
+}

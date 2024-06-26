@@ -46,15 +46,7 @@
         const [postsCount, setPostsCount] = useState(posts.length);
         const [order, setOrder] = useState('評価順');
 
-        const [defaultParam, setDefaultParam]=useState({
-            category: document.getElementById("categoryName").value,
-            keyword: document.getElementById("keyword").value,
-            region: document.getElementById("region").value
-        });
-
         const [defLoad, setDefLoad] = useState(false);
-        console.log(defaultParam.region);
-        console.log(defLoad);
 
         const [searchParams, setSearchParams] = useState({
             category: document.getElementById("categoryName").value,
@@ -62,7 +54,6 @@
             region: document.getElementById("region").value
         });
         const [showResults, setShowResults] = useState(false);
-        const [isLoading, setIsLoading] = useState(true);
 
         useEffect(() => {
             let { category, keyword, region } = searchParams;
@@ -96,18 +87,6 @@
             setDefLoad(true);
         }, [searchParams,  order]);
 
-        /*
-        useEffect(() => {
-            const params = new URLSearchParams(location.search);
-            setSearchParams({
-                category: params.get('category') || '',
-                keyword: params.get('keyword') || '',
-                region: params.get('region') || ''
-            });
-            setShowResults(location.search !== '');
-
-        }, [location.search, order]);
-        */
         const handleInputChange = (e) => {
             const { name, value } = e.target;
             setSearchParams(prev => ({ ...prev, [name]: value }));
@@ -121,9 +100,6 @@
         const handleOrderChange = (event) => {
             setOrder(event.target.value);
         };
-
-
-
 
         useEffect(() => {
             const fetchCategories = async () => {
@@ -202,14 +178,28 @@
         const [getLike, setGetLike] = useState([]);
         const [likeCount, setLikeCount] = useState([]);
 
-        useEffect(() => {
-            const fetchGetBookmark = async () => {
-                const response = await axios.get(`/api/bookmarks`);
-                setGetBookmark(response.data);
+         useEffect(() => {
+            const fetchBookmarkStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/bookmarks/status/${post.id}`);
+                    setBookmarked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
             };
-            fetchGetBookmark();
 
-        }, []);
+            const fetchLikedStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/likes/status/${post.id}`);
+                    setLiked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+            fetchBookmarkStatus();
+            fetchLikedStatus();
+
+        }, [post.id]);
 
         useEffect(() => {
             const fetchCities = async () => {
@@ -233,15 +223,15 @@
         };
 
         const bookmarkClick = async () => {
-            setBookmarked(!bookmarked);
             try {
                 if (bookmarked) {
                     await axios.post(`/api/bookmarks/delete/${post.id}`);
                 } else {
                     await axios.post(`/api/bookmarks/${post.id}`);
                 }
+                setBookmarked(!bookmarked);
             } catch (error) {
-                console.error("Error", error);
+                console.error("Error updating bookmark:", error);
             }
         };
 
@@ -249,7 +239,7 @@
           return `{bookmark.id}`;
         });
 
-        console.log(bookmarkCheck);
+
 
         return (
             <div className="posts">
@@ -273,6 +263,7 @@
                                     className="click-img"
                                     type="image"
                                     onClick={likeClick}
+
                                     src={liked ? '../img/like-after.png' : '../img/like-before.png'}
                                 /><span>{likeCount}</span>
 

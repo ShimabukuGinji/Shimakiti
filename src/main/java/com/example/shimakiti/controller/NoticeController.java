@@ -45,15 +45,12 @@ public class NoticeController {
 
     @GetMapping("/admin/notice-insert")
     public String displayNoticeInsert(Model model){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (username.equals("admin")) {
-            List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
-            model.addAttribute("notice", new Notices());
-            model.addAttribute("noticeCategory", noticeCategory);
+        List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
+        model.addAttribute("notice", new Notices());
+        model.addAttribute("noticeCategory", noticeCategory);
 
-            return "notice-insert";
-        }
-        return "redirect:/menu";
+        return "notice-insert";
+
     }
 
     @PostMapping("/admin/notice-insert")
@@ -65,21 +62,17 @@ public class NoticeController {
 
     @GetMapping("/admin/notice-edit/{id}")
     public  String displayNoticeEdit(@PathVariable int id, Model model){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (username.equals("admin")) {
-            List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
-            Notices notices = noticesService.findById(id);
-            model.addAttribute("notice", notices);
-            model.addAttribute("noticeCategory", noticeCategory);
+        List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
+        Notices notices = noticesService.findById(id);
+        model.addAttribute("notice", notices);
+        model.addAttribute("noticeCategory", noticeCategory);
 
-            Notices newNotices = new Notices();
-            newNotices.setId(notices.getId());
-            newNotices.setTitle(notices.getTitle());
-            newNotices.setDetail(notices.getDetail());
+        Notices newNotices = new Notices();
+        newNotices.setId(notices.getId());
+        newNotices.setTitle(notices.getTitle());
+        newNotices.setDetail(notices.getDetail());
 
-            return "notice-edit";
-        }
-        return "redirect:/menu";
+        return "notice-edit";
     }
 
     @PostMapping("/admin/notice-edit/{id}")

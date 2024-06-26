@@ -8,9 +8,8 @@
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<div class="border"></div>
 <div class="notice-menu">
-    <p>お知らせ</p>
+    <h4>お知らせ</h4>
     <div class="notice-list">
         <div th:each="notice : ${notices}" class="notice">
             <a th:href="@{notice-detail/__${notice.id}__}">
@@ -50,9 +49,9 @@
         <area shape="poly" coords="580,331,574,331,552,331,547,324,538,323,531,316,526,316,525,322,524,330,518,335,518,342,520,357,523,362,528,366,535,366,539,371,543,379,542,390,536,398,526,408,526,418,533,428,533,442,538,449,542,456,542,468,544,475,550,483,560,486,558,479,559,468,564,465,570,460,572,452,578,439,579,437,589,436,597,436,604,436,610,436,614,438,628,444,635,434,641,425,639,417,639,407,639,397,642,392,641,383,633,383,615,383,603,377,593,367,589,359,584,343,581,330,581,330"
               href="javascript:void(0);" alt="本部町" onclick="getInputAndRedirect('本部町')" class="area_motobu"/>
         <area shape="poly" coords="479,289,470,285,461,278,451,278,443,276,435,270,434,274,427,282,419,283,408,283,398,276,383,274,377,278,372,280,364,284,363,289,363,301,364,309,367,314,376,325,383,328,393,328,406,326,411,326,420,323,422,321,432,325,444,327,458,327,473,327,485,321,485,312,484,302,479,288,479,285,479,286"
-              href="javascript:void(0);" alt="石垣市" onclick="getInputAndRedirect('本部町')" class="area_motobu"/>
+              href="javascript:void(0);" alt="石垣市" onclick="getInputAndRedirect('伊江村')" class="area_ie"/>
         <area shape="poly" coords="509,414,506,408,501,407,495,406,488,406,488,418,488,422,489,431,492,436,491,443,491,445,499,444,501,439,505,426,510,418,510,417"
-              href="javascript:void(0);" alt="伊江島" onclick="getInputAndRedirect('伊江村')" class="area_ie"/>
+              href="javascript:void(0);" alt="伊江島" onclick="getInputAndRedirect('本部町')" class="area_motobu"/>
         <area shape="poly" coords="442,408,436,411,430,417,436,424,441,427,446,426,449,420,449,415,443,410,443,410"
               href="javascript:void(0);" alt="石垣市" onclick="getInputAndRedirect('本部町')" class="area_motobu"/>
         <area shape="poly" coords="816,426,795,426,791,428,780,433,776,434,767,434,758,434,747,431,743,439,743,443,736,444,717,443,710,437,693,429,692,425,690,427,680,431,665,429,652,429,645,429,637,431,631,440,629,443,618,441,609,438,598,438,577,438,573,445,574,454,562,464,560,468,558,486,568,487,576,487,589,489,593,485,598,485,604,485,613,489,626,498,648,504,657,509,665,509,672,514,673,523,677,544,673,556,670,557,661,562,655,569,652,576,646,584,636,577,631,577,625,584,618,585,609,585,607,585,606,598,608,605,608,619,618,631,626,631,633,630,640,626,651,622,658,615,663,609,667,609,669,617,671,621,683,622,689,624,693,628,700,640,702,641,710,636,719,629,727,632,734,635,745,637,748,631,751,625,756,625,763,629,776,626,781,624,786,623,781,610,776,601,762,587,752,573,766,574,781,575,795,582,801,588,821,594,831,602,837,600,837,597,846,592,852,584,865,581,874,580,890,576,906,571,900,566,902,557,907,550,910,543,910,536,909,526,911,518,897,512,885,508,876,505,876,505"
@@ -100,13 +99,13 @@
         <area shape="poly" coords="283,1134,272,1133,262,1130,253,1130,244,1134,244,1141,239,1150,232,1152,221,1152,208,1152,206,1152,198,1161,198,1168,205,1173,214,1178,220,1186,221,1194,221,1196,222,1201,233,1199,240,1191,247,1189,249,1188,255,1187,259,1185,265,1179,274,1177,281,1173,281,1164,286,1154,290,1148,284,1140,281,1134,281,1134"
               href="javascript:void(0);" alt="豊見城市" onclick="getInputAndRedirect('豊見城氏')" class="area_tomisiro"/>
         <area shape="poly" coords="383,1145,374,1143,365,1143,363,1141,356,1136,344,1128,332,1128,324,1129,324,1146,323,1160,317,1166,311,1183,320,1194,332,1206,338,1207,342,1217,346,1232,354,1233,367,1238,377,1238,380,1232,392,1227,399,1225,407,1223,415,1216,423,1215,427,1215,436,1211,439,1201,440,1193,442,1189,453,1186,459,1173,463,1167,463,1162,455,1154,454,1146,450,1139,446,1132,440,1131,428,1130,419,1130,411,1135,405,1145,404,1153,401,1164,389,1159,383,1142,383,1141"
-              href="javascript:void(0);" alt="南城市" onclick="getInputAndRedirect('南城市')" class="area_naojo"/>
+              href="javascript:void(0);" alt="南城市" onclick="getInputAndRedirect('南城市')" class="area_nanjo"/>
         <area shape="poly" coords="312,1167,309,1156,297,1154,293,1153,284,1156,284,1161,284,1170,283,1175,285,1180,281,1184,272,1189,272,1192,274,1199,284,1202,286,1207,291,1212,293,1219,281,1225,286,1242,290,1250,300,1255,301,1270,308,1273,312,1281,318,1290,319,1289,324,1281,329,1274,331,1271,342,1265,347,1263,358,1260,366,1258,375,1249,366,1240,356,1237,356,1228,347,1223,340,1209,332,1201,324,1198,317,1195,317,1184,314,1169,314,1169"
               href="javascript:void(0);" alt="八重瀬町" onclick="getInputAndRedirect('八重瀬町')" class="area_yaese"/>
         <area shape="poly" coords="221,1200,214,1206,212,1211,205,1215,213,1227,215,1230,222,1235,226,1246,226,1254,219,1266,207,1269,208,1274,211,1288,212,1299,215,1304,221,1311,227,1314,239,1314,246,1313,249,1312,258,1308,264,1304,269,1299,277,1297,282,1297,293,1297,310,1298,314,1298,315,1290,313,1284,307,1274,302,1265,297,1258,290,1251,284,1243,282,1234,281,1226,287,1223,289,1217,289,1210,284,1207,277,1204,269,1200,269,1196,277,1189,277,1184,278,1179,270,1177,253,1183,253,1185,239,1188,229,1194,222,1200,218,1202,205,1219"
               href="javascript:void(0);" alt="糸満市" onclick="getInputAndRedirect('糸満市')" class="area_itoman"/>
         <area shape="poly" coords="572,1167,568,1165,560,1165,553,1169,544,1175,534,1177,531,1187,535,1191,539,1194,548,1193,556,1186,566,1179,571,1175,572,1168,572,1167,565,1200"
-              href="javascript:void(0);" alt="うるま市" onclick="getInputAndRedirect('南城市')" class="area_nanjo"/>
+              href="javascript:void(0);" alt="南城市" onclick="getInputAndRedirect('南城市')" class="area_nanjo"/>
     </map>
     <div id="p_kunigami" class="p_box">
         <h1 class="p_title">国頭村</h1>
@@ -132,7 +131,7 @@
     <div id="p_ginoza" class="p_box">
         <h1 class="p_title">宜野座村</h1>
     </div>
-    <div id="p_onnna" class="p_box">
+    <div id="p_onna" class="p_box">
         <h1 class="p_title">恩納村</h1>
     </div>
     <div id="p_kin" class="p_box">
@@ -204,6 +203,136 @@
             $("#p_kunigami").show();
         },function() {
             $("#p_kunigami").hide();
+        });
+        $('.area_ogimi').hover(function() {
+            $("#p_ogimi").show();
+        },function() {
+            $("#p_ogimi").hide();
+        });
+        $('.area_higasi').hover(function() {
+            $("#p_higasi").show();
+        },function() {
+            $("#p_higasi").hide();
+        });
+        $('.area_nago').hover(function() {
+            $("#p_nago").show();
+        },function() {
+            $("#p_nago").hide();
+        });
+        $('.area_nakijin').hover(function() {
+            $("#p_nakijin").show();
+        },function() {
+            $("#p_nakijin").hide();
+        });
+        $('.area_ie').hover(function() {
+            $("#p_ie").show();
+        },function() {
+            $("#p_ie").hide();
+        });
+        $('.area_motobu').hover(function() {
+            $("#p_motobu").show();
+        },function() {
+            $("#p_motobu").hide();
+        });
+        $('.area_ginoza').hover(function() {
+            $("#p_ginoza").show();
+        },function() {
+            $("#p_ginoza").hide();
+        });
+        $('.area_onna').hover(function() {
+            $("#p_onna").show();
+        },function() {
+            $("#p_onna").hide();
+        });
+        $('.area_kin').hover(function() {
+            $("#p_kin").show();
+        },function() {
+            $("#p_kin").hide();
+        });
+        $('.area_uruma').hover(function() {
+            $("#p_uruma").show();
+        },function() {
+            $("#p_uruma").hide();
+        });
+        $('.area_okinawa').hover(function() {
+            $("#p_okinawa").show();
+        },function() {
+            $("#p_okinawa").hide();
+        });
+        $('.area_yomitan').hover(function() {
+            $("#p_yomitan").show();
+        },function() {
+            $("#p_yomitan").hide();
+        });
+        $('.area_kadena').hover(function() {
+            $("#p_kadena").show();
+        },function() {
+            $("#p_kadena").hide();
+        });
+        $('.area_chatan').hover(function() {
+            $("#p_chatan").show();
+        },function() {
+            $("#p_chatan").hide();
+        });
+        $('.area_kitanakagusuku').hover(function() {
+            $("#p_kitanakagusuku").show();
+        },function() {
+            $("#p_kitanakagusuku").hide();
+        });
+        $('.area_ginowan').hover(function() {
+            $("#p_ginowan").show();
+        },function() {
+            $("#p_ginowan").hide();
+        });
+        $('.area_nakagusuku').hover(function() {
+            $("#p_nakagusuku").show();
+        },function() {
+            $("#p_nakagusuku").hide();
+        });
+        $('.area_urasoe').hover(function() {
+            $("#p_urasoe").show();
+        },function() {
+            $("#p_urasoe").hide();
+        });
+        $('.area_naha').hover(function() {
+            $("#p_naha").show();
+        },function() {
+            $("#p_naha").hide();
+        });
+        $('.area_nisihara').hover(function() {
+            $("#p_nisihara").show();
+        },function() {
+            $("#p_nisihara").hide();
+        });
+        $('.area_haebaru').hover(function() {
+            $("#p_haebaru").show();
+        },function() {
+            $("#p_haebaru").hide();
+        });
+        $('.area_yonabaru').hover(function() {
+            $("#p_yonabaru").show();
+        },function() {
+            $("#p_yonabaru").hide();
+        });
+        $('.area_tomisiro').hover(function() {
+            $("#p_tomisiro").show();
+        },function() {
+            $("#p_tomisiro").hide();
+        });
+        $('.area_itoman').hover(function() {
+            $("#p_itoman").show();
+        },function() {
+            $("#p_itoman").hide();
+        });
+        $('.area_yaese').hover(function() {
+            $("#p_yaese").show();
+        },function() {
+            $("#p_yaese").hide();
+        });
+        $('.area_nanjo').hover(function() {
+            $("#p_nanjo").show();
+        },function() {
+            $("#p_nanjo").hide();
         });
         $('.map_link').hover(function() {
             $(window).mousemove(function() {

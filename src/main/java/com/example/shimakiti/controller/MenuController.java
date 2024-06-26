@@ -2,6 +2,7 @@ package com.example.shimakiti.controller;
 
 import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Notices;
+import com.example.shimakiti.service.CategoryService;
 import com.example.shimakiti.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,13 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping("/menu")
     public String displayNotices(Model model) {
         List<Notices> notices = menuService.findTop3ByOrderByIdDesc();
-        List<Categories> categories = menuService.findAll();
+        List<Categories> categories = categoryService.findCategory();
         model.addAttribute("notices", notices);
         model.addAttribute( "categories",categories);
         return "menu";

@@ -43,4 +43,11 @@ public class BookmarkService {
         User user = userRepository.findByUsername(username);
         return bookmarkRepository.findByUser(user);
     }
+
+    public boolean isPostBookmarkedByUser(int postId, String username) {
+        User user = userRepository.findByUsername(username);
+        Posts post = postRepository.findById(postId).orElse(null);
+        Bookmarks bookmark = bookmarkRepository.findByPostAndUser(post, user);
+        return bookmark != null;
+    }
 }

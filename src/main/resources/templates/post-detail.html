@@ -20,8 +20,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
+    <!-- CDNリンク-->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
+<p hidden><span id="postid" th:text="${post.id}"></span></p>
 <th:block th:insert="common/header"></th:block>
 <div class="container">
     <div class="box">
@@ -62,6 +70,10 @@
                 <p hidden><span id="lat" th:text="${post.map_longitude}"></span></p>
                 <p hidden><span id="lng" th:text="${post.map_latitude}"></span></p>
             </div>
+
+            <!-- コンポーネント挿入-->
+            <div class="" id="reaction"></div>
+
             <div class="post-actions">
                 <th:block th:if="${post.users.id} eq ${user.id}"><button class="edit-button" th:onclick="|location.href='/posts/edit/__${post.id}__'|">編集</button></th:block>
                 <div id="deleteButton">
@@ -109,5 +121,109 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    axios.defaults.headers.common[csrfHeader] = csrfToken;
+
+    const { useState, useEffect } = React;
+
+    const Reaction = () => {
+        const [liked, setLiked] = useState(false);
+        const [bookmarked, setBookmarked] = useState(false);
+        const [likeCount, setLikeCount] = useState([]);
+        const [postId, setPostId] = useState(Number(document.getElementById('postid').innerText));
+        console.log(postId);
+
+         useEffect(() => {
+            const fetchBookmarkStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/bookmarks/status/${postId}`);
+                    setBookmarked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+
+            const fetchLikedStatus = async () => {
+                try {
+                    const response = await axios.get(`/api/likes/status/${postId}`);
+                    setLiked(response.data);
+                } catch (error) {
+                    console.error("Error fetching bookmark status:", error);
+                }
+            };
+            fetchBookmarkStatus();
+            fetchLikedStatus();
+
+        }, []);
+
+        useEffect(() => {
+            const fetchCities = async () => {
+                const response = await axios.get(`/api/likes/count/${postId}`);
+                setLikeCount(response.data);
+            };
+            fetchCities();
+        }, [liked, setLiked]);
+
+        const likeClick = async () => {
+            try {
+                if (liked) {
+                    await axios.post(`/api/likes/delete/${postId}`);
+                } else {
+                    await axios.post(`/api/likes/${postId}`);
+                }
+            } catch (error) {
+                console.error("Error", error);
+            }
+            setLiked(!liked);
+        };
+
+        const bookmarkClick = async () => {
+            try {
+                if (bookmarked) {
+                    await axios.post(`/api/bookmarks/delete/${postId}`);
+                } else {
+                    await axios.post(`/api/bookmarks/${postId}`);
+                }
+                setBookmarked(!bookmarked);
+            } catch (error) {
+                console.error("Error updating bookmark:", error);
+            }
+        };
+
+        return (
+            <div className="information">
+
+                <div className="box-bottom">
+
+                    <div className="like">
+                        <input
+                            className="click-img"
+                            type="image"
+                            onClick={likeClick}
+
+                            src={liked ? '../../img/like-after.png' : '../../img/like-before.png'}
+                        /><span>{likeCount}</span>
+
+                        <input
+                            className="click-img"
+                            type="image"
+                            onClick={bookmarkClick}
+                            src={bookmarked ? '../../img/bookmark-after.png' : '../../img/bookmark-before.png'}
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+
+    };
+
+    ReactDOM.render(<Reaction />, document.getElementById('reaction'));
+</script>
+
 </body>
 </html>
