@@ -34,22 +34,27 @@
                     <div>
                         <input type="file" th:field="*{imageFile1}" class="input-file" name="input1" id="input1" accept="image/*">
                         <label for="input1"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage1"></label>
+                        <input type="button" class="clear" id="clear1" value="選択画像解除">
                     </div>
                     <div>
                         <input type="file" th:field="*{imageFile2}" class="input-file" name="input2" id="input2" accept="image/*">
                         <label for="input2"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage2"></label>
+                        <input type="button" class="clear" id="clear2" value="選択画像解除">
                     </div>
                     <div>
                         <input type="file" th:field="*{imageFile3}" class="input-file" name="input3" id="input3" accept="image/*">
                         <label for="input3"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage3"></label>
+                        <input type="button" class="clear" id="clear3" value="選択画像解除">
                     </div>
                     <div>
                         <input type="file" th:field="*{imageFile4}" class="input-file" name="input4" id="input4" accept="image/*">
                         <label for="input4"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage4"></label>
+                        <input type="button" class="clear" id="clear4" value="選択画像解除">
                     </div>
                     <div>
                         <input type="file" th:field="*{imageFile5}" class="input-file" name="input5" id="input5" accept="image/*">
                         <label for="input5"><img class="input-image" src="/img/imageinput.png" alt="" id="figureImage5"></label>
+                        <input type="button" class="clear" id="clear5" value="選択画像解除">
                     </div>
                 </div>
             </div>
@@ -104,6 +109,53 @@
 <script src="/js/post-insert.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwxPEJAiFmyOh3KMR4NzYmvbDuU0YwwQ8&signed_in=true&callback=initMapInsert" async defer></script>
 <script src="/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $(function() {
+      // アップロードするファイルを選択
+      $('#input1').change(function() {
+        $('#clear1').show();
+      });
+      $('#input2').change(function() {
+        $('#clear2').show();
+      });
+      $('#input3').change(function() {
+        $('#clear3').show();
+      });
+      $('#input4').change(function() {
+        $('#clear4').show();
+      });
+      $('#input5').change(function() {
+        $('#clear5').show();
+      });
+      // ファイル参照をクリア
+      $('#clear1').click(function() {
+        $('#input1').val('');
+        $('#figureImage1').attr('src', '/img/imageinput.png');
+        $(this).hide();
+      });
+      $('#clear2').click(function() {
+        $('#input2').val('');
+        $('#figureImage2').attr('src', '/img/imageinput.png');
+        $(this).hide();
+      });
+      $('#clear3').click(function() {
+        $('#input3').val('');
+        $('#figureImage3').attr('src', '/img/imageinput.png');
+        $(this).hide();
+      });
+      $('#clear4').click(function() {
+        $('#input4').val('');
+        $('#figureImage4').attr('src', '/img/imageinput.png');
+        $(this).hide();
+      });
+      $('#clear5').click(function() {
+        $('#input5').val('');
+        $('#figureImage5').attr('src', '/img/imageinput.png');
+        $(this).hide();
+      });
+    });
+</script>
 </body>
 </html>
 

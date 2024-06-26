@@ -1,7 +1,9 @@
 package com.example.shimakiti.repository;
 
+import com.example.shimakiti.entity.Bookmarks;
 import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Posts;
+import com.example.shimakiti.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,4 +43,9 @@ public interface PostRepository extends JpaRepository<Posts, Integer> {
 
     @Query("SELECT p FROM Posts p ORDER BY p.updated_at DESC")
     List<Posts> findAllPostsDesc();
+
+    @Query("SELECT p FROM Posts p ORDER BY p.updated_at ASC")
+    List<Posts> findAllPostsAsc();
+
+    List<Posts> findByUsers(User user);
 }

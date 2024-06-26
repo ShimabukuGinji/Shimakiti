@@ -9,12 +9,12 @@
 <body>
 <th:block th:insert="common/header"></th:block>
 <div class="notice-menu">
-    <h4>お知らせ</h4>
+    <p><a th:href="@{/notice}">お知らせ</a></p>
     <div class="notice-list">
         <div th:each="notice : ${notices}" class="notice">
             <a th:href="@{notice-detail/__${notice.id}__}">
                 <div class="notice-item">
-                    <span class="date" th:text="${#dates.format(notice.createdAt, 'yyyy/MM/dd')}"></span>
+                    <span class="date" th:text="${#dates.format(notice.updatedAt, 'yyyy/MM/dd')}"></span>
                     <span class="notice-category" th:text="${notice.category.priority}"></span>
                     <span class="notice-body" th:text="${notice.title}"></span>
                 </div>

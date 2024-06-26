@@ -65,6 +65,11 @@ body {
     padding-top: 10px;
 }
 
+.notice-menu p{
+    font-size: 25px;
+}
+
+
 .notice-list {
     max-height: 400px;
     overflow-y: auto;

@@ -5,6 +5,7 @@ import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.MenuService;
 import com.example.shimakiti.service.NoticeCategoryService;
+import com.example.shimakiti.service.PostService;
 import com.example.shimakiti.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UsersController {
 
     @Autowired
     NoticeCategoryService noticeCategoryService;
+
+    @Autowired
+    PostService postService;
 
     @GetMapping("/my-page")
     public String profile(Model model) throws IOException {
@@ -112,13 +116,21 @@ public class UsersController {
     }
 
     @GetMapping("/deleteUser/{id}")
-    public String userDelete(@PathVariable("id")Integer id) {
+    public String userDelete(@PathVariable("id") int id) {
+        var posts = postService.findByUser(userService.findById(id));
+        for (var post : posts) {
+            postService.delete(post.getId());
+        }
         userService.deleteUserById(id);
         return "redirect:/admin/users";
     }
 
     @GetMapping("/deleteMyAcc/{id}")
-    public String userDeleteMyAccount(@PathVariable("id")Integer id) {
+    public String userDeleteMyAccount(@PathVariable("id") int id) {
+        var posts = postService.findByUser(userService.findById(id));
+        for (var post : posts) {
+            postService.delete(post.getId());
+        }
         userService.deleteUserById(id);
         return "redirect:/login";
     }

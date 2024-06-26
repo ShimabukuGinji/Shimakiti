@@ -1,10 +1,14 @@
 <div class="header" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <h1 class="site_logo"><a href="/menu">島ぬひみつきち</a></h1>
-    <div class="user-info">
-        <span>ログインユーザー:</span><div sec:authentication="name"></div>
-        <button onclick="location.href='/posts'">情報追加</button>
-        <button onclick="location.href='/bookmarks'">ブックマーク</button>
-        <button onclick="location.href='/my-page'">Myページ</button>
-        <div sec:authorize="hasAuthority('1')"><button onclick="location.href='/admin'">管理者機能</button></div>
+    <input class="logo-img" type="image" onclick="location.href='/menu'" src="/img/logo.png" />
+    <div>
+        <div class="user-info" >
+            <span>ログインユーザー:</span><div sec:authentication="name"></div>
+        </div>
+        <div class="user-info">
+            <button onclick="location.href='/posts'">情報追加</button>
+            <button onclick="location.href='/bookmarks'">ブックマーク</button>
+            <button onclick="location.href='/my-page'">Myページ</button>
+            <div sec:authorize="hasAuthority('1')"><button onclick="location.href='/admin'">管理者機能</button></div>
+        </div>
     </div>
 </div>

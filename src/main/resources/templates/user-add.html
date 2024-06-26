@@ -28,6 +28,7 @@
         <span class="error" th:each="error: ${#fields.errors('username')}">
               [[ ${error} ]]
         </span>
+        <span>[[ ${DuplicationError} ]]</span>
         <input type="email" th:field="*{username}" placeholder="例) sample@mail.com">
     </div><br>
     <div class="center">

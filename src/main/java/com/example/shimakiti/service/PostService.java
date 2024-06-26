@@ -65,8 +65,8 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Posts> findByUser() {
-        return postRepository.findAll();
+    public List<Posts> findByUser(User user) {
+        return postRepository.findByUsers(user);
     }
 
     public Posts findById(int id) {
@@ -309,7 +309,7 @@ public class PostService {
     public List<PostResult> searchUpdatedAtDesc(String category, String keyword, String region) throws IOException {
         var posts = postRepository.findPostsByCriteriaOrderByUpdatedAtDesc(category, keyword, region);
         if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
-            posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "updated_at"));
+            posts = postRepository.findAllPostsDesc();
         }
         List<PostResult> postResults = new ArrayList<>();
         for (var post :posts) {
@@ -321,7 +321,7 @@ public class PostService {
     public List<PostResult> searchUpdatedAtAsc(String category, String keyword, String region) throws IOException {
         var posts = postRepository.findPostsByCriteriaOrderByUpdatedAtAsc(category, keyword, region);
         if (!StringUtils.hasText(category) && !StringUtils.hasText(keyword) && !StringUtils.hasText(region)) {
-            posts = postRepository.findAll(Sort.by(Sort.Direction.ASC, "updated_at"));
+            posts = postRepository.findAllPostsAsc();
         }
         List<PostResult> postResults = new ArrayList<>();
         for (var post :posts) {

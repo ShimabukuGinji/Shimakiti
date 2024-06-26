@@ -15,20 +15,16 @@
 </head>
 <body>
 <th:block th:insert="common/header"></th:block>
-<h1>検索結果</h1>
-
 
 <div class="container">
+    <h1>検索結果</h1>
     <div class="text-block">
-        <div class="text-block">
-            <p hidden>選択された市町村： <input id="region" th:value="${region}"></p>
-            <p hidden>キーワード： <input id="keyword" th:value="${keyword}"></p>
-            <p hidden>選択された市町村： <input id="categoryName" th:value="${categoryParam}"></p>
-        </div>
+        <p hidden>選択された市町村： <input id="region" th:value="${region}"></p>
+        <p hidden>キーワード： <input id="keyword" th:value="${keyword}"></p>
+        <p hidden>選択された市町村： <input id="categoryName" th:value="${categoryParam}"></p>
     </div>
+    <div id="root"></div>
 </div>
-
-<div id="root"></div>
 
 <script type="text/babel">
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -124,43 +120,49 @@
 
         return (
             <div>
-                <div>
-                    <select
-                        name="category"
-                        value={searchParams.category}
-                        onChange={handleInputChange}
-                    >
+                <div class="search-container">
+                    <div class="inline-input-field">
+                        <a>カテゴリ：</a>
+                        <select
+                            name="category"
+                            value={searchParams.category}
+                            onChange={handleInputChange}
+                        >
 
-                        {cats.map(cat => (
-                            <option key={cat.id} value={cat.name}>{cat.name}</option>
-                        ))}
-                    </select>
-                    <input
-                        type="text"
-                        name="keyword"
-                        value={searchParams.keyword}
-                        onChange={handleInputChange}
-                        placeholder="キーワード"
-                    />
-                    <select
-                        name="region"
-                        value={searchParams.region}
-                        onChange={handleInputChange}
-                    >
-
-                        {cities.map(city => (
-                            <option key={city.id} value={city.name}>{city.name}</option>
-                        ))}
-                    </select>
-                    <p>
-                        検索結果：<span id="postsCount">{postsCount}</span>件　
-                        並び替え：
-                        <select value={order} onChange={handleOrderChange}>
-                            <option value="評価順">評価順</option>
-                            <option value="新しい順">新しい順</option>
-                            <option value="古い順">古い順</option>
+                            {cats.map(cat => (
+                                <option key={cat.id} value={cat.name}>{cat.name}</option>
+                            ))}
                         </select>
-                    </p>
+                        <input
+                            type="text"
+                            name="keyword"
+                            value={searchParams.keyword}
+                            onChange={handleInputChange}
+                            placeholder="キーワード"
+                        />
+                        <a>市町村名：</a>
+                        <select
+                            name="region"
+                            value={searchParams.region}
+                            onChange={handleInputChange}
+                        >
+
+                            {cities.map(city => (
+                                <option key={city.id} value={city.name}>{city.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div class="inline-narrow-down">
+                        <p>
+                            検索結果：<span id="postsCount">{postsCount}</span>件　
+                            並び替え：
+                            <select value={order} onChange={handleOrderChange}>
+                                <option value="評価順">評価順</option>
+                                <option value="新しい順">新しい順</option>
+                                <option value="古い順">古い順</option>
+                            </select>
+                        </p>
+                    </div>
                 </div>
                 <div>
                     {posts.map(post => (

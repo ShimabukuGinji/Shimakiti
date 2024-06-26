@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,7 +19,7 @@
         <div th:each="notice : ${notices}" class="notice">
             <a th:href="@{notice-detail/__${notice.id}__}">
                 <div class="notice-item">
-                    <span class="date" th:text="${#dates.format(notice.createdAt, 'yyyy/MM/dd')}"></span>
+                    <span class="date" th:text="${#dates.format(notice.updatedAt, 'yyyy/MM/dd')}"></span>
                     <span class="notice-category" th:text="${notice.category.priority}"></span>
                     <span class="notice-body" th:text="${notice.title}"></span>
                 </div>
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="button-container">
-        <a href="/admin/notice-insert"><button>新規追加</button></a>
+        <a sec:authorize="hasAuthority('1')" href="/admin/notice-insert"><button>新規追加</button></a>
     </div>
 </div>
 </body>

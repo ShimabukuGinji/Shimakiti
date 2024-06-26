@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,10 +55,16 @@ public class NoticeController {
     }
 
     @PostMapping("/admin/notice-insert")
-    public  String displayNoticeInsertPost(@ModelAttribute Notices notices){
+    public  String displayNoticeInsertPost(@Validated @ModelAttribute Notices notices,BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
+            model.addAttribute("notice", new Notices());
+            model.addAttribute("noticeCategory", noticeCategory);
+            return "notice-insert";
+        }
         noticesService.insert(notices);
 
-        return "redirect:/admin/notice";
+        return "redirect:/notice";
     }
 
     @GetMapping("/admin/notice-edit/{id}")
@@ -76,10 +83,13 @@ public class NoticeController {
     }
 
     @PostMapping("/admin/notice-edit/{id}")
-    public  String displayNoticeEditPost(@ModelAttribute Notices notices){
-        System.out.println("Received entity: " + notices);
+    public  String displayNoticeEditPost(@PathVariable int id, @Validated @ModelAttribute Notices notices,BindingResult bindingResult,Model model){
+        System.out.println("-----------------------------------");
+        if(bindingResult.hasErrors()){
+            return "notice-edit";
+        }
         noticesService.update(notices);
-        return "redirect:/admin/notice";
+        return "redirect:/notice";
     }
 
     @PostMapping("/admin/notice-delete/{id}")

@@ -5,6 +5,7 @@ import com.example.shimakiti.entity.User;
 import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,11 +39,16 @@ public class LoginFormController {
     }
 
     @PostMapping("/account/admin")
-    public String adminInsert(@Validated @ModelAttribute("userForm") User user, BindingResult bindingResult) {
+    public String adminInsert(@Validated @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             return "user-add";
         }
-        userService.insert(user);
+        try {
+            userService.insert(user);
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("DuplicationError", "このIDは使用されています");
+            return "user-add";
+        }
         return "login";
     }
 

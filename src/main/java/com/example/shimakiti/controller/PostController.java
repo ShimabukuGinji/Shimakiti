@@ -45,6 +45,7 @@ public class PostController {
     /** ユーザー情報テーブルDAO */
     private final UserRepository userRepository;
 
+
     private final CommentService commentService;
 
     /**
@@ -76,7 +77,7 @@ public class PostController {
             return "post-insert";
         }
         postservice.insert(form);
-        return "redirect:/search?region=&keyword=&category=1";
+        return "redirect:/search?region=&keyword=&category=0";
     }
 
     /**
@@ -120,7 +121,7 @@ public class PostController {
             }
             return "redirect:/posts/detail/" + postId;
         }
-        return "redirect:/search?region=&keyword=&category=1";
+        return "redirect:/search?region=&keyword=&category=0";
     }
 
     @PostMapping("/posts/edit/{postID}")
@@ -137,6 +138,6 @@ public class PostController {
     @PostMapping("/posts/delete/{postID}")
     public String delete(@PathVariable("postID") int postId) throws IOException {
         postservice.delete(postId);
-        return "redirect:/search?region=&keyword=&category=1";
+        return "redirect:/search?region=&keyword=&category=0";
     }
 }

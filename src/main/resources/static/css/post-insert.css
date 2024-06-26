@@ -84,3 +84,7 @@ textarea {
 .error {
   color: red;
 }
+
+.clear {
+   display: none;
+ }
