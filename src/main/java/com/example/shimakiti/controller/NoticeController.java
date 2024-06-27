@@ -66,10 +66,10 @@ public class NoticeController {
     }
 
     @GetMapping("/admin/notice-edit/{id}")
-    public  String displayNoticeEdit(@PathVariable int id, Model model){
+    public  String displayNoticeEdit(@PathVariable int id, @ModelAttribute("notice") Notices notices, Model model){
         List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
-        Notices notices = noticesService.findById(id);
-        model.addAttribute("notice", notices);
+        Notices notice = noticesService.findById(id);
+        model.addAttribute("notice", notice);
         model.addAttribute("noticeCategory", noticeCategory);
 
         Notices newNotices = new Notices();
@@ -81,9 +81,11 @@ public class NoticeController {
     }
 
     @PostMapping("/admin/notice-edit/{id}")
-    public  String displayNoticeEditPost(@PathVariable int id, @Validated @ModelAttribute Notices notices,BindingResult bindingResult,Model model){
+    public  String displayNoticeEditPost(@PathVariable int id, @Validated @ModelAttribute("notice") Notices notices,BindingResult bindingResult,Model model){
         System.out.println("-----------------------------------");
         if(bindingResult.hasErrors()){
+            List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
+            model.addAttribute("noticeCategory", noticeCategory);
             return "notice-edit";
         }
         noticesService.update(notices);
@@ -94,7 +96,7 @@ public class NoticeController {
     public String displayNoticeDeletePost(@PathVariable("id") int id, Model model ){
         try {
             noticesService.delete(id);
-            return "redirect:/admin/notice";
+            return "redirect:/notice";
         }catch (Exception e){
             return "redirect:/admin/notice-detail/{id}";
         }

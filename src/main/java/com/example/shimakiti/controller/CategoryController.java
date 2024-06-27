@@ -80,6 +80,6 @@ public class CategoryController {
     @GetMapping("/admin/deleteCategory/{id}")
     public String deleteCategory(@PathVariable("id") Integer id){
         categoryService.deleteCategory(id);
-        return "redirect:/admin/category-detail";
+        return "redirect:/admin/category";
     }
 }
