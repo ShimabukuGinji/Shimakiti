@@ -8,6 +8,7 @@ import com.example.shimakiti.entity.User;
 import com.example.shimakiti.repository.PostRepository;
 import com.example.shimakiti.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.beans.Transient;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -64,7 +67,9 @@ public class UserService {
     }
 
     public void deleteUserById(Integer id) {
-
+        bookmarkService.deleteByUser(userRepository.findById(id).get());
+        likeService.deleteByUser(userRepository.findById(id).get());
+        commentService.deleteByUser(userRepository.findById(id).get());
         userRepository.deleteById(id);
     }
 
