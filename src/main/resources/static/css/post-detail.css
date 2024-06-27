@@ -202,7 +202,6 @@ label {
 }
 
 .comment {
-    margin-bottom: 20px;
     padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -227,10 +226,27 @@ label {
 
 .comment small {
     display: block;
-    margin-top: 5px;
+    margin-top: 20px;
     font-size: 12px;
     color: #999;
     text-align: right;
+}
+
+.comment .btn {
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.comment .btn:hover {
+    background-color: #CC0000;
 }
 
 .click-img {
