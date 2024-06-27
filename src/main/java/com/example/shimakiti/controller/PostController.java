@@ -112,14 +112,11 @@ public class PostController {
         var post = postservice.postResult(postId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username);
-        if (post.isPresent() && (post.get().getUsers().getId() == user.getId() || user.getRole() == 1)) {
-            if (post.get().getUsers() == user) {
-                model.addAttribute("categories", categoryRepository.findAll());
-                model.addAttribute("cities", cityRepository.findAll());
-                model.addAttribute("postForm",post.get());
-                return "post-edit";
-            }
-            return "redirect:/posts/detail/" + postId;
+        if (post.isPresent() && (post.get().getUsers().getId() == user.getId() || username.equals("admin"))) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("cities", cityRepository.findAll());
+            model.addAttribute("postForm",post.get());
+            return "post-edit";
         }
         return "redirect:/search?region=&keyword=&category=0";
     }

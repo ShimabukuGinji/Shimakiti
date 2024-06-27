@@ -1,17 +1,12 @@
 package com.example.shimakiti.service;
 
-import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.Notices;
-import com.example.shimakiti.repository.CategoriesRepository;
-import com.example.shimakiti.repository.NoticeCategoryRepository;
 import com.example.shimakiti.repository.NoticesRepository;
-import jakarta.persistence.EntityGraph;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,12 +17,11 @@ public class NoticesService {
     private NoticesRepository noticeRepository;
 
     public List<Notices> findTop3ByOrderByIdDesc(){
-
         return noticeRepository.findAll();
     }
 
     public List<Notices> findAllNotices(){
-        return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt").and(Sort.by(Sort.Direction.DESC, "id")));
     }
 
     public Notices findById(int id){

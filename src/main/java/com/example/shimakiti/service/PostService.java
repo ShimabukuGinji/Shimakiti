@@ -171,9 +171,7 @@ public class PostService {
         postInfo.setCities(cities);
         //		セッション情報から取得
         // ユーザーIDを指定　サンプル用（1：管理者 2：島袋款次  3：野村太陽  4：埜村瑠希  5：儀間真貴  6：比嘉奏陽  7：當田大翔 ）
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        var user = userRepository.findByUsername(username);
-        postInfo.setUsers(user);
+        postInfo.setUsers(post.get().getUsers());
         postInfo.setId(postId);
         if (post.get().getImage_uuid() == null) {
             postInfo.setImage_uuid(imageID);
