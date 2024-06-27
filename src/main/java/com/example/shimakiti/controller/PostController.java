@@ -112,7 +112,7 @@ public class PostController {
         var post = postservice.postResult(postId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByUsername(username);
-        if (post.isPresent()) {
+        if (post.isPresent() && (post.get().getUsers().getId() == user.getId() || user.getRole() == 1)) {
             if (post.get().getUsers() == user) {
                 model.addAttribute("categories", categoryRepository.findAll());
                 model.addAttribute("cities", cityRepository.findAll());

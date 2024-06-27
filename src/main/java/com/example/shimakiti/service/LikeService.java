@@ -56,4 +56,11 @@ public class LikeService {
         Likes likes = likesRepository.findByPostAndUser(post,user);
         return likes != null;
     }
+
+    public void deleteByUser(User user) {
+        List<Likes> likes = likesRepository.findByUser(user);
+        for (var like : likes) {
+            likesRepository.delete(like);
+        }
+    }
 }

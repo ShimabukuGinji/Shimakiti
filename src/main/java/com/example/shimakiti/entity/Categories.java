@@ -1,6 +1,8 @@
 package com.example.shimakiti.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="categories")
+@Data
 public class Categories {
 
     @Id
@@ -16,5 +19,6 @@ public class Categories {
     private int id;
 
     @Column(name = "name")
+    @NotEmpty(message = "カテゴリー名を記入してください")
     private String name;
 }

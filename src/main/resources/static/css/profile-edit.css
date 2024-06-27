@@ -78,21 +78,22 @@ body {
 
 .post-actions {
     display: flex;
-    text-align: center;
-    flex-wrap: wrap;
     gap: 10px;
+    margin-top: 20px auto;
+    text-align: center;
 }
 
-.post-actions .btn {
-    flex: 1;
-    min-width: 150px;
-    background-color: #007bff;
-    color: #fff;
+.button-box {
+    width: 50%;
+}
+
+.post-actions button {
+    width: 30%;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    padding: 10px;
-    transition: background-color 0.3s;
-    margin: auto;
+    cursor: pointer;
+    margin: 0 auto;
 }
 
 .post-actions .btn:hover {
@@ -112,4 +113,19 @@ form {
     .image {
         margin-bottom: 20px;
     }
+}
+
+.edit-button {
+    background-color: #28A745;
+    color: white;
+}
+
+.delete-button {
+    background-color: #DC3545;
+    color: white;
+}
+
+.close-button {
+   background-color: #dedede;
+   color: black;
 }

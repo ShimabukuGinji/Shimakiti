@@ -9,8 +9,14 @@
 <th:block th:insert="common/header"></th:block>
 <form action="/admin/user-edit" method="post" th:object="${user}">
     <p>ユーザー名を入力してください</p>
+    <span class="error" th:each="error: ${#fields.errors('name')}">
+        [[ ${error} ]]
+    </span>
     <input type="text" th:field="*{name}">
     <p>パスワードを入力してください</p>
+    <span class="error" th:each="error: ${#fields.errors('password')}">
+        [[ ${error} ]]
+    </span>
     <input type="text" th:field="*{password}">
     <input type="submit" value="決定">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

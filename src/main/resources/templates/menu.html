@@ -26,12 +26,14 @@
 <br>
 
 <div class="search-menu">
-    <a>カテゴリ：</a>
-    <select id="category">
-        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-    </select>
-    <a>キーワード：</a>
-    <input type="text" id="keyword">
+    <div class="search-box">
+        <a>カテゴリ：</a>
+        <select id="category">
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+        <a>キーワード：</a>
+        <input type="text" id="keyword">
+    </div>
     <img src="../img/imagemap.jpg" usemap="#ImageMap" alt="" class="map_link"/>
     <map name="ImageMap">
         <area shape="rect" coords="78,72,375,184" href="javascript:void(0);" alt="全部" onclick="getInputAndRedirect('全部')" />

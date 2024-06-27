@@ -20,7 +20,7 @@
             <label for="title">タイトル:</label>
             <span class="error" th:each="error: ${#fields.errors('title')}">
               [[ ${error} ]]
-        </span>
+            </span>
             <input type="text" th:field="*{title}" id="title" class="form-control">
         </div>
         <div class="form-group">
@@ -31,6 +31,9 @@
         </div>
         <div class="form-group">
             <label for="detail">詳細:</label>
+            <span class="error" th:each="error: ${#fields.errors('detail')}">
+              [[ ${error} ]]
+            </span>
             <textarea th:field="*{detail}" id="detail" class="form-control"></textarea>
         </div>
         <div class="button-group">

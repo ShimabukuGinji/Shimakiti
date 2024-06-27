@@ -30,6 +30,9 @@
             </select>
         </div>
         <div class="form-group">
+            <span class="error" th:each="error: ${#fields.errors('detail')}">
+              [[ ${error} ]]
+            </span>
             <label for="detail">詳細:</label>
             <textarea th:field="*{detail}" id="detail" class="form-control"></textarea>
         </div>

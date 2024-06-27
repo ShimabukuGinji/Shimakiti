@@ -34,7 +34,7 @@
 
 .header .user-info button {
     padding: 10px;
-    background-color: #48ff00;
+    background-color: #468c1b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -43,7 +43,7 @@
 }
 
 .header .user-info button:hover {
-    background-color: #17b000;
+    background-color: #2f7b00;
 }
 
 .error{

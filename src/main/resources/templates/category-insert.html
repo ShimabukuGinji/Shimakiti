@@ -10,6 +10,9 @@
 <th:block th:insert="common/header"></th:block>
 <form class="category_edit_insert" action="/admin/category-insert" method="post">
     <p>カテゴリー名を入力してください</p>
+    <span class="error" th:each="error: ${#fields.errors('category.name')}">
+        [[ ${error} ]]
+    </span>
     <input type="text" th:field="${category.name}">
     <input type="submit" value="決定">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

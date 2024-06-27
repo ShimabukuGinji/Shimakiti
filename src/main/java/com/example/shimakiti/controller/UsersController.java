@@ -3,10 +3,7 @@ package com.example.shimakiti.controller;
 import com.example.shimakiti.From.ProfileForm;
 import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.User;
-import com.example.shimakiti.service.MenuService;
-import com.example.shimakiti.service.NoticeCategoryService;
-import com.example.shimakiti.service.PostService;
-import com.example.shimakiti.service.UserService;
+import com.example.shimakiti.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +31,12 @@ public class UsersController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    BookmarkService bookmarkService;
+
+    @Autowired
+    LikeService likeService;
 
     @GetMapping("/my-page")
     public String profile(Model model) throws IOException {
@@ -131,6 +134,8 @@ public class UsersController {
         for (var post : posts) {
             postService.delete(post.getId());
         }
+        bookmarkService.deleteByUser(userService.findById(id));
+        likeService.deleteByUser(userService.findById(id));
         userService.deleteUserById(id);
         return "redirect:/login";
     }

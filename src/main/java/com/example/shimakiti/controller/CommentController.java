@@ -1,8 +1,10 @@
 package com.example.shimakiti.controller;
 
 import com.example.shimakiti.entity.Comments;
+import com.example.shimakiti.entity.User;
 import com.example.shimakiti.service.CommentService;
 import com.example.shimakiti.service.PostService;
+import com.example.shimakiti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,9 @@ public class CommentController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/add/{postId}")
     public String addComment(@PathVariable int postId, @RequestParam String content, @AuthenticationPrincipal UserDetails userDetails) {
         if (content == null || content.trim().isEmpty()) {
@@ -39,7 +44,18 @@ public class CommentController {
         List<Comments> comments = commentService.getCommentsByPost(postId);
         System.out.println("comments.get(0).getContent()");
         System.out.println(comments.get(0).getContent());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUserName(username);
         model.addAttribute("comments", comments);
+        model.addAttribute("user", user);
         return "comments";
+    }
+
+    @PostMapping("/delete/{commentId}")
+    public String deleteComment(@PathVariable int commentId) {
+        var comment = commentService.findById(commentId);
+        var postId = comment.getPost().getId();
+        commentService.commentDelete(commentId);
+        return "redirect:/posts/detail/" + postId;
     }
 }

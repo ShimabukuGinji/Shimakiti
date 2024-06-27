@@ -44,7 +44,7 @@ public class SerachPosts {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String region,
-            @RequestParam(required = false, defaultValue = "評価順") String order
+            @RequestParam(required = false, defaultValue = "新しい順") String order
     ) {
         try {
             List<PostResult> postList;

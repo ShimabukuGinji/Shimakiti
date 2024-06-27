@@ -38,5 +38,13 @@ public class CommentService {
         Posts post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found"));
         return commentRepository.findByPost(post);
     }
+
+    public void commentDelete(int id) {
+        commentRepository.deleteById(id);
+    }
+
+    public Comments findById(int id) {
+        return commentRepository.findById(id).get();
+    }
 }
 

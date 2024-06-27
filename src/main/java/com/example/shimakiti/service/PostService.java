@@ -180,8 +180,6 @@ public class PostService {
         } else {
             postInfo.setImage_uuid(post.get().getImage_uuid());
         }
-        postInfo.setMap_latitude(post.get().getMap_latitude());
-        postInfo.setMap_longitude(post.get().getMap_longitude());
         postRepository.save(postInfo);
 
         if (!form.getImageFile1().isEmpty()) {

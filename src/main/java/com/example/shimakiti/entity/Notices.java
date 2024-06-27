@@ -16,7 +16,9 @@ public class Notices {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "詳細が空白になっています。")
     private String detail;
+
     @NotEmpty(message = "タイトルが空白になっています。")
     private String title;
 

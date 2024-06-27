@@ -64,9 +64,11 @@ body {
 .inline-input-field,
 .inline-narrow-down{
     text-align: center;
-
 }
 
+.inline-input-field span {
+    margin-left: 20px;
+}
 
 h1 {
     text-align: center;
@@ -85,16 +87,18 @@ h1 {
 
 .post {
     display:flex;
-    width:80%;
+    width:90%;
     margin: 2px auto;
     padding: 2px;
-    border: 6px double #333333;
+    border: 2px solid #468c1b;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .image {
     width: 150px;
     height: 150px;
-    object-fit: contain;
+    object-fit: cover;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 2px;
@@ -106,6 +110,15 @@ h1 {
 
 .information {
     width:90%;
+}
+
+.summary {
+    font-size: 16px;
+}
+
+.city, .category {
+    font-size: 14px;
+    color: #468c1b;
 }
 
 .category-box {
@@ -126,13 +139,26 @@ h1 {
     display:flex;
     height:25%;
     width: 90%;
+    justify-content: space-between;
+}
+
+.like {
+    display: flex;
+    align-items: center;
 }
 
 .click-img {
     width: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.click-img:hover {
+    opacity: 0.8;
 }
 
 .like {
     margin-right: 50px;
     margin-left: auto;
+    font-size: 20px;
 }

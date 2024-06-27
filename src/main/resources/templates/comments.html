@@ -9,6 +9,11 @@
     <h3>コメント一覧</h3>
     <div th:each="comment : ${comments}" class="comment">
         <p><strong th:text="${comment.user.username}"></strong></p>
+        <th:block th:if="${comment.user.id} eq ${user.id}">
+            <form th:action="@{/comments/delete/__${comment.id}__}" method="post">
+                <input type="submit" name="logout" value="削除" class="btn"/>
+            </form>
+        </th:block>
         <p th:text="${comment.content}"></p>
         <small th:text="${#dates.format(comment.updated_at, 'yyyy-MM-dd')}"></small>
     </div>

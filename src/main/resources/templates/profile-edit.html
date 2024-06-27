@@ -34,21 +34,21 @@
             </div>
             <div class="editBox-right">
                 <p>
-                <span class="error" th:each="error: ${#fields.errors('name')}">
-                    [[ ${error} ]]
-                </span>
+                    <span class="error" th:each="error: ${#fields.errors('name')}">
+                        [[ ${error} ]]
+                    </span>
                 <input type="text" id="name" th:field="*{name}" class="form-control">
                 </p>
                 <p>
                     <span class="error" th:each="error: ${#fields.errors('username')}">
-                    [[ ${error} ]]
-                </span>
+                        [[ ${error} ]]
+                    </span>
                     <input type="text" id="username" th:field="*{username}" class="form-control">
                 </p>
                 <p>
                     <span class="error" th:each="error: ${#fields.errors('password')}">
-                    [[ ${error} ]]
-                </span>
+                        [[ ${error} ]]
+                    </span>
                     <input type="text" id="password" th:field="*{password}" class="form-control">
                 </p>
                 <p>
@@ -57,10 +57,10 @@
             </div>
         </div>
         <div class="post-actions">
-            <div><button type="submit" class="btn btn-primary mb-12">更新</button></div>
-            <div>
+            <div class="button-box"><button type="submit" class="edit-button">更新</button></div>
+            <div class="button-box">
                 <div id="deleteButton">
-                    <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#deleteModal">退会</button>
+                    <button type="button" class="delete-button" data-toggle="modal" data-target="#deleteModal">退会</button>
                     <!-- ボタン・リンククリック後に表示される画面の内容 -->
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                         <div class="modal-dialog">
@@ -69,11 +69,11 @@
                                     <h4 class="modal-title" id="myModalLabel">削除確認画面</h4></h4>
                                 </div>
                                 <div class="modal-body">
-                                    <label>退会しますか？</label>
+                                    <label>投稿は全て削除されます 退会しますか？</label>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                                    <button type="button" class="btn btn-danger" th:onclick="|location.href='/deleteMyAcc/__${profile.id}__'|"  >退会</button>
+                                    <button type="button" class="close-button" data-dismiss="modal">閉じる</button>
+                                    <button type="button" class="delete-button" th:onclick="|location.href='/deleteMyAcc/__${profileForm.id}__'|"  >退会</button>
                                 </div>
                             </div>
                         </div>

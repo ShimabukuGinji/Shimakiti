@@ -50,4 +50,11 @@ public class BookmarkService {
         Bookmarks bookmark = bookmarkRepository.findByPostAndUser(post, user);
         return bookmark != null;
     }
+
+    public void deleteByUser(User user) {
+        List<Bookmarks> bookmarks = bookmarkRepository.findByUser(user);
+        for (var bookmark : bookmarks) {
+            bookmarkRepository.delete(bookmark);
+        }
+    }
 }

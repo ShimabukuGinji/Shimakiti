@@ -4,6 +4,8 @@ import com.example.shimakiti.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.shimakiti.entity.Categories;
 import com.example.shimakiti.entity.CategoryDetail;
@@ -44,14 +46,17 @@ public class CategoryController {
     }
 
     @GetMapping("/admin/category-edit/{id}")
-    public String categoryUpdate(@PathVariable("id")Integer id, Model model){
+    public String categoryUpdate(@ModelAttribute("category") Categories categories, @PathVariable("id")Integer id, Model model){
         model.addAttribute("category",categoryService.findById(id));
         System.out.println(categoryService.findById(id));
         return "category-edit";
     }
 
     @PostMapping("/admin/category-edit/{id}")
-    public String categoryUpdate(@ModelAttribute("category")Categories categories,@PathVariable("id")Integer id,Model model){
+    public String categoryUpdate(@Validated @ModelAttribute("category") Categories categories, BindingResult bindingResult, @PathVariable("id")Integer id, Model model){
+        if (bindingResult.hasErrors()) {
+            return "category-edit";
+        }
         categoryService.updateCategory(id,categories);
         return "redirect:/admin/category";
     }
@@ -59,11 +64,15 @@ public class CategoryController {
 
     @GetMapping("/admin/category-insert")
     public String categoryGET(@ModelAttribute("category")Categories categories){
+
         return "category-insert";
     }
 
     @PostMapping("/admin/category-insert")
-    public String categoryInsert(@ModelAttribute("category")Categories categories){
+    public String categoryInsert(@Validated @ModelAttribute("category") Categories categories, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "category-insert";
+        }
         categoryService.addCategory(categories);
         return "redirect:/admin/category";
     }

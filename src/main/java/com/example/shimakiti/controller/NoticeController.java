@@ -45,9 +45,8 @@ public class NoticeController {
     }
 
     @GetMapping("/admin/notice-insert")
-    public String displayNoticeInsert(Model model){
+    public String displayNoticeInsert(@ModelAttribute("notice") Notices notices, Model model){
         List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
-        model.addAttribute("notice", new Notices());
         model.addAttribute("noticeCategory", noticeCategory);
 
         return "notice-insert";
@@ -55,10 +54,9 @@ public class NoticeController {
     }
 
     @PostMapping("/admin/notice-insert")
-    public  String displayNoticeInsertPost(@Validated @ModelAttribute Notices notices,BindingResult bindingResult,Model model){
+    public  String displayNoticeInsertPost(@Validated @ModelAttribute("notice") Notices notices,BindingResult bindingResult,Model model){
         if(bindingResult.hasErrors()){
             List<NoticeCategory> noticeCategory = noticeCategoryService.findALLnCategory();
-            model.addAttribute("notice", new Notices());
             model.addAttribute("noticeCategory", noticeCategory);
             return "notice-insert";
         }
