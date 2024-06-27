@@ -57,4 +57,6 @@ public class CategoryService {
     public List<Categories> findCategory(){
         return categoriesRepository.findAll(Sort.by(ASC, "id"));
     }
+
+    public void deleteCategory(Integer id){ categoriesRepository.deleteById(id); }
 }

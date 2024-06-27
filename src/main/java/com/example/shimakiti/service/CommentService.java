@@ -1,5 +1,6 @@
 package com.example.shimakiti.service;
 
+import com.example.shimakiti.entity.Bookmarks;
 import com.example.shimakiti.entity.Comments;
 import com.example.shimakiti.entity.Posts;
 import com.example.shimakiti.entity.User;
@@ -45,6 +46,13 @@ public class CommentService {
 
     public Comments findById(int id) {
         return commentRepository.findById(id).get();
+    }
+
+    public void deleteByUser(User user) {
+        List<Comments> comments = commentRepository.findByUser(user);
+        for (var comment : comments) {
+            commentRepository.delete(comment);
+        }
     }
 }
 

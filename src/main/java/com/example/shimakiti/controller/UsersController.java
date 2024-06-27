@@ -134,8 +134,6 @@ public class UsersController {
         for (var post : posts) {
             postService.delete(post.getId());
         }
-        bookmarkService.deleteByUser(userService.findById(id));
-        likeService.deleteByUser(userService.findById(id));
         userService.deleteUserById(id);
         return "redirect:/login";
     }

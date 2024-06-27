@@ -28,8 +28,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
+
+    private final BookmarkService bookmarkService;
+
+    private final LikeService likeService;
+
+    private final CommentService commentService;
 
     /** Dozer Mapper */
     private final Mapper mapper;
@@ -58,7 +63,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void deleteUserById(Integer id) { userRepository.deleteById(id);}
+    public void deleteUserById(Integer id) {
+
+        userRepository.deleteById(id);
+    }
 
     public void updateUser(User user){
         userRepository.save(user);
